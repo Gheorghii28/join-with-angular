@@ -1,0 +1,140 @@
+.login-content {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background-color: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+
+    .svg-logo {
+        width: 70px;
+        position: absolute;
+        left: 50px;
+        top: 50px;
+        cursor: pointer;
+    }
+}
+
+.container-btn-signup {
+    position: absolute;
+    right: 50px;
+    top: 50px;
+    display: flex;
+    gap: 35px;
+    align-items: center;
+
+    span {
+        color: #000;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 120%;
+    }
+}
+
+.notices {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 50px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+
+    a {
+        color: var(--light-gray-2);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 120%;
+        transition: all 100ms ease-in-out;
+
+        &:hover {
+            color: var(--electric-blue);
+        }
+    }
+}
+
+.container-form {
+    display: flex;
+    padding: 48px 115px;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    border-radius: 30px;
+    background: var(--white);
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+
+    .box-headline {
+        color: var(--black);
+        text-align: center;
+        font-size: 61px;
+        font-weight: 700;
+        line-height: 120%;
+        margin: 0;
+        margin-bottom: 30px;
+        position: relative;
+        display: inline-block;
+
+        &::after {
+            content: "";
+            display: block;
+            width: 80%;
+            height: 3px;
+            border-radius: 10px;
+            background-color: var(--electric-blue);
+            position: absolute;
+            bottom: -16px;
+            left: 10%;
+          }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+    }
+
+    .login-options {
+        width: 422px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--black);
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 120%;
+            cursor: pointer;
+        }
+
+        a {
+            color: var(--electric-blue);
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 120%;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 1px;
+            transition: all 100ms ease-in-out;
+
+            &:hover {
+                border-bottom: 1px solid var(--electric-blue);
+            }
+        }
+    }
+
+    .form-btns {
+        display: flex;
+        gap: 35px;
+        align-items: center;
+    }
+}

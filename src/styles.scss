@@ -1,1 +1,164 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --light-gray: #F6F7F8;
+    --light-gray-2: #A8A8A8;
+    --light-gray-3: #D1D1D1;
+    --dark-slate-blue: #2A3647;
+    --electric-blue: #29ABE2;
+    --midnight-blue: #091931;
+    --white: #FFF;
+    --black: #000;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    -webkit-tap-highlight-color: transparent;
+    -moz-tap-highlight-color: transparent;
+    -ms-tap-highlight-color: transparent;
+    --tap-highlight-color: transparent;
+    box-sizing: border-box;
+    background-color: var(--light-gray);
+    scroll-behavior: smooth;
+    // overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--light-gray);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--dark-slate-blue);
+        border-radius: 5px;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="password"] {
+    width: 422px;
+    padding: 12px 21px;
+    border-radius: 10px;
+    border: 1px solid var(--light-gray-3);
+    background: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 120%;
+    outline: none;
+
+    &::placeholder {
+        color: var(--light-gray-3);
+    }
+
+    &:focus {
+        border: 1px solid var(--electric-blue);
+    }
+}
+
+input[type="checkbox"] {
+    margin: 0;
+    border: transparent;
+    position: relative;
+    cursor: pointer;
+    visibility: hidden;
+    transition: all 100ms ease-in-out;
+
+    &:hover {
+        &::after {
+            content: url('./assets/icons/checkbox/unchecked-hover.svg');
+        }
+    }
+
+    &:checked {
+        &:hover {
+            &::after {
+                content: url('./assets/icons/checkbox/checked-hover.svg');
+            }
+        }
+
+        &::after {
+            content: url('./assets/icons/checkbox/checked.svg');
+        }
+    }
+
+    &::after {
+        content: url('./assets/icons/checkbox/unchecked.svg');
+        position: absolute;
+        scale: 0.75;
+        top: -7px;
+        left: -6px;
+        visibility: visible;
+    }
+}
+
+.container-input {
+    position: relative;
+}
+
+.after-input {
+    position: absolute;
+    right: 21px;
+    top: 10px;
+}
+
+.primary-btn {
+    border: none;
+    border-radius: 8px;
+    background: var(--dark-slate-blue);
+    padding: 15px 24px;
+    gap: 10px;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 120%;
+    transition: all 100ms ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--electric-blue);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    &:active {
+        background: var(--midnight-blue);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.secondary-button {
+    border-radius: 8px;
+    border: 1px solid var(--dark-slate-blue);
+    padding: 15px 24px;
+    gap: 10px;
+    color: var(--dark-slate-blue);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 120%;
+    transition: all 100ms ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        border: 1px solid var(--electric-blue);
+        color: var(--electric-blue);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    &:active {
+        border: 1px solid var(--midnight-blue);
+        color: var(--midnight-blue);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+}
