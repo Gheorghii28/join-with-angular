@@ -305,6 +305,7 @@ input[type="checkbox"] {
     left: 50px;
     top: 50px;
     cursor: pointer;
+    z-index: 10;
 
     @media (max-width: 1024px) {
         width: 50px;

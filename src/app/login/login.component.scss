@@ -25,6 +25,7 @@
     display: flex;
     gap: 35px;
     align-items: center;
+    animation: opacityAnimation 1200ms ease-in-out;
 
     @media (max-width: 1024px) {
         right: 25px;
@@ -61,6 +62,7 @@
     display: flex;
     gap: 24px;
     align-items: center;
+    animation: opacityAnimation 1200ms ease-in-out;
 
     @media (max-width: 1024px) {
         padding-bottom: 25px;
@@ -84,6 +86,7 @@
 }
 
 .container-form {
+    animation: opacityAnimation 1200ms ease-in-out;
 
     .login-options {
         width: 380px;
@@ -140,6 +143,189 @@
                 width: 130px;
                 padding: 12px 0;
                 text-align: center;
+            }
+        }
+    }
+}
+
+@keyframes opacityAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.animate-once {
+    animation: bgColorAnimation 1200ms ease-in-out forwards;
+
+    @media (max-width: 480px) {
+
+        @keyframes bgColorAnimation {
+            0% {
+                background-color: var(--dark-slate-blue);
+            }
+
+            30% {
+                background-color: var(--dark-slate-blue);
+            }
+
+            100% {
+                background-color: var(--light-gray);
+            }
+        }
+    }
+
+    .svg-logo {
+
+        animation: logoAnimation 1200ms ease-in-out forwards;
+
+        path:nth-child(1),
+        path:nth-child(2),
+        path:nth-child(4),
+        path:nth-child(5),
+        path:nth-child(6) {
+
+            fill: var(--dark-slate-blue);
+
+            @media (max-width: 480px) {
+                animation: logoColorAnimationMedia480 1200ms ease-in-out forwards;
+            }
+        }
+
+        path:nth-child(3) {
+            fill: #29ABE2;
+        }
+
+        @keyframes logoAnimation {
+            0% {
+                left: calc((100vw - 140px) / 2);
+                top: calc((100vh - 170px) / 2);
+                width: 140px;
+                height: 170px;
+                opacity: 0;
+            }
+
+            30% {
+                left: calc((100vw - 140px) / 2);
+                top: calc((100vh - 170px) / 2);
+                width: 140px;
+                height: 170px;
+                opacity: 1;
+            }
+
+            100% {
+                left: 50px;
+                top: 50px;
+                width: 70px;
+                height: 85px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            animation: logoAnimationMedia1024 1200ms ease-in-out forwards;
+        }
+
+        @media (max-width: 768px) {
+            animation: logoAnimationMedia768 1200ms ease-in-out forwards;
+        }
+
+        @media (max-width: 480px) {
+            animation: logoAnimationMedia480 1200ms ease-in-out forwards;
+        }
+
+        @keyframes logoAnimationMedia1024 {
+            0% {
+                left: calc((100vw - 100px) / 2);
+                top: calc((100vh - 122px) / 2);
+                width: 100px;
+                height: 122px;
+                opacity: 0;
+            }
+
+            30% {
+                left: calc((100vw - 100px) / 2);
+                top: calc((100vh - 122px) / 2);
+                width: 100px;
+                height: 122px;
+                opacity: 1;
+            }
+
+            100% {
+                width: 50px;
+                height: 61px;
+                left: 25px;
+                top: 25px;
+            }
+        }
+
+        @keyframes logoAnimationMedia768 {
+            0% {
+                left: calc((100vw - 100px) / 2);
+                top: calc((100vh - 122px) / 2);
+                width: 100px;
+                height: 122px;
+                opacity: 0;
+            }
+
+            30% {
+                left: calc((100vw - 100px) / 2);
+                top: calc((100vh - 122px) / 2);
+                width: 100px;
+                height: 122px;
+                opacity: 1;
+            }
+
+            100% {
+                width: 40px;
+                height: 49px;
+                left: 25px;
+                top: 25px;
+            }
+        }
+
+        @keyframes logoAnimationMedia480 {
+            0% {
+                left: calc((100vw - 100px) / 2);
+                top: calc((100vh - 122px) / 2);
+                width: 100px;
+                height: 122px;
+                opacity: 0;
+            }
+
+            30% {
+                left: calc((100vw - 100px) / 2);
+                top: calc((100vh - 122px) / 2);
+                width: 100px;
+                height: 122px;
+                opacity: 1;
+            }
+
+            100% {
+                width: 30px;
+                height: 37px;
+                left: 15px;
+                top: 15px;
+            }
+        }
+
+        @keyframes logoColorAnimationMedia480 {
+            0% {
+                fill: var(--white);
+            }
+
+            30% {
+                fill: var(--white);
+            }
+
+            100% {
+                fill: var(--dark-slate-blue);
             }
         }
     }
