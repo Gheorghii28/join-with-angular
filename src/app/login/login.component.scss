@@ -86,6 +86,7 @@
 }
 
 .container-form {
+    position: relative;
     animation: opacityAnimation 1200ms ease-in-out;
 
     .login-options {
@@ -145,6 +146,19 @@
                 text-align: center;
             }
         }
+    }
+}
+
+.after-login-form {
+    position: absolute;
+    bottom: -30px;
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    color: var(--warning-color);
+ 
+    @media (max-width: 480px) {
+        bottom: -40px;
+        text-align: center;
     }
 }
 

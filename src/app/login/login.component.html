@@ -1,5 +1,5 @@
 <div #loginContent class="login-content animate-once">
-    <svg class="svg-logo" xmlns="http://www.w3.org/2000/svg" width="101" height="122" viewBox="0 0 101 122" fill="none">
+    <svg (click)="reloadPage()" class="svg-logo" xmlns="http://www.w3.org/2000/svg" width="101" height="122" viewBox="0 0 101 122" fill="none">
         <path d="M71.6721 0H49.5143V25.4923H71.6721V0Z" fill="#2A3647" />
         <path
             d="M49.5142 46.2251H71.6721V82.1779C71.7733 90.8292 69.3112 99.3153 64.5986 106.557C59.9455 113.594 50.963 121.966 34.3446 121.966C16.2434 121.966 5.69286 113.406 0 108.715L13.9765 91.4743C19.533 96.0112 24.885 99.7435 34.4299 99.7435C41.6567 99.7435 44.5372 96.7988 46.2247 94.2307C48.5186 90.6637 49.7052 86.4923 49.6335 82.2464L49.5142 46.2251Z"
@@ -16,36 +16,39 @@
 
     <div class="container-btn-signup">
         <span>Not a Join user?</span>
-        <a class="primary-btn" href="">Sign up</a>
+        <a class="primary-btn" routerLink="/signup">Sign up</a>
     </div>
 
     <div class="notices">
-        <a href="">Privacy Policy</a>
-        <a href="">Legal Notice</a>
+        <a routerLink="/privacypolicy">Privacy Policy</a>
+        <a routerLink="/legalnotice">Legal Notice</a>
     </div>
 
     <div class="container-form">
         <h1 class="form-headline">Log in</h1>
-        <form>
+        <form (ngSubmit)="onSubmit()" ngNativeValidate [formGroup]="loginFormular">
             <div class="container-input">
-                <input class="email-field" type="email" placeholder="Email">
+                <span class="before-input">{{emailWarningText}}</span>
+                <input #emailField class="email-field" name="email" type="text" placeholder="Email" formControlName="emailField">
                 <img src="../../assets/icons/mail.svg" class="after-input">
             </div>
             <div class="container-input">
-                <input class="password-field" type="password" placeholder="Password">
+                <span class="before-input">{{passwordWarningText}}</span>
+                <input #passwordField class="password-field" name="password" type="password" placeholder="Password" formControlName="passwordField">
                 <img src="../../assets/icons/password/lock.svg" class="after-input">
             </div>
             <div class="login-options">
                 <label class="checkbox-label">
-                    <input type="checkbox" name="remember-me">
+                    <input #checkboxField type="checkbox" name="remember-me">
                     Remember me
                 </label>
-                <a href="">I forgot my password</a>
+                <a routerLink="/forgotpassword">I forgot my password</a>
             </div>
             <div class="form-btns">
-                <button class="primary-btn">Log in</button>
-                <a class="secondary-button" href="">Guest Log in</a>
+                <button type="submit" class="primary-btn">Log in</button>
+                <a class="secondary-button">Guest Log in</a>
             </div>
         </form>
+        <span class="after-login-form">{{loginWarningText}}</span>
     </div>
 </div>
