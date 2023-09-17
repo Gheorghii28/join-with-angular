@@ -350,3 +350,13 @@ input[type="checkbox"] {
 .error-border {
     border: 1px solid var(--warning-color) !important;
 }
+
+@keyframes translateXAnimationFrom100vw {
+    0% {
+        transform: translateX(-100vw);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
