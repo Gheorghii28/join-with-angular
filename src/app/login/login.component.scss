@@ -88,6 +88,7 @@
 .container-form {
     position: relative;
     animation: opacityAnimation 1200ms ease-in-out;
+    border: 1px solid transparent;
 
     .login-options {
         width: 380px;

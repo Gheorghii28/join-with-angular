@@ -24,22 +24,22 @@
         <a routerLink="/legalnotice">Legal Notice</a>
     </div>
 
-    <div class="container-form">
+    <div class="container-form" [ngClass]="{'error-border': isLoginInvalid}">
         <h1 class="form-headline">Log in</h1>
         <form (ngSubmit)="onSubmit()" ngNativeValidate [formGroup]="loginFormular">
             <div class="container-input">
                 <span class="before-input">{{emailWarningText}}</span>
-                <input #emailField class="email-field" name="email" type="text" placeholder="Email" formControlName="emailField">
+                <input #emailField class="email-field" name="email" type="text" placeholder="Email" formControlName="emailField" [ngClass]="{'error-border': isEmailInvalid}">
                 <img src="../../assets/icons/mail.svg" class="after-input">
             </div>
             <div class="container-input">
                 <span class="before-input">{{passwordWarningText}}</span>
-                <input #passwordField class="password-field" name="password" type="password" placeholder="Password" formControlName="passwordField">
+                <input #passwordField class="password-field" name="password" type="password" placeholder="Password" formControlName="passwordField" [ngClass]="{'error-border': isPasswordInvalid}">
                 <img src="../../assets/icons/password/lock.svg" class="after-input">
             </div>
             <div class="login-options">
                 <label class="checkbox-label">
-                    <input #checkboxField type="checkbox" name="remember-me">
+                    <input #checkboxField type="checkbox" name="remember-me" (change)="toggleRememberMe()">
                     Remember me
                 </label>
                 <a routerLink="/forgotpassword">I forgot my password</a>

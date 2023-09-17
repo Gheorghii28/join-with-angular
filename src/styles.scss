@@ -346,3 +346,7 @@ input[type="checkbox"] {
         top: 15px;
     }
 }
+
+.error-border {
+    border: 1px solid var(--warning-color) !important;
+}
