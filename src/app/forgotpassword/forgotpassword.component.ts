@@ -53,8 +53,6 @@ export class ForgotpasswordComponent {
   }
 
   async sendMail() {
-    console.log(this.emailField)
-    console.log(this.emailField.value)
     if (this.isFieldsValid(this.emailField.value)) {
       await this.onSubmit(this.emailField);
       this.forgotFormular.reset();
@@ -104,9 +102,6 @@ export class ForgotpasswordComponent {
         method: 'POST',
         body: this.createFormData(emailField)
       });
-      console.log('await fertig');
-
-
       if (response.ok) {
         this.showSuccessSymbolAndMessage();
       } else {
