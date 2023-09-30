@@ -31,4 +31,12 @@ export class ValidationService {
         const isNotEmpty = input.trim().length > 0;
         return isNotEmpty;
     }
+
+    isFieldEmpty(formular: any, field: string, value: string) {
+        return formular.controls[field].errors && value.length == 0;
+    }
+
+    isInvalidEmail(emailValue: string) {
+        return !this.isEmailValid(emailValue) && emailValue.length > 0;
+    }
 }

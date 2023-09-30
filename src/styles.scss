@@ -360,3 +360,41 @@ input[type="checkbox"] {
         transform: translateX(0px);
     }
 }
+
+.show-form-load-animation {
+    display: flex;
+
+    &::before {
+        content: url('../../assets/icons/loading.png');
+        animation: rotateAnimation 2s linear infinite;
+    }
+
+    @keyframes rotateAnimation {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+.opacity-null {
+    animation: opacityAnimation 2000ms ease-in;
+    opacity: 0;
+
+    @keyframes opacityAnimation {
+        0% {
+            opacity: 1;
+        }
+
+        70% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+}

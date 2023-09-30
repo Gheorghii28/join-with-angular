@@ -12,7 +12,6 @@ export class ForgotpasswordComponent {
   forgotFormular: FormGroup = new FormGroup({});
   emailField: any;
   emailWarningText: string = '';
-  loginWarningText: string = '';
   isEmailInvalid: boolean = false;
   isForgotInvalid: boolean = false;
   resultInfoContainer: any;
@@ -22,7 +21,6 @@ export class ForgotpasswordComponent {
   @ViewChild('forgotContent', { static: true }) forgotSectionRef!: ElementRef<HTMLElement>;
   @ViewChild('sendResultInfo') sendResultInfo!: ElementRef;
   @ViewChild('formResultInfo') formResultInfo!: ElementRef;
-  @ViewChild('myForm') myForm!: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -64,25 +62,17 @@ export class ForgotpasswordComponent {
     this.isEmailInvalid = false;
     this.emailWarningText = '';
 
-    if (this.isFieldEmpty('emailField', emailValue)) {
+    if (this.validation.isFieldEmpty(this.forgotFormular, 'emailField', emailValue)) {
       this.emailWarningText = 'This field is required';
       isValid = false;
       this.isEmailInvalid = !isValid;
     }
-    if (this.isInvalidEmail(emailValue)) {
+    if (this.validation.isInvalidEmail(emailValue)) {
       this.emailWarningText = 'The entered email address is invalid.';
       isValid = false;
       this.isEmailInvalid = !isValid;
     }
     return isValid;
-  }
-
-  isFieldEmpty(field: string, value: string) {
-    return this.forgotFormular.controls[field].errors && value.length == 0;
-  }
-
-  isInvalidEmail(emailValue: string) {
-    return !this.validation.isEmailValid(emailValue) && emailValue.length > 0;
   }
 
   async onSubmit(emailField: any) {
@@ -124,7 +114,6 @@ export class ForgotpasswordComponent {
   showLoadingAnimation() {
     this.renderer.addClass(this.formResult, 'form-result-info');
     this.renderer.addClass(this.resultInfoContainer, 'show-form-load-animation');
-    this.renderer.addClass(this.myForm.nativeElement, 'brightness04');
   }
 
   showSuccessSymbolAndMessage() {
@@ -136,9 +125,7 @@ export class ForgotpasswordComponent {
     this.renderer.removeClass(this.resultInfoContainer, 'show-form-load-animation');
     this.renderer.addClass(this.formResult, 'form-result-info');
     this.renderer.addClass(this.resultInfoContainer, 'show-form-error-message');
-    this.renderer.addClass(this.myForm.nativeElement, 'brightness04');
     console.log(errorMessage);
-
   }
 
   hideLoadingAnimation() {
@@ -146,7 +133,6 @@ export class ForgotpasswordComponent {
     setTimeout(() => {
       this.renderer.removeClass(this.formResult, 'form-result-info');
       this.renderer.removeClass(this.resultInfoContainer, 'show-form-load-animation');
-      this.renderer.removeClass(this.myForm.nativeElement, 'brightness04');
       this.renderer.removeClass(this.resultInfoContainer, 'show-form-succes-message');
       this.renderer.removeClass(this.resultInfoContainer, 'show-form-error-message');
       this.renderer.removeClass(this.formResult, 'opacity-null');

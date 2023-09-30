@@ -47,7 +47,7 @@
             <div class="container-input">
                 <span class="before-input">{{confirmPasswordWarningText}}</span>
                 <input #confirmPasswordField class="confirmPassword-field" name="confirmPassword" type="password" placeholder="Confirm Password"
-                    formControlName="confirmPasswordField" [ngClass]="{'error-border': isconfirmPasswordInvalid}">
+                    formControlName="confirmPasswordField" [ngClass]="{'error-border': isConfirmPasswordInvalid}">
                 <img src="../../assets/icons/password/lock.svg" class="after-input">
             </div>
             <div class="accept-option">
@@ -62,5 +62,11 @@
             </div>
         </form>
         <span class="after-login-form">{{signupWarningText}}</span>
+    </div>
+
+    <div #formResultInfo>
+        <div #sendResultInfo>
+            <div class="result-content"></div>
+        </div>
     </div>
 </div>
