@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  submenuShow:boolean = false;
+
+  constructor() {
+
+  }
+
+  reloadPage() {
+    window.location.reload();
+  }
+
+  toggleSubmenu() {
+    this.submenuShow = !this.submenuShow;
+  }
 }
