@@ -13,6 +13,8 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { SummaryComponent } from './summary/summary.component';
+import { NavComponent } from './nav/nav.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { SummaryComponent } from './summary/summary.component';
     PrivacypolicyComponent,
     LegalnoticeComponent,
     ForgotpasswordComponent,
-    SummaryComponent
+    SummaryComponent,
+    NavComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

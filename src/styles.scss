@@ -14,6 +14,7 @@ html,
 body {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -326,6 +327,11 @@ input[type="checkbox"] {
     top: 50px;
     cursor: pointer;
     z-index: 10;
+    transition: all 225ms ease-in-out;
+
+    &:hover {
+        scale: 1.02;
+    }
 
     @media (max-width: 1024px) {
         width: 50px;
@@ -365,7 +371,7 @@ input[type="checkbox"] {
     display: flex;
 
     &::before {
-        content: url('../../assets/icons/loading.png');
+        content: url('assets/icons/loading.png');
         animation: rotateAnimation 2s linear infinite;
     }
 
@@ -396,5 +402,29 @@ input[type="checkbox"] {
         100% {
             opacity: 0;
         }
+    }
+}
+
+.menu-bg-summary {
+    .li-summary {
+        background-color: var(--midnight-blue);
+    }
+}
+
+.menu-bg-add-task {
+    .li-add-task {
+        background-color: var(--midnight-blue);
+    }
+}
+
+.menu-bg-board {
+    .li-board {
+        background-color: var(--midnight-blue);
+    }
+}
+
+.menu-bg-contacts {
+    .li-contacts {
+        background-color: var(--midnight-blue);
     }
 }
