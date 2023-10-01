@@ -428,3 +428,25 @@ input[type="checkbox"] {
         background-color: var(--midnight-blue);
     }
 }
+
+app-nav {
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+app-nav-mobile {
+    display: none;
+
+    @media (max-width: 768px) {
+        display: initial;
+    }
+}
+
+.page-content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

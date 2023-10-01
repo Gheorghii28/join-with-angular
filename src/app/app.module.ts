@@ -15,6 +15,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { SummaryComponent } from './summary/summary.component';
 import { NavComponent } from './nav/nav.component';
 import { HeaderComponent } from './header/header.component';
+import { NavMobileComponent } from './nav-mobile/nav-mobile.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HeaderComponent } from './header/header.component';
     ForgotpasswordComponent,
     SummaryComponent,
     NavComponent,
-    HeaderComponent
+    HeaderComponent,
+    NavMobileComponent
   ],
   imports: [
     BrowserModule,
