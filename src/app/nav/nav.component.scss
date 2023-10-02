@@ -1,7 +1,8 @@
 nav {
     width: 16vw;
     min-width: 232px;
-    height: 100vh;
+    height: 100%;
+    min-height: 568px;
     background-color: var(--dark-slate-blue);
     display: flex;
     flex-direction: column;

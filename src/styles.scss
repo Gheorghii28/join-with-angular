@@ -15,7 +15,6 @@ html,
 body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
@@ -444,15 +443,41 @@ app-nav-mobile {
     }
 }
 
-
 .page-content {
     display: flex;
+    min-height: 568px;
+
+    @media (min-height: 568px) {
+        height: 100vh;
+    }
 }
 
 .section-content {
     width: 100%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: scroll;
+    -webkit-tap-highlight-color: transparent;
+    -moz-tap-highlight-color: transparent;
+    -ms-tap-highlight-color: transparent;
+    --tap-highlight-color: transparent;
+    overflow-x: hidden;
+    
+    &::-webkit-scrollbar {
+        width: 5px;
+
+        @media (max-width: 480px) {
+            width: 0;
+        }
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--light-gray);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--dark-slate-blue);;
+        border-radius: 5px;
+    }
 }
