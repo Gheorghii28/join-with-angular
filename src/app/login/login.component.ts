@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.setRememberMe(this.rememberMe)
-    this.router.navigate(['/summary']);
+    this.router.navigate(['/summary', {data: this.userId}]);
   }
 
   isUserValid(email: string, password: string) {

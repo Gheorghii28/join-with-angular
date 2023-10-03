@@ -1,4 +1,4 @@
-<div class="page-content">
+<div class="page-content animate-once" *ngIf="!loading">
     <app-nav class="menu-bg-summary"></app-nav>
     <div class="section-content">
         <app-header></app-header>
@@ -10,7 +10,8 @@
                     <path d="M2 2V61" stroke="#29ABE2" stroke-width="3" stroke-linecap="round" />
                 </svg>
                 <span>Key Metrics at a Glance</span>
-                <svg class="line-mobile" xmlns="http://www.w3.org/2000/svg" width="94" height="4" viewBox="0 0 94 4" fill="none">
+                <svg class="line-mobile" xmlns="http://www.w3.org/2000/svg" width="94" height="4" viewBox="0 0 94 4"
+                    fill="none">
                     <path d="M92 2L2 2" stroke="#29ABE2" stroke-width="3" stroke-linecap="round" />
                 </svg>
             </div>
@@ -18,7 +19,7 @@
                 <div class="box-left">
                     <div class="line-1">
                         <a href="/board">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="69" height="70" viewBox="0 0 69 70"
+                            <svg class="hoverable-svg" xmlns="http://www.w3.org/2000/svg" width="69" height="70" viewBox="0 0 69 70"
                                 fill="none">
                                 <circle cx="34.5" cy="35" r="34.5" fill="#2A3647" />
                                 <mask id="mask0_89384_6084" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="18"
@@ -32,19 +33,19 @@
                                 </g>
                             </svg>
                             <div class="small-info">
-                                <span class="nr">1</span>
+                                <span class="nr">{{todoCount}}</span>
                                 <span class="text">To-do</span>
                             </div>
                         </a>
                         <a href="/board">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70"
+                            <svg class="hoverable-svg" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70"
                                 fill="none">
                                 <circle cx="35" cy="35" r="34.5" fill="#2A3647" />
                                 <path d="M20.0283 35.0001L31.2571 46.0662L49.9717 23.9341" stroke="white"
                                     stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                             <div class="small-info">
-                                <span class="nr">1</span>
+                                <span class="nr">{{doneCount}}</span>
                                 <span class="text">Done</span>
                             </div>
                         </a>
@@ -70,7 +71,7 @@
                                 </defs>
                             </svg>
                             <div class="small-info">
-                                <span class="nr">1</span>
+                                <span class="nr">{{urgentCount}}</span>
                                 <span class="text">Urgent</span>
                             </div>
                             <svg class="vertical-line" xmlns="http://www.w3.org/2000/svg" width="2" height="106"
@@ -78,7 +79,7 @@
                                 <path d="M1 1.98828V104.011" stroke="#D1D1D1" stroke-width="2" stroke-linecap="round" />
                             </svg>
                             <div class="deadline">
-                                <span class="date">October 16, 2022</span>
+                                <span class="date">{{urgentDate}}</span>
                                 <span class="deadline-text">Upcoming Deadline</span>
                             </div>
                         </a>
@@ -86,30 +87,33 @@
                     <div class="line-3">
                         <a href="/board">
                             <div class="small-info">
-                                <span class="nr">1</span>
+                                <span class="nr">{{ tasksCount }}</span>
                                 <span class="text">Tasks in Board</span>
                             </div>
                         </a>
                         <a href="/board">
                             <div class="small-info">
-                                <span class="nr">1</span>
+                                <span class="nr">{{ inProgressCount }}</span>
                                 <span class="text">Tasks In Progress</span>
                             </div>
                         </a>
                         <a href="/board">
                             <div class="small-info">
-                                <span class="nr">1</span>
+                                <span class="nr">{{feedbackCount}}</span>
                                 <span class="text">Awaiting Feedback</span>
                             </div>
                         </a>
                     </div>
                 </div>
                 <div class="box-right">
-                    <span class="greetings">Good morning,</span>
-                    <span class="user-name">Sofia Müller</span>
+                    <span class="greetings">{{greetings}}</span>
+                    <span class="user-name">{{userName}}</span>
                 </div>
             </div>
         </div>
         <app-nav-mobile class="menu-bg-summary"></app-nav-mobile>
     </div>
+</div>
+<div class="load-container" *ngIf="loading">
+    <img src="../../assets/icons/loading.png">
 </div>

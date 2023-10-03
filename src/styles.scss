@@ -481,3 +481,16 @@ app-nav-mobile {
         border-radius: 5px;
     }
 }
+
+.load-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--light-gray);
+
+    img {
+        animation: rotateAnimation 2s linear infinite;
+    }
+}

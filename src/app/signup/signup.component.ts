@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersListServices } from '../services/firebase-services/users-list.services';
 import { addDoc } from '@angular/fire/firestore';
 import { ValidationService } from '../services/validation/validation.service';
+import { User } from '../interfaces/user.interface';
+import { DataServices } from '../services/data-services/data.services';
 
 @Component({
   selector: 'app-signup',
@@ -45,7 +47,8 @@ export class SignupComponent implements OnInit {
     private formBuilder: FormBuilder,
     private usersListServices: UsersListServices,
     private validation: ValidationService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private data: DataServices
   ) {
 
   }
@@ -92,8 +95,9 @@ export class SignupComponent implements OnInit {
 
   async addUser() {
     try {
+      const user:User = this.data.createUser(this.nameField.value, this.emailField.value, this.confirmPasswordField.value);
       this.showLoadingAnimation();
-      const fh = await addDoc(this.usersListServices.getUsersRef(), this.createUser());
+      const fh = await addDoc(this.usersListServices.getUsersRef(), user);
       if (fh) {
         this.showSuccessSymbolAndMessage();
       } else {
@@ -103,14 +107,6 @@ export class SignupComponent implements OnInit {
       this.showErrorMessageBox(error);
     } finally {
       this.hideLoadingAnimation();
-    }
-  }
-
-  createUser() {
-    return {
-      name: this.nameField.value,
-      email: this.emailField.value,
-      password: this.confirmPasswordField.value
     }
   }
 

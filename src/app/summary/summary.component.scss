@@ -1,4 +1,5 @@
 .section-content {
+
     app-header,
     app-nav-mobile {
         width: 100%;
@@ -13,7 +14,7 @@
     width: 100%;
     height: 100%;
     font-family: 'Inter', sans-serif;
-    
+
     @media (max-width: 768px) {
         display: flex;
         flex-direction: column;
@@ -38,7 +39,7 @@
         align-items: start;
         margin: 0;
     }
-    
+
     @media (max-width: 480px) {
         gap: 0;
     }
@@ -71,7 +72,7 @@
         font-size: 18px;
         font-weight: 400;
         line-height: 120%;
-        
+
         @media (max-width: 480px) {
             font-size: 14px;
         }
@@ -84,7 +85,7 @@
         @media (max-width: 768px) {
             display: initial;
         }
-        
+
         @media (max-width: 480px) {
             scale: 0.6;
             transform: translateX(-30px);
@@ -142,7 +143,7 @@
         .text {
             max-width: 100px;
             text-align: center;
-            
+
             @media (max-width: 480px) {
                 max-width: 54px;
             }
@@ -164,14 +165,34 @@
         @media (min-width: 1920px) {
             padding: 30px 70px;
         }
-        
+
         @media (max-width: 480px) {
             gap: 0;
             padding: 10px 20px;
         }
 
         &:hover {
-            scale: 1.05;
+            background-color: var(--dark-slate-blue);
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+            .nr,
+            .text,
+            .date,
+            .deadline-text {
+                color: var(--white);
+            }
+
+            .hoverable-svg circle {
+                fill: var(--white);
+            }
+
+            .hoverable-svg rect {
+                fill: var(--black);
+            }
+
+            .hoverable-svg path {
+                stroke: var(--black);
+            }
         }
 
         svg {
@@ -345,6 +366,44 @@
 
         @media (max-width: 1120px) {
             font-size: 36px;
+        }
+    }
+}
+
+.animate-once {
+    @media (max-width: 900px) {
+        position: relative;
+
+        .box-right {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: 0;
+            z-index: 10;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light-gray);
+            animation: opacityAnimation 1500ms ease-in-out forwards;
+        }
+
+        @keyframes opacityAnimation {
+            0% {
+                opacity: 1;
+            }
+
+            70% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                display: none;
+            }
         }
     }
 }
