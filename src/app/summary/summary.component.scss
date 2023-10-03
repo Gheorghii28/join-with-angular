@@ -119,197 +119,210 @@
         display: flex;
         justify-content: space-between;
     }
+}
 
-    .line-3 {
-        display: flex;
-        justify-content: space-between;
+.line-2 {
+    @media (max-width: 480px) {
+        width: 95vw;
+        max-width: 300px;
 
         a {
-            padding: 15px;
-
-            @media (min-width: 1920px) {
-                padding: 30px 40px;
-            }
-
-            @media (max-width: 1024px) {
-                padding: 10px;
-            }
-
-            @media (max-width: 480px) {
-                padding: 10px 20px;
-            }
-        }
-
-        .text {
-            max-width: 100px;
-            text-align: center;
-
-            @media (max-width: 480px) {
-                max-width: 54px;
-            }
-        }
-    }
-
-    a {
-        display: flex;
-        padding: 15px 30px;
-        justify-content: center;
-        align-items: center;
-        gap: 18px;
-        flex-shrink: 0;
-        border-radius: 30px;
-        background: var(--white);
-        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
-        transition: all 225ms ease-in-out;
-
-        @media (min-width: 1920px) {
-            padding: 30px 70px;
-        }
-
-        @media (max-width: 480px) {
-            gap: 0;
-            padding: 10px 20px;
-        }
-
-        &:hover {
-            background-color: var(--dark-slate-blue);
-            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-
-            .nr,
-            .text,
-            .date,
-            .deadline-text {
-                color: var(--white);
-            }
-
-            .hoverable-svg circle {
-                fill: var(--white);
-            }
-
-            .hoverable-svg rect {
-                fill: var(--black);
-            }
-
-            .hoverable-svg path {
-                stroke: var(--black);
-            }
-        }
-
-        svg {
-            scale: 0.8;
-
-            @media (min-width: 1920px) {
-                scale: 1;
-            }
-
-            @media (max-width: 1024px) {
-                scale: 0.7;
-            }
-
-            @media (max-width: 480px) {
-                scale: 0.5;
-            }
-        }
-
-        .small-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .nr {
-            color: var(--black);
-            text-align: center;
-            font-size: 52px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: 120%;
-
-            @media (min-width: 1920px) {
-                font-size: 61px;
-            }
-
-            @media (max-width: 1024px) {
-                font-size: 48px;
-            }
-
-            @media (max-width: 480px) {
-                font-size: 36px;
-            }
-        }
-
-        .text {
-            color: var(--dark-slate-blue);
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 120%;
-
-            @media (min-width: 1920px) {
-                font-size: 20px;
-            }
-
-            @media (max-width: 1024px) {
-                font-size: 14px;
-            }
-
-            @media (max-width: 480px) {
-                font-size: 12px;
-            }
-        }
-
-        .vertical-line {
-            margin: 0 10px;
-
-            @media (min-width: 1920px) {
-                margin: 0 40px;
-            }
-        }
-    }
-
-    .deadline {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-
-        .date {
-            color: var(--dark-slate-blue);
-            font-size: 21px;
-            font-weight: 700;
-            line-height: 120%;
-
-            @media (min-width: 1920px) {
-                font-size: 24px;
-            }
-
-            @media (max-width: 1024px) {
-                font-size: 18px;
-            }
-
-            @media (max-width: 480px) {
-                font-size: 16px;
-            }
-        }
-
-        .deadline-text {
-            color: var(--dark-slate-blue);
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 120%;
-
-            @media (min-width: 1920px) {
-                font-size: 18px;
-            }
-
-            @media (max-width: 1024px) {
-                font-size: 14px;
-            }
-
-            @media (max-width: 480px) {
-                font-size: 12px;
-            }
+            padding: 0 20px;
         }
     }
 }
+
+.line-3 {
+    display: flex;
+    justify-content: space-between;
+
+    a {
+        padding: 15px;
+
+        @media (min-width: 1920px) {
+            padding: 30px 40px;
+        }
+
+        @media (max-width: 1024px) {
+            padding: 10px;
+        }
+
+        @media (max-width: 480px) {
+            padding: 10px 20px;
+        }
+    }
+
+    .text {
+        max-width: 100px;
+        text-align: center;
+
+        @media (max-width: 480px) {
+            max-width: 54px;
+        }
+    }
+}
+
+a {
+    display: flex;
+    padding: 15px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: var(--white);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+    transition: all 225ms ease-in-out;
+
+    @media (min-width: 1920px) {
+        padding: 30px 70px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 0;
+        padding: 10px 20px;
+        border-radius: 20px;
+    }
+
+    &:hover {
+        background-color: var(--dark-slate-blue);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+        .nr,
+        .text,
+        .date,
+        .deadline-text {
+            color: var(--white);
+        }
+
+        .hoverable-svg circle {
+            fill: var(--white);
+        }
+
+        .hoverable-svg rect {
+            fill: var(--black);
+        }
+
+        .hoverable-svg path {
+            stroke: var(--black);
+        }
+    }
+
+    svg {
+        scale: 0.8;
+
+        @media (min-width: 1920px) {
+            scale: 1;
+        }
+
+        @media (max-width: 1024px) {
+            scale: 0.7;
+        }
+
+        @media (max-width: 480px) {
+            scale: 0.5;
+        }
+    }
+
+    .small-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nr {
+        color: var(--black);
+        text-align: center;
+        font-size: 52px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 120%;
+
+        @media (min-width: 1920px) {
+            font-size: 61px;
+        }
+
+        @media (max-width: 1024px) {
+            font-size: 48px;
+        }
+
+        @media (max-width: 480px) {
+            font-size: 36px;
+        }
+    }
+
+    .text {
+        color: var(--dark-slate-blue);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+
+        @media (min-width: 1920px) {
+            font-size: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            font-size: 12px;
+        }
+    }
+
+    .vertical-line {
+        margin: 0 10px;
+
+        @media (min-width: 1920px) {
+            margin: 0 40px;
+        }
+    }
+}
+
+.deadline {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .date {
+        color: var(--dark-slate-blue);
+        font-size: 21px;
+        font-weight: 700;
+        line-height: 120%;
+
+        @media (min-width: 1920px) {
+            font-size: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            font-size: 18px;
+        }
+
+        @media (max-width: 480px) {
+            font-size: 16px;
+        }
+    }
+
+    .deadline-text {
+        color: var(--dark-slate-blue);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 120%;
+
+        @media (min-width: 1920px) {
+            font-size: 18px;
+        }
+
+        @media (max-width: 1024px) {
+            font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            font-size: 12px;
+        }
+    }
+}
+
 
 .box-right {
     height: 100%;
