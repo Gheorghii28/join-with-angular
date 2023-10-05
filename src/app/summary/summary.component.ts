@@ -10,8 +10,8 @@ import { User } from '../interfaces/user.interface';
 })
 export class SummaryComponent implements OnInit {
 
-  loading:boolean = true;
-  userId: string = '';
+  loading: boolean = true;
+  userId: any;
   user: any;
   tasks: any;
   tasksCount: number = 0;
@@ -38,9 +38,8 @@ export class SummaryComponent implements OnInit {
   }
 
   initializeUserId() {
-    this.route.params.subscribe(params => {
-      this.userId = params['data'];
-    });
+    const storedValue = localStorage.getItem('id-key');
+    this.userId = storedValue ? JSON.parse(storedValue) : null;
   }
 
   async updateData() {
@@ -83,6 +82,7 @@ export class SummaryComponent implements OnInit {
     }
     return "";
   }
+
   getGreeting() {
     const currentHour = new Date().getHours();
     if (currentHour >= 5 && currentHour < 12) {
@@ -95,5 +95,4 @@ export class SummaryComponent implements OnInit {
       return "Good night, ";
     }
   }
-
 }

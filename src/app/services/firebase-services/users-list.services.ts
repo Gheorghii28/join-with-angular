@@ -39,7 +39,7 @@ export class UsersListServices {
             return docSnap.data();
         } else {
             console.log("No such document!");
-            return null; 
+            return null;
         }
     }
 }

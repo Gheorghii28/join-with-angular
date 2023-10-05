@@ -6,6 +6,7 @@ import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component'
 import { LegalnoticeComponent } from './legalnotice/legalnotice.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { SummaryComponent } from './summary/summary.component';
+import { AddTaskComponent } from './add-task/add-task.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'privacypolicy', component: PrivacypolicyComponent },
   { path: 'legalnotice', component: LegalnoticeComponent },
   { path: 'forgotpassword', component: ForgotpasswordComponent },
-  { path: 'summary', component: SummaryComponent }
+  { path: 'summary', component: SummaryComponent },
+  { path: 'addtask', component: AddTaskComponent }
 ];
 
 @NgModule({

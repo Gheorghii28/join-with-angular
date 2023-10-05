@@ -16,6 +16,8 @@ import { SummaryComponent } from './summary/summary.component';
 import { NavComponent } from './nav/nav.component';
 import { HeaderComponent } from './header/header.component';
 import { NavMobileComponent } from './nav-mobile/nav-mobile.component';
+import { AddTaskComponent } from './add-task/add-task.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { NavMobileComponent } from './nav-mobile/nav-mobile.component';
     SummaryComponent,
     NavComponent,
     HeaderComponent,
-    NavMobileComponent
+    NavMobileComponent,
+    AddTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,7 @@ import { NavMobileComponent } from './nav-mobile/nav-mobile.component';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

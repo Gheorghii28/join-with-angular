@@ -1,0 +1,294 @@
+<div class="page-content">
+    <app-nav class="menu-bg-add-task"></app-nav>
+    <div class="section-content">
+        <app-header></app-header>
+        <div class="add-task-content">
+            <div class="headline">
+                <h1>Add Task</h1>
+            </div>
+            <div class="box-content">
+                <form action="" [formGroup]="addTaskFormular">
+                    <div class="top">
+                        <div class="top-left">
+                            <div class="container-input input-add-task">
+                                <label for="title">Title</label>
+                                <span class="before-input">{{titleWarningText}}</span>
+                                <input #titleField id="title" class="title-field" name="title" type="text"
+                                    placeholder="Enter a title" formControlName="titleField"
+                                    [ngClass]="{'error-border': isTitleInvalid}">
+                            </div>
+                            <div class="container-input input-add-task">
+                                <label for="description">Description</label>
+                                <span class="before-input">{{descriptionWarningText}}</span>
+                                <textarea #descriptionField class="description-field" name="description" type="text"
+                                    placeholder="Enter a Description" formControlName="descriptionField"
+                                    [ngClass]="{'error-border': isDescriptionInvalid}"></textarea>
+                            </div>
+                            <div class="container-input input-add-task">
+                                <label for="assigned">Assigned to</label>
+                                <span class="before-input">{{assignedWarningText}}</span>
+                                <input #assignedField class="assigned-field" name="assigned" type="text"
+                                    [(ngModel)]="inputAssignedValue" (focus)="clearAssignedPlaceholder()"
+                                    (blur)="restoreAssignedPlaceholder()" placeholder="{{ placeholderAssignedText }}"
+                                    formControlName="assignedField" [ngClass]="{'error-border': isAssignedInvalid}">
+                                <img *ngIf="!isInputAssignedActive" src="../../assets/icons/arrow_drop_bottom.svg"
+                                    class="after-input after-input-add-task">
+                                <img *ngIf="isInputAssignedActive" src="../../assets/icons/arrow_drop_top.svg"
+                                    class="after-input after-input-add-task">
+                                <div class="select-box">
+                                    <ul class="option-box">
+                                        <li class="option">
+                                            <div class="container-name">
+                                                <div class="initials"><span>WM</span></div>
+                                                <div class="name">Amer Madinse</div>
+                                            </div>
+                                            <input #checkboxField type="checkbox" name="remember-me">
+                                        </li>
+                                        <li class="option">
+                                            <div class="container-name">
+                                                <div class="initials"><span>WM</span></div>
+                                                <div class="name">Amer Madinse</div>
+                                            </div>
+                                            <input #checkboxField type="checkbox" name="remember-me">
+                                        </li>
+                                        <li class="option">
+                                            <div class="container-name">
+                                                <div class="initials"><span>WM</span></div>
+                                                <div class="name">Amer Madinse</div>
+                                            </div>
+                                            <input #checkboxField type="checkbox" name="remember-me">
+                                        </li>
+                                        <li class="option">
+                                            <div class="container-name">
+                                                <div class="initials"><span>WM</span></div>
+                                                <div class="name">Amer Madinse</div>
+                                            </div>
+                                            <input #checkboxField type="checkbox" name="remember-me">
+                                        </li>
+                                        <li class="option">
+                                            <div class="container-name">
+                                                <div class="initials"><span>WM</span></div>
+                                                <div class="name">Amer Madinse</div>
+                                            </div>
+                                            <input #checkboxField type="checkbox" name="remember-me">
+                                        </li>
+                                        <li class="option">
+                                            <div class="container-name">
+                                                <div class="initials"><span>WM</span></div>
+                                                <div class="name">Amer Madinse</div>
+                                            </div>
+                                            <input #checkboxField type="checkbox" name="remember-me">
+                                        </li>
+                                    </ul>
+                                    <div class="add-contact-option">
+                                        <span>Add new contact</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32"
+                                            viewBox="0 0 33 32" fill="none">
+                                            <mask id="mask0_90607_7124" style="mask-type:alpha"
+                                                maskUnits="userSpaceOnUse" x="0" y="0" width="33" height="32">
+                                                <rect x="0.5" width="32" height="32" fill="#D9D9D9" />
+                                            </mask>
+                                            <g mask="url(#mask0_90607_7124)">
+                                                <path
+                                                    d="M25.8291 18.6667C25.5132 18.6667 25.2497 18.5602 25.0386 18.3472C24.8275 18.1342 24.7219 17.8704 24.7219 17.5556V14.4444H21.6108C21.296 14.4444 21.0321 14.3376 20.8191 14.1239C20.6062 13.9101 20.4997 13.6453 20.4997 13.3294C20.4997 13.0135 20.6062 12.75 20.8191 12.5389C21.0321 12.3278 21.296 12.2222 21.6108 12.2222H24.7219V9.11109C24.7219 8.79629 24.8288 8.5324 25.0425 8.31942C25.2562 8.10647 25.521 7.99999 25.8369 7.99999C26.1528 7.99999 26.4163 8.10647 26.6274 8.31942C26.8386 8.5324 26.9441 8.79629 26.9441 9.11109V12.2222H30.0552C30.37 12.2222 30.6339 12.3291 30.8469 12.5428C31.0599 12.7565 31.1663 13.0213 31.1663 13.3372C31.1663 13.6531 31.0599 13.9166 30.8469 14.1278C30.6339 14.3389 30.37 14.4444 30.0552 14.4444H26.9441V17.5556C26.9441 17.8704 26.8373 18.1342 26.6235 18.3472C26.4098 18.5602 26.145 18.6667 25.8291 18.6667ZM12.4997 15.9778C11.033 15.9778 9.81449 15.4926 8.84411 14.5222C7.87375 13.5518 7.38858 12.3333 7.38858 10.8667C7.38858 9.39999 7.87375 8.18148 8.84411 7.21112C9.81449 6.24074 11.033 5.75555 12.4997 5.75555C13.9663 5.75555 15.1849 6.24074 16.1552 7.21112C17.1256 8.18148 17.6108 9.39999 17.6108 10.8667C17.6108 12.3333 17.1256 13.5518 16.1552 14.5222C15.1849 15.4926 13.9663 15.9778 12.4997 15.9778ZM2.94411 26.6667C2.62931 26.6667 2.36542 26.5602 2.15244 26.3472C1.93949 26.1342 1.83301 25.8704 1.83301 25.5556V23.3333C1.83301 22.563 2.03115 21.8611 2.42744 21.2278C2.82375 20.5945 3.36635 20.1185 4.05524 19.8C5.62562 19.0815 7.07998 18.5648 8.41831 18.25C9.75666 17.9352 11.1159 17.7778 12.4961 17.7778C13.8763 17.7778 15.2367 17.9352 16.5774 18.25C17.9182 18.5648 19.3663 19.0815 20.9219 19.8C21.6108 20.1333 22.1571 20.613 22.5608 21.2389C22.9645 21.8648 23.1663 22.563 23.1663 23.3333V25.5556C23.1663 25.8704 23.0599 26.1342 22.8469 26.3472C22.6339 26.5602 22.37 26.6667 22.0552 26.6667H2.94411ZM4.05521 24.4445H20.9441V23.3333C20.9441 23.0148 20.8645 22.7148 20.7052 22.4333C20.546 22.1518 20.3071 21.9407 19.9886 21.8C18.5515 21.0963 17.2626 20.6204 16.1219 20.3722C14.9812 20.1241 13.7737 20 12.4997 20C11.2256 20 10.0182 20.1278 8.87744 20.3833C7.73671 20.6389 6.44042 21.1111 4.98857 21.8C4.69966 21.9407 4.47187 22.1518 4.30521 22.4333C4.13854 22.7148 4.05521 23.0148 4.05521 23.3333V24.4445ZM12.4997 13.7556C13.3219 13.7556 14.0089 13.4796 14.5608 12.9278C15.1126 12.3759 15.3886 11.6889 15.3886 10.8667C15.3886 10.0444 15.1126 9.3574 14.5608 8.80555C14.0089 8.25369 13.3219 7.97775 12.4997 7.97775C11.6775 7.97775 10.9904 8.25369 10.4386 8.80555C9.88671 9.3574 9.61077 10.0444 9.61077 10.8667C9.61077 11.6889 9.88671 12.3759 10.4386 12.9278C10.9904 13.4796 11.6775 13.7556 12.4997 13.7556Z"
+                                                    fill="white" />
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2" height="426" viewBox="0 0 2 426" fill="none">
+                            <path d="M1.24805 1L1.24854 425" stroke="#D1D1D1" stroke-linecap="round" />
+                        </svg>
+                        <div class="top-right">
+                            <div class="container-input input-add-task">
+                                <label for="date">Due date*</label>
+                                <span class="before-input">{{dateWarningText}}</span>
+                                <input #dateField id="date" class="date-field" name="date" type="date"
+                                    placeholder="dd/mm/yyyy" formControlName="dateField"
+                                    [ngClass]="{'error-border': isDateInvalid}">
+                                <img src="../../assets/icons/date.svg" class="after-input after-input-add-task">
+                                <div id="calendar">
+                                    <div id="calendar-header">
+                                        <img class="icon-chevron-left" (click)="prevMonth()"
+                                            src="../../assets/icons/chevron_left.svg">
+                                        <h1>{{ currentMonthName }} {{ currentYear }}</h1>
+                                        <img class="icon-chevron-right" (click)="nextMonth()"
+                                            src="../../assets/icons/chevron_right.svg">
+                                    </div>
+                                    <div id="calendar-weekdays">
+                                        <div *ngFor="let day of dayNames">{{ day.substring(0, 3) }}</div>
+                                    </div>
+                                    <div id="calendar-content">
+                                        <div *ngFor="let day of calendarDays" [class.before-today]="day.isNotActive"
+                                            [class.today]="day.isToday">{{ day.day }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-input input-add-task">
+                                <div class="prio-container">
+                                    <span>Prio</span>
+                                    <div class="radio-tile-group">
+                                        <div class="prio-input-container">
+                                            <input id="urgent" class="radio-button" type="radio" name="radio">
+                                            <div class="radio-tile urgent-tile">
+                                                <div class="icon urgent-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="16"
+                                                        viewBox="0 0 21 16" fill="none">
+                                                        <g clip-path="url(#clip0_90597_5525)">
+                                                            <path
+                                                                d="M19.6528 15.2547C19.4182 15.2551 19.1896 15.1803 19.0007 15.0412L10.7487 8.958L2.49663 15.0412C2.38078 15.1267 2.24919 15.1887 2.10939 15.2234C1.96959 15.2582 1.82431 15.2651 1.68184 15.2437C1.53937 15.2223 1.40251 15.1732 1.27906 15.099C1.15562 15.0247 1.04801 14.927 0.96238 14.8112C0.876751 14.6954 0.814779 14.5639 0.780002 14.4243C0.745226 14.2846 0.738325 14.1394 0.759696 13.997C0.802855 13.7095 0.958545 13.4509 1.19252 13.2781L10.0966 6.70761C10.2853 6.56802 10.5139 6.49268 10.7487 6.49268C10.9835 6.49268 11.212 6.56802 11.4007 6.70761L20.3048 13.2781C20.4908 13.415 20.6286 13.6071 20.6988 13.827C20.7689 14.0469 20.7678 14.2833 20.6955 14.5025C20.6232 14.7216 20.4834 14.9124 20.2962 15.0475C20.1089 15.1826 19.8837 15.2551 19.6528 15.2547Z"
+                                                                fill="#FF3D00" />
+                                                            <path
+                                                                d="M19.6528 9.50568C19.4182 9.50609 19.1896 9.43124 19.0007 9.29214L10.7487 3.20898L2.49663 9.29214C2.26266 9.46495 1.96957 9.5378 1.68184 9.49468C1.39412 9.45155 1.13532 9.29597 0.962385 9.06218C0.789449 8.82838 0.716541 8.53551 0.7597 8.24799C0.802859 7.96048 0.95855 7.70187 1.19252 7.52906L10.0966 0.958588C10.2853 0.818997 10.5139 0.743652 10.7487 0.743652C10.9835 0.743652 11.212 0.818997 11.4007 0.958588L20.3048 7.52906C20.4908 7.66598 20.6286 7.85809 20.6988 8.07797C20.769 8.29785 20.7678 8.53426 20.6955 8.75344C20.6232 8.97262 20.4834 9.16338 20.2962 9.29847C20.1089 9.43356 19.8837 9.50608 19.6528 9.50568Z"
+                                                                fill="#FF3D00" />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_90597_5525">
+                                                                <rect width="20" height="14.5098" fill="white"
+                                                                    transform="translate(0.748535 0.745117)" />
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                                <label for="urgent" class="radio-tile-label">Urgent</label>
+                                            </div>
+                                        </div>
+                                        <div class="prio-input-container">
+                                            <input id="medium" class="radio-button" type="radio" name="radio">
+                                            <div class="radio-tile medium-tile">
+                                                <div class="icon medium-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="8"
+                                                        viewBox="0 0 21 8" fill="none">
+                                                        <g clip-path="url(#clip0_90597_5532)">
+                                                            <path
+                                                                d="M19.1526 7.72528H1.34443C1.05378 7.72528 0.775033 7.60898 0.569514 7.40197C0.363995 7.19495 0.248535 6.91419 0.248535 6.62143C0.248535 6.32867 0.363995 6.0479 0.569514 5.84089C0.775033 5.63388 1.05378 5.51758 1.34443 5.51758H19.1526C19.4433 5.51758 19.722 5.63388 19.9276 5.84089C20.1331 6.0479 20.2485 6.32867 20.2485 6.62143C20.2485 6.91419 20.1331 7.19495 19.9276 7.40197C19.722 7.60898 19.4433 7.72528 19.1526 7.72528Z"
+                                                                fill="#FFA800" />
+                                                            <path
+                                                                d="M19.1526 2.48211H1.34443C1.05378 2.48211 0.775033 2.36581 0.569514 2.1588C0.363995 1.95179 0.248535 1.67102 0.248535 1.37826C0.248535 1.0855 0.363995 0.804736 0.569514 0.597724C0.775033 0.390712 1.05378 0.274414 1.34443 0.274414L19.1526 0.274414C19.4433 0.274414 19.722 0.390712 19.9276 0.597724C20.1331 0.804736 20.2485 1.0855 20.2485 1.37826C20.2485 1.67102 20.1331 1.95179 19.9276 2.1588C19.722 2.36581 19.4433 2.48211 19.1526 2.48211Z"
+                                                                fill="#FFA800" />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_90597_5532">
+                                                                <rect width="20" height="7.45098" fill="white"
+                                                                    transform="translate(0.248535 0.274414)" />
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                                <label for="medium" class="radio-tile-label">Medium</label>
+                                            </div>
+                                        </div>
+                                        <div class="prio-input-container">
+                                            <input id="low" class="radio-button" type="radio" name="radio">
+                                            <div class="radio-tile low-tile">
+                                                <div class="icon low-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="16"
+                                                        viewBox="0 0 21 16" fill="none">
+                                                        <path
+                                                            d="M10.2485 9.50589C10.0139 9.5063 9.7854 9.43145 9.59655 9.29238L0.693448 2.72264C0.57761 2.63708 0.47977 2.52957 0.405515 2.40623C0.33126 2.28289 0.282043 2.14614 0.260675 2.00379C0.217521 1.71631 0.290421 1.42347 0.463337 1.1897C0.636253 0.955928 0.895022 0.800371 1.18272 0.757248C1.47041 0.714126 1.76347 0.786972 1.99741 0.95976L10.2485 7.04224L18.4997 0.95976C18.6155 0.874204 18.7471 0.812285 18.8869 0.777538C19.0266 0.742791 19.1719 0.735896 19.3144 0.757248C19.4568 0.7786 19.5937 0.82778 19.7171 0.901981C19.8405 0.976181 19.9481 1.07395 20.0337 1.1897C20.1194 1.30545 20.1813 1.43692 20.2161 1.57661C20.2509 1.71629 20.2578 1.86145 20.2364 2.00379C20.215 2.14614 20.1658 2.28289 20.0916 2.40623C20.0173 2.52957 19.9195 2.63708 19.8036 2.72264L10.9005 9.29238C10.7117 9.43145 10.4831 9.5063 10.2485 9.50589Z"
+                                                            fill="#7AE229" />
+                                                        <path
+                                                            d="M10.2485 15.2544C10.0139 15.2548 9.7854 15.18 9.59655 15.0409L0.693448 8.47117C0.459502 8.29839 0.30383 8.03981 0.260675 7.75233C0.217521 7.46485 0.290421 7.17201 0.463337 6.93824C0.636253 6.70446 0.895021 6.54891 1.18272 6.50578C1.47041 6.46266 1.76347 6.53551 1.99741 6.7083L10.2485 12.7908L18.4997 6.7083C18.7336 6.53551 19.0267 6.46266 19.3144 6.50578C19.602 6.54891 19.8608 6.70446 20.0337 6.93824C20.2066 7.17201 20.2795 7.46485 20.2364 7.75233C20.1932 8.03981 20.0376 8.29839 19.8036 8.47117L10.9005 15.0409C10.7117 15.18 10.4831 15.2548 10.2485 15.2544Z"
+                                                            fill="#7AE229" />
+                                                    </svg>
+                                                </div>
+                                                <label for="low" class="radio-tile-label">Low</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-input input-add-task">
+                                <label for="category">Category*</label>
+                                <span class="before-input">{{categoryWarningText}}</span>
+                                <input #categoryField class="category-field" name="category" type="text"
+                                    (focus)="clearCategoryPlaceholder()" (blur)="restoreCategoryPlaceholder()"
+                                    placeholder="{{ placeholderCategoryText }}" formControlName="categoryField"
+                                    [ngClass]="{'error-border': isCategoryInvalid}">
+                                <img *ngIf="!isInputCategoryActive" src="../../assets/icons/arrow_drop_bottom.svg"
+                                    class="after-input after-input-add-task">
+                                <img *ngIf="isInputCategoryActive" src="../../assets/icons/arrow_drop_top.svg"
+                                    class="after-input after-input-add-task">
+                                <div class="select-box">
+                                    <ul class="option-box">
+                                        <li class="option">
+                                            <div class="container-name">
+                                                <div class="name">Amer Madinse</div>
+                                            </div>
+                                        </li>
+                                        <li class="option">
+                                            <div class="container-name">
+                                                <div class="name">Amer Madinse</div>
+                                            </div>
+                                        </li>
+                                        <li class="option">
+                                            <div class="container-name">
+                                                <div class="name">Amer Madinse</div>
+                                            </div>
+                                        </li>
+                                        <li class="option">
+                                            <div class="container-name">
+                                                <div class="name">Amer Madinse</div>
+                                            </div>
+                                        </li>
+                                        <li class="option">
+                                            <div class="container-name">
+                                                <div class="name">Amer Madinse</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="container-input input-add-task">
+                                <label for="subtasks">Subtasks</label>
+                                <span class="before-input">{{subtasksWarningText}}</span>
+                                <input #subtasksField class="subtasks-field" name="subtasks" type="text"
+                                    placeholder="Subtasks" formControlName="subtasksField"
+                                    [ngClass]="{'error-border': isSubtasksInvalid}">
+                                <img src="../../assets/icons/plus-subtasks.svg"
+                                    class="after-input after-input-add-task">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="bottom-left">
+                            <span>*This field is required</span>
+                        </div>
+                        <div class="bottom-right">
+                            <button type="button" (click)="closeForm()">
+                                <span>Cancel</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24"
+                                    fill="none">
+                                    <path
+                                        d="M12.0692 12.0001L17.3122 17.2431M6.82617 17.2431L12.0692 12.0001L6.82617 17.2431ZM17.3122 6.75708L12.0682 12.0001L17.3122 6.75708ZM12.0682 12.0001L6.82617 6.75708L12.0682 12.0001Z"
+                                        stroke="#2A3647" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                            <button type="submit">
+                                <span>Create Task</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24"
+                                    fill="none">
+                                    <mask id="mask0_71766_6020" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
+                                        y="0" width="25" height="24">
+                                        <rect x="0.0683594" width="24" height="24" fill="#D9D9D9" />
+                                    </mask>
+                                    <g mask="url(#mask0_71766_6020)">
+                                        <path
+                                            d="M9.61905 15.15L18.0941 6.675C18.2941 6.475 18.5316 6.375 18.8066 6.375C19.0816 6.375 19.3191 6.475 19.5191 6.675C19.7191 6.875 19.8191 7.1125 19.8191 7.3875C19.8191 7.6625 19.7191 7.9 19.5191 8.1L10.3191 17.3C10.1191 17.5 9.88572 17.6 9.61905 17.6C9.35239 17.6 9.11905 17.5 8.91905 17.3L4.61905 13C4.41905 12.8 4.32322 12.5625 4.33155 12.2875C4.33989 12.0125 4.44405 11.775 4.64405 11.575C4.84405 11.375 5.08155 11.275 5.35655 11.275C5.63155 11.275 5.86905 11.375 6.06905 11.575L9.61905 15.15Z"
+                                            fill="white" />
+                                    </g>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <app-nav-mobile class="menu-bg-add-task"></app-nav-mobile>
+    </div>
+</div>

@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.setRememberMe(this.rememberMe)
-    this.router.navigate(['/summary', {data: this.userId}]);
+    this.router.navigate(['/summary']);
   }
 
   isUserValid(email: string, password: string) {
@@ -156,6 +156,7 @@ export class LoginComponent implements OnInit {
 
   setRememberMe(value: boolean) {
     localStorage.setItem(this.rememberMeKey, JSON.stringify(value));
+    localStorage.setItem('id-key', JSON.stringify(this.userId));
     if (value) {
       localStorage.setItem('email', JSON.stringify(this.loginFormular.controls['emailField'].value));
     } else {
