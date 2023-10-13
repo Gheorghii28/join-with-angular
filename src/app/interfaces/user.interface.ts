@@ -4,18 +4,20 @@ export interface User {
     password: string;
     contacts: Contact[];
     tasks: Task[];
+    category: []
 }
 
-interface Contact {
+export interface Contact {
     color: string;
     email: string;
     id: number;
     initials: string;
+    isChecked: boolean;
     name: string;
     phone: string;
 }
 
-interface Task {
+export interface Task {
     assigned: Contact[];
     category: string;
     closedSubTasks: number;
@@ -26,11 +28,11 @@ interface Task {
     prio: string;
     progress: number;
     status: string;
-    subTasks: SubTasks[];
+    subTasks: SubTask[];
     title: string;
 }
 
-interface SubTasks {
+export interface SubTask {
     status: string;
     value: string;
 }

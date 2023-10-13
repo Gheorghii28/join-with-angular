@@ -77,6 +77,9 @@ form {
         justify-content: space-between;
         width: 426px;
         font-size: 21px;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        padding: 4px;
 
         @media (max-width: 1024px) {
             width: 340px;
@@ -318,9 +321,10 @@ form {
         list-style-type: none;
         margin-top: 40px;
         margin-bottom: 0;
-        padding: 0;
+        padding: 0 16px;
         font-size: 18px;
-        height: 200px;
+        max-height: 200px;
+        min-height: 20px;
         overflow: scroll;
         -webkit-tap-highlight-color: transparent;
         -moz-tap-highlight-color: transparent;
@@ -342,7 +346,7 @@ form {
         }
 
         .option {
-            padding: 12px 46px 12px 21px;
+            position: relative;
             border-radius: 10px;
             margin: 6px 0;
             display: flex;
@@ -350,41 +354,89 @@ form {
             align-items: center;
             cursor: pointer;
 
-            &:hover {
-                background-color: var(--light-gray);
-            }
+            .checkbox-tile-label {
+                width: 100%;
+                height: 100%;
+                padding: 12px 46px 12px 21px;
+                cursor: pointer;
+                border-radius: 10px;
 
-            @media (max-width: 1024px) {
-                padding: 10px 40px 10px 18px;
-                font-size: 16px;
-            }
+                &:hover {
+                    color: var(--white);
+                    background-color: var(--midnight-blue);
 
-            @media (max-width: 480px) {
-                padding: 10px 30px 10px 10px;
-                font-size: 14px;
+                    .option-input {
+
+                        &::after {
+                            content: url('../../assets/icons/checkbox/unchecked-hover-2.svg');
+                        }
+                    }
+                }
+
+                @media (max-width: 1024px) {
+                    padding: 10px 40px 10px 18px;
+                    font-size: 16px;
+                }
+
+                @media (max-width: 480px) {
+                    padding: 10px 30px 10px 10px;
+                    font-size: 14px;
+                }
+
+                .option-input {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: 0;
+                    z-index: 16;
+
+                    &:checked {
+                        &::after {
+                            content: url('../../assets/icons/checkbox/checked-2.svg');
+                        }
+
+                        background-color: #000;
+                    }
+
+                    &::after {
+                        left: auto;
+                        top: 15px;
+                        right: 8px;
+                        width: 18px;
+                        height: 21.75px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
             }
         }
     }
 }
 
 .container-name {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 16px;
-
-    .initials {
-        width: 30px;
-        height: 30px;
-        border-radius: 45px;
-        font-size: 12px;
-        color: var(--white);
-        background-color: var(--medium-color);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+    z-index: 10;
 }
 
+.initials {
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 45px;
+    font-size: 12px;
+    color: var(--white);
+    background-color: var(--medium-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-category-option,
 .add-contact-option {
     display: flex;
     padding: 12px 16px;
@@ -401,4 +453,215 @@ form {
     font-weight: 700;
     line-height: 120%;
     margin: 0 16px 12px;
+}
+
+.checked-bg {
+    color: var(--white);
+    background-color: var(--dark-slate-blue);
+}
+
+.assigned-container-bottom {
+    width: 427.6px;
+
+    .ul-initials {
+        display: flex;
+        overflow: scroll;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        padding-bottom: 5px;
+
+        &::-webkit-scrollbar {
+            width: 2px;
+            height: 2px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--light-gray);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: var(--dark-slate-blue);
+            border-radius: 5px;
+        }
+    }
+}
+
+.category-option {
+    padding: 12px 46px 12px 21px;
+    cursor: pointer;
+    border-radius: 10px;
+
+    &:hover {
+        background-color: var(--light-gray);
+    }
+}
+
+.subtasks-field {
+    z-index: 10;
+}
+
+.subtask-box {
+    background-color: transparent;
+    box-shadow: none;
+
+    .container-name {
+        height: 24px;
+        margin-top: 4px;
+    }
+
+    .option-box {
+        padding: 0;
+        margin-top: 50px;
+        min-height: 100px;
+
+        .name {
+            font-size: 16px;
+            height: 24px;
+        }
+
+        .subtask-option {
+            padding: 0;
+
+            .subtask-container {
+                width: 100%;
+                padding: 6px 21px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.05);
+
+                .subtask-btn {
+                    opacity: 1;
+                    ;
+                }
+            }
+        }
+
+        .subtask-btn {
+            scale: 0.8;
+            opacity: 0;
+            ;
+        }
+
+        .subtask-confirm,
+        .subtask-delete,
+        .subtask-edit {
+
+            &:hover {
+                filter: brightness(1.8);
+            }
+        }
+    }
+
+    .container-input {
+
+        .subtasks-field {
+            border-radius: 0;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 1px solid var(--light-blue);
+            padding: 16px 46px 4px 21px;
+            font-size: 16px;
+        }
+
+        .after-input {
+            top: 12px;
+            scale: 0.8;
+        }
+    }
+}
+
+.form-result-info {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+}
+
+.show-form-succes-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 50px;
+    background-color: var(--secundario-color);
+    border: 4px solid var(--secundario-color);
+    border-radius: 10px;
+    transform: translateY(0vh);
+    animation: succesAnimation 225ms ease-in-out;
+
+    @keyframes succesAnimation {
+        from {
+            transform: translateY(100vh);
+        }
+
+        to {
+            transform: translateY(0vh);
+        }
+    }
+
+    .result-content {
+        position: relative;
+
+        &::after {
+            position: absolute;
+            content: 'Task added to board';
+            font-size: 21px;
+            right: -145px;
+            width: max-content;
+            top: -20px;
+            text-align: center;
+            color: #FFF;
+            font-weight: 400;
+            line-height: 120%;
+            padding: 30px;
+            padding-right: 90px;
+            border-radius: 20px;
+            background: var(--dark-slate-blue);
+            box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+
+            @media(max-width: 768px) {
+                font-size: 18px;
+                padding: 22px;
+                padding-right: 60px;
+                right: -113.5px;
+            }
+
+            @media(max-width: 480px) {
+                font-size: 14px;
+                padding: 22px;
+                padding-right: 60px;
+                right: -97.5px;
+            }
+        }
+
+        &::before {
+            position: absolute;
+            content: url('../../assets/icons/board.svg');
+            right: -118px;
+            top: 7px;
+            z-index: 10;
+
+            @media(max-width: 768px) {
+                right: -97px;
+                top: -3px;
+                scale: 0.7;
+            }
+
+            @media(max-width: 480px) {
+                right: -83px;
+                top: -6px;
+                scale: 0.6;
+            }
+        }
+    }
 }

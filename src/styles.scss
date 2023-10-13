@@ -3,6 +3,7 @@
     --light-gray-2: #A8A8A8;
     --light-gray-3: #D1D1D1;
     --light-gray-4: #CDCDCD;
+    --light-blue: #005DFF;
     --dark-slate-blue: #2A3647;
     --electric-blue: #29ABE2;
     --midnight-blue: #091931;
@@ -85,6 +86,7 @@ textarea {
     }
 }
 
+// .input-checkbox,
 input[type="checkbox"] {
     margin: 0;
     border: transparent;
@@ -124,6 +126,55 @@ input[type="checkbox"] {
             top: -8px;
         }
     }
+}
+
+input[type="date"] {
+
+    // background: white url("../src/assets/icons/date.svg") no-repeat;
+
+    cursor: pointer;
+
+    // &:focus {}
+
+    // &::-webkit-datetime-edit {}
+
+    // &::-webkit-datetime-edit-fields-wrapper {}
+
+    &::-webkit-datetime-edit-month-field:hover,
+    &::-webkit-datetime-edit-day-field:hover,
+    &::-webkit-datetime-edit-year-field:hover {
+        background: rgba(0, 120, 250, 0.1);
+    }
+
+    // &::-webkit-datetime-edit-text {
+        
+    // }
+
+    &::-webkit-clear-button,
+    &::-webkit-inner-spin-button {
+        display: none;
+    }
+
+    &::-webkit-calendar-picker-indicator {
+        position: absolute;
+        top: 40px;
+        right: 21px;
+        z-index: 11;
+        opacity: 0;
+        cursor: pointer;
+        color: var(--light-gray);
+        background: var(--light-gray);
+
+    }
+
+    &:hover::-webkit-calendar-picker-indicator {
+        opacity: 0.05;
+    }
+
+    &:hover::-webkit-calendar-picker-indicator:hover {
+        opacity: 0.15;
+    }
+
 }
 
 .checkbox-label {
@@ -588,4 +639,21 @@ button[type="submit"] {
         background: var(--midnight-blue);
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     }
+}
+
+.required-symbol {
+    color: var(--warning-color);
+}
+
+.chevron-icon {
+    cursor: pointer;
+    border-radius: 50%;
+    
+    &:hover {
+        background-color: var(--light-gray);
+    }
+}
+
+.d-none {
+    display: none !important;
 }
