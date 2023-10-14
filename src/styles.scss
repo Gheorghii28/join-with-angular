@@ -147,7 +147,7 @@ input[type="date"] {
     }
 
     // &::-webkit-datetime-edit-text {
-        
+
     // }
 
     &::-webkit-clear-button,
@@ -512,7 +512,7 @@ app-nav-mobile {
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     overflow: scroll;
     -webkit-tap-highlight-color: transparent;
     -moz-tap-highlight-color: transparent;
@@ -522,6 +522,7 @@ app-nav-mobile {
 
     @media (max-width: 768px) {
         align-items: center;
+        justify-content: space-between;
     }
 
     app-header,
@@ -571,6 +572,14 @@ app-nav-mobile {
 .after-input-add-task {
     top: 40px;
     z-index: 10;
+
+    @media(max-width:1024px) {
+        top: 37px;
+    }
+
+    @media(max-width:480px) {
+        top: 35px;
+    }
 }
 
 button[type="button"] {
@@ -648,7 +657,7 @@ button[type="submit"] {
 .chevron-icon {
     cursor: pointer;
     border-radius: 50%;
-    
+
     &:hover {
         background-color: var(--light-gray);
     }
@@ -656,4 +665,12 @@ button[type="submit"] {
 
 .d-none {
     display: none !important;
+}
+
+.bottom-10 {
+    bottom: -10px !important;
+}
+
+.right0 {
+    right: 0 !important;
 }

@@ -26,7 +26,7 @@
                             </div>
                             <div class="container-input input-add-task">
                                 <label for="assigned">Assigned to<span class="required-symbol">*</span></label>
-                                <span class="before-input">{{assignedInfo.warningText}}</span>
+                                <span class="before-input bottom-10">{{assignedInfo.warningText}}</span>
                                 <input #assignedField class="assigned-field" name="assigned" type="text"
                                     [(ngModel)]="assignedInfo.inputAssignedValue" (click)="openAssignedOptions()"
                                     (input)="filteredContacts()"
@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
                                 <div *ngIf="!assignedInfo.isAssignedOptionsOpen" class="assigned-container-bottom">
-                                    <ul class="ul-initials">
+                                    <ul *ngIf="!assignedInfo.isInvalid" class="ul-initials">
                                         <li *ngFor="let contact of filteredContactList"
                                             [ngClass]="{'d-none': !contact.isChecked}"
                                             [style.background-color]="contact.color" class="initials">
@@ -82,7 +82,8 @@
                                 </div>
                             </div>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="2" height="426" viewBox="0 0 2 426" fill="none">
+                        <svg class="line-center" xmlns="http://www.w3.org/2000/svg" width="2" height="426"
+                            viewBox="0 0 2 426" fill="none">
                             <path d="M1.24805 1L1.24854 425" stroke="#D1D1D1" stroke-linecap="round" />
                         </svg>
                         <div class="top-right">
@@ -213,7 +214,7 @@
                                 <img (click)="addSubtask()" src="../../assets/icons/plus-subtasks.svg"
                                     class="after-input after-input-add-task chevron-icon">
                                 <div class="select-box subtask-box"
-                                    [ngClass]="{'d-non': !subtaskInfo.isSubtaskOptionsOpen}">
+                                    [ngClass]="{'d-none': !subtaskInfo.isSubtaskOptionsOpen}">
                                     <ul *ngIf="isUserLoaded" class="option-box">
                                         <li *ngFor="let subtask of subtaskList" (dblclick)="editSubtask(subtask)"
                                             class="option subtask-option">
@@ -260,8 +261,9 @@
                                                 <input class="subtasks-field" name="subtasks" type="text"
                                                     placeholder="Subtasks" [formControlName]="subtask.name"
                                                     [(ngModel)]="subtask.name">
-                                                <div class="after-input after-input-add-task chevron-icon">
-                                                    <svg (click)="deleteSubtask(subtask)" class="subtask-delete"
+                                                <div class="after-input after-input-add-task right0">
+                                                    <svg (click)="deleteSubtask(subtask)"
+                                                        class="subtask-delete chevron-icon"
                                                         xmlns="http://www.w3.org/2000/svg" width="25" height="24"
                                                         viewBox="0 0 25 24" fill="none">
                                                         <mask id="mask0_75601_14820" style="mask-type:alpha"
@@ -279,7 +281,8 @@
                                                         viewBox="0 0 2 24" fill="none">
                                                         <path d="M1.14453 0V24" stroke="#A8A8A8" />
                                                     </svg>
-                                                    <svg (click)="changeSubtask(subtask)" class="subtask-confirm"
+                                                    <svg (click)="changeSubtask(subtask)"
+                                                        class="subtask-confirm chevron-icon"
                                                         xmlns="http://www.w3.org/2000/svg" width="25" height="24"
                                                         viewBox="0 0 25 24" fill="none">
                                                         <mask id="mask0_75601_14826" style="mask-type:alpha"
@@ -306,16 +309,18 @@
                             <span><span class="required-symbol">*</span>This field is required</span>
                         </div>
                         <div class="bottom-right">
-                            <button type="button" (click)="clearForm()">
-                                <span>Clear</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24"
-                                    fill="none">
-                                    <path
-                                        d="M12.0692 12.0001L17.3122 17.2431M6.82617 17.2431L12.0692 12.0001L6.82617 17.2431ZM17.3122 6.75708L12.0682 12.0001L17.3122 6.75708ZM12.0682 12.0001L6.82617 6.75708L12.0682 12.0001Z"
-                                        stroke="#2A3647" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </button>
+                            <div class="btn-border">
+                                <button type="button" (click)="clearForm()">
+                                    <span>Clear</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24"
+                                        fill="none">
+                                        <path
+                                            d="M12.0692 12.0001L17.3122 17.2431M6.82617 17.2431L12.0692 12.0001L6.82617 17.2431ZM17.3122 6.75708L12.0682 12.0001L17.3122 6.75708ZM12.0682 12.0001L6.82617 6.75708L12.0682 12.0001Z"
+                                            stroke="#2A3647" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
                             <button type="submit">
                                 <span>Create Task</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24"

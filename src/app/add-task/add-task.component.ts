@@ -339,6 +339,9 @@ export class AddTaskComponent implements OnInit {
         this.subtaskList.splice(index, 1);
       }
     });
+    if(this.subtaskList.length == 0) {
+      this.subtaskInfo.isSubtaskOptionsOpen = false;
+    }
   }
 
   editSubtask(subtask: any) {
