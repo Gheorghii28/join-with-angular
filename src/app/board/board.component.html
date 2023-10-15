@@ -1,4 +1,4 @@
-<div class="page-content animate-once" *ngIf="true"><!--*ngIf="!loading"-->
+<div class="page-content animate-once" *ngIf="!loading">
     <app-nav class="menu-bg-board"></app-nav>
     <div class="section-content">
         <app-header></app-header>
@@ -22,7 +22,7 @@
                             </svg>
                         </span>
                         <input #searchField class="search-field" name="search" type="text" placeholder="Find Task"
-                            formControlName="searchField">
+                            ><!--formControlName="searchField"-->
                         <img src="../../assets/icons/search.svg" class="after-input">
                     </div>
                     <div class="btn-plus-task">
@@ -61,11 +61,39 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="tasks">
-                            <div class="no-tasks">
+                        <ul class="tasks">
+                            <li class="no-tasks" *ngIf="todoTasks.length == 0">
                                 <span>No tasks To do</span>
-                            </div>
-                        </div>
+                            </li>
+                            <li class="created-task" *ngFor="let task of todoTasks">
+                                <div class="header">
+                                    <span class="category" [style.background]="task.color">{{ task.category
+                                        }}</span>
+                                </div>
+                                <div class="title">
+                                    <h3>{{ task.title }}</h3>
+                                </div>
+                                <span class="description">{{ task.description }}</span>
+                                <div *ngIf="task.subTasks.length > 0" class="subtasks">
+                                    <div class="progress">
+                                        <div class="progress-bar" [style.width]="task.progress+'%'"></div>
+                                    </div>
+                                    <div class="subtask-count">{{ task.closedSubTasks }}/{{ task.subTasks.length }}
+                                        Subtasks</div>
+                                </div>
+                                <div class="footer">
+                                    <div class="assigned">
+                                        <ul>
+                                            <li *ngFor="let assigned of task.assigned"
+                                                [style.background]="assigned.color">
+                                                <span>{{ assigned.initials }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <img class="prio" src="../../assets/icons/prio/prio-{{ task.prio }}.svg">
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                     <div class="box-with-tasks">
                         <div class="headline-box">
@@ -79,11 +107,39 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="tasks">
-                            <div class="no-tasks">
+                        <ul class="tasks">
+                            <li class="no-tasks" *ngIf="inProgressTasks.length == 0">
                                 <span>No tasks To do</span>
-                            </div>
-                        </div>
+                            </li>
+                            <li class="created-task" *ngFor="let task of inProgressTasks">
+                                <div class="header">
+                                    <span class="category" [style.background]="task.color">{{ task.category
+                                        }}</span>
+                                </div>
+                                <div class="title">
+                                    <h3>{{ task.title }}</h3>
+                                </div>
+                                <span class="description">{{ task.description }}</span>
+                                <div *ngIf="task.subTasks.length > 0" class="subtasks">
+                                    <div class="progress">
+                                        <div class="progress-bar" [style.width]="task.progress+'%'"></div>
+                                    </div>
+                                    <div class="subtask-count">{{ task.closedSubTasks }}/{{ task.subTasks.length }}
+                                        Subtasks</div>
+                                </div>
+                                <div class="footer">
+                                    <div class="assigned">
+                                        <ul>
+                                            <li *ngFor="let assigned of task.assigned"
+                                                [style.background]="assigned.color">
+                                                <span>{{ assigned.initials }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <img class="prio" src="../../assets/icons/prio/prio-{{ task.prio }}.svg">
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="content-right">
@@ -99,11 +155,39 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="tasks">
-                            <div class="no-tasks">
+                        <ul class="tasks">
+                            <li class="no-tasks" *ngIf="awaitFeedbackTasks.length == 0">
                                 <span>No tasks To do</span>
-                            </div>
-                        </div>
+                            </li>
+                            <li class="created-task" *ngFor="let task of awaitFeedbackTasks" [ngClass]="{'d-none': task.status !== 'await-feedback'}">
+                                <div class="header">
+                                    <span class="category" [style.background]="task.color">{{ task.category
+                                        }}</span>
+                                </div>
+                                <div class="title">
+                                    <h3>{{ task.title }}</h3>
+                                </div>
+                                <span class="description">{{ task.description }}</span>
+                                <div *ngIf="task.subTasks.length > 0" class="subtasks">
+                                    <div class="progress">
+                                        <div class="progress-bar" [style.width]="task.progress+'%'"></div>
+                                    </div>
+                                    <div class="subtask-count">{{ task.closedSubTasks }}/{{ task.subTasks.length }}
+                                        Subtasks</div>
+                                </div>
+                                <div class="footer">
+                                    <div class="assigned">
+                                        <ul>
+                                            <li *ngFor="let assigned of task.assigned"
+                                                [style.background]="assigned.color">
+                                                <span>{{ assigned.initials }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <img class="prio" src="../../assets/icons/prio/prio-{{ task.prio }}.svg">
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                     <div class="box-with-tasks">
                         <div class="headline-box">
@@ -117,11 +201,39 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="tasks">
-                            <div class="no-tasks">
+                        <ul class="tasks">
+                            <li class="no-tasks" *ngIf="doneTasks.length == 0">
                                 <span>No tasks To do</span>
-                            </div>
-                        </div>
+                            </li>
+                            <li class="created-task" *ngFor="let task of doneTasks" [ngClass]="{'d-none': task.status !== 'done'}">
+                                <div class="header">
+                                    <span class="category" [style.background]="task.color">{{ task.category
+                                        }}</span>
+                                </div>
+                                <div class="title">
+                                    <h3>{{ task.title }}</h3>
+                                </div>
+                                <span class="description">{{ task.description }}</span>
+                                <div *ngIf="task.subTasks.length > 0" class="subtasks">
+                                    <div class="progress">
+                                        <div class="progress-bar" [style.width]="task.progress+'%'"></div>
+                                    </div>
+                                    <div class="subtask-count">{{ task.closedSubTasks }}/{{ task.subTasks.length }}
+                                        Subtasks</div>
+                                </div>
+                                <div class="footer">
+                                    <div class="assigned">
+                                        <ul>
+                                            <li *ngFor="let assigned of task.assigned"
+                                                [style.background]="assigned.color">
+                                                <span>{{ assigned.initials }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <img class="prio" src="../../assets/icons/prio/prio-{{ task.prio }}.svg">
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -129,6 +241,6 @@
         <app-nav-mobile class="menu-bg-board"></app-nav-mobile>
     </div>
 </div>
-<div class="load-container" *ngIf="false"><!--*ngIf="loading"-->
+<div class="load-container" *ngIf="loading">
     <img src="../../assets/icons/loading.png">
 </div>

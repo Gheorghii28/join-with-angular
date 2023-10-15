@@ -6,7 +6,7 @@
 
     @media(max-width:768px) {
         overflow: scroll;
-        
+
         @media (min-height: 568px) {
             height: calc(100vh - 156px);
         }
@@ -271,6 +271,147 @@
 
     .tasks {
         width: 100%;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        li {
+            list-style-type: none;
+        }
+
+        .created-task {
+            display: flex;
+            width: auto;
+            padding: 16px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border-radius: 24px;
+            background: var(--white);
+            box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+            transition: all 110ms ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+                box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.25);
+            }
+
+            .header {
+                width: 100%;
+
+                .category {
+                    padding: 4px 16px;
+                    border-radius: 8px;
+                    color: #FFF;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 120%;
+                }
+            }
+
+            .title {
+                width: 100%;
+                display: flex;
+                align-items: flex-start;
+
+                h3 {
+                    color: var(--dark-slate-blue);
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 120%;
+                }
+            }
+
+            .description {
+                width: 100%;
+                color: var(--light-gray-2);
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 120%;
+            }
+
+            .subtasks {
+                width: 100%;
+                display: flex;
+                gap: 15px;
+                justify-content: space-between;
+                align-items: center;
+
+                .progress {
+                    width: 100%;
+                    border-radius: 8px;
+                    background: var(--light-gray-1);
+
+                    .progress-bar {
+                        height: 8px;
+                        align-self: stretch;
+                        border-radius: 16px;
+                        background: var(--light-blue);
+                        width: 50%;
+                    }
+                }
+
+                .subtask-count {
+                    white-space: nowrap;
+                    color: var(--black);
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 120%;
+                }
+            }
+
+            .footer {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .assigned {
+                    width: 100%;
+                    overflow: scroll;
+                    max-width: 200px;
+
+                    &::-webkit-scrollbar {
+                        width: 0;
+                        height: 0;
+                    }
+
+                    ul {
+                        display: flex;
+                        padding: 0;
+                        padding-left: 8px;
+                        width: max-content;
+
+                        li {
+                            list-style-type: none;
+                            display: flex;
+                            width: 32px;
+                            height: 32px;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 10px;
+                            border-radius: 45px;
+                            border: 1px solid var(--white);
+                            margin-left: -8px;
+
+                            span {
+                                color: var(--white);
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 120%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         .no-tasks {
             display: flex;
