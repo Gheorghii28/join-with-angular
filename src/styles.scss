@@ -3,6 +3,7 @@
     --light-gray-2: #A8A8A8;
     --light-gray-3: #D1D1D1;
     --light-gray-4: #CDCDCD;
+    --light-gray-5: #E7E7E7;
     --light-blue: #005DFF;
     --dark-slate-blue: #2A3647;
     --electric-blue: #29ABE2;
@@ -13,6 +14,7 @@
     --urgent-color: #FF3D00;
     --medium-color: #FFA800;
     --low-color: #7AE229;
+    --headline-box-color: #42526E;
 }
 
 html,
@@ -29,7 +31,6 @@ body {
     box-sizing: border-box;
     background-color: var(--light-gray);
     scroll-behavior: smooth;
-    // overflow-x: hidden;
 
     &::-webkit-scrollbar {
         width: 5px;
@@ -86,7 +87,6 @@ textarea {
     }
 }
 
-// .input-checkbox,
 input[type="checkbox"] {
     margin: 0;
     border: transparent;
@@ -130,31 +130,16 @@ input[type="checkbox"] {
 
 input[type="date"] {
 
-    // background: white url("../src/assets/icons/date.svg") no-repeat;
-
     cursor: pointer;
-
-    // &:focus {}
-
-    // &::-webkit-datetime-edit {}
-
-    // &::-webkit-datetime-edit-fields-wrapper {}
-
     &::-webkit-datetime-edit-month-field:hover,
     &::-webkit-datetime-edit-day-field:hover,
     &::-webkit-datetime-edit-year-field:hover {
         background: rgba(0, 120, 250, 0.1);
     }
-
-    // &::-webkit-datetime-edit-text {
-
-    // }
-
     &::-webkit-clear-button,
     &::-webkit-inner-spin-button {
         display: none;
     }
-
     &::-webkit-calendar-picker-indicator {
         position: absolute;
         top: 40px;

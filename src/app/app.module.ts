@@ -18,6 +18,7 @@ import { HeaderComponent } from './header/header.component';
 import { NavMobileComponent } from './nav-mobile/nav-mobile.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { DatePipe } from '@angular/common';
+import { BoardComponent } from './board/board.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DatePipe } from '@angular/common';
     NavComponent,
     HeaderComponent,
     NavMobileComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule,

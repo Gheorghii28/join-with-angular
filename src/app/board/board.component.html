@@ -1,0 +1,134 @@
+<div class="page-content animate-once" *ngIf="true"><!--*ngIf="!loading"-->
+    <app-nav class="menu-bg-board"></app-nav>
+    <div class="section-content">
+        <app-header></app-header>
+        <div class="board-content">
+            <div class="headline">
+                <div class="headline-left">
+                    <h1>Board</h1>
+                    <div class="btn-plus-task">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                            <path d="M11 1V21" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            <path d="M21 11L1.00048 11.138" stroke="white" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="headline-right">
+                    <div class="container-input">
+                        <span class="before-input">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2" height="32" viewBox="0 0 2 32"
+                                fill="none">
+                                <path d="M1 0.5V31.5" stroke="#D1D1D1" />
+                            </svg>
+                        </span>
+                        <input #searchField class="search-field" name="search" type="text" placeholder="Find Task"
+                            formControlName="searchField">
+                        <img src="../../assets/icons/search.svg" class="after-input">
+                    </div>
+                    <div class="btn-plus-task">
+                        <span>Add Task</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <mask id="mask0_93752_3931" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
+                                width="32" height="32">
+                                <rect width="32" height="32" fill="#D9D9D9" />
+                            </mask>
+                            <g mask="url(#mask0_93752_3931)">
+                                <path
+                                    d="M14.666 17.3327H6.66602V14.666H14.666V6.66602H17.3327V14.666H25.3327V17.3327H17.3327V25.3327H14.666V17.3327Z"
+                                    fill="white" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="btn-plus-task-small">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                            <path d="M11 1V21" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            <path d="M21 11L1.00048 11.138" stroke="white" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="content-left">
+                    <div class="box-with-tasks">
+                        <div class="headline-box">
+                            <h2>To do</h2>
+                            <div class="btn-plus-task">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"
+                                    fill="none">
+                                    <path d="M5 1V9" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M9 5.07544L1 5.07544" stroke="#2A3647" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="tasks">
+                            <div class="no-tasks">
+                                <span>No tasks To do</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-with-tasks">
+                        <div class="headline-box">
+                            <h2>In progress</h2>
+                            <div class="btn-plus-task">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"
+                                    fill="none">
+                                    <path d="M5 1V9" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M9 5.07544L1 5.07544" stroke="#2A3647" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="tasks">
+                            <div class="no-tasks">
+                                <span>No tasks To do</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-right">
+                    <div class="box-with-tasks">
+                        <div class="headline-box">
+                            <h2>Await feedback</h2>
+                            <div class="btn-plus-task">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"
+                                    fill="none">
+                                    <path d="M5 1V9" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M9 5.07544L1 5.07544" stroke="#2A3647" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="tasks">
+                            <div class="no-tasks">
+                                <span>No tasks To do</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-with-tasks">
+                        <div class="headline-box">
+                            <h2>Done</h2>
+                            <div class="btn-plus-task">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"
+                                    fill="none">
+                                    <path d="M5 1V9" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M9 5.07544L1 5.07544" stroke="#2A3647" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="tasks">
+                            <div class="no-tasks">
+                                <span>No tasks To do</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-nav-mobile class="menu-bg-board"></app-nav-mobile>
+    </div>
+</div>
+<div class="load-container" *ngIf="false"><!--*ngIf="loading"-->
+    <img src="../../assets/icons/loading.png">
+</div>

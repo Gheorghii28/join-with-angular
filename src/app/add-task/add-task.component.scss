@@ -3,8 +3,19 @@
     font-family: 'Inter', sans-serif;
     padding-bottom: 50px;
 
-    @media (max-width: 768px) {
+    @media(max-width: 768px) {
         width: auto;
+        overflow: scroll;
+
+        @media (min-height: 568px) {
+            height: calc(100vh - 156px);
+        }
+
+
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
     }
 
     @media (max-width: 480px) {
@@ -551,10 +562,10 @@ form {
     }
 
     svg {
-        
-    @media(max-width:480px) {
-        height: 24px;
-    }
+
+        @media(max-width:480px) {
+            height: 24px;
+        }
     }
 }
 
