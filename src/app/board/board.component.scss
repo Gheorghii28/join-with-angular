@@ -278,6 +278,10 @@
 
         li {
             list-style-type: none;
+
+            * {
+                pointer-events: none;
+            }
         }
 
         .created-task {
@@ -442,4 +446,8 @@
     @media (max-width: 480px) {
         flex-direction: column;
     }
+}
+
+.rotated {
+    transform: rotate(5deg);
 }

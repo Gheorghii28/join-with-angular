@@ -9,6 +9,8 @@ export class UsersListServices {
     firestore: Firestore = inject(Firestore);
     unsubUsersList;
     userList: any = [];
+    user: any;
+    userId: any;
     constructor() {
         this.unsubUsersList = onSnapshot(this.getUsersRef(), list => {
             this.getUserList(list);
@@ -31,7 +33,7 @@ export class UsersListServices {
         });
     }
 
-    async fetchUserData(colId:any, docId:string): Promise<any> {
+    async fetchUserData(colId: any, docId: string): Promise<any> {
         const docRef = this.getUserDocRef(colId, docId);
         const docSnap = await getDoc(docRef);
 

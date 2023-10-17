@@ -61,11 +61,11 @@
                                 </svg>
                             </div>
                         </div>
-                        <ul class="tasks">
+                        <ul #tasks class="tasks" (drop)="moveTo('to-do')" (dragleave)="leaveDragging($event, 'to-do')" (dragover)="overDragging($event, 'to-do')">
                             <li class="no-tasks" *ngIf="todoTasks.length == 0">
                                 <span>No tasks To do</span>
                             </li>
-                            <li class="created-task" *ngFor="let task of todoTasks">
+                            <li class="created-task" *ngFor="let task of todoTasks" draggable="true" (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
                                 <div class="header">
                                     <span class="category" [style.background]="task.color">{{ task.category
                                         }}</span>
@@ -107,11 +107,11 @@
                                 </svg>
                             </div>
                         </div>
-                        <ul class="tasks">
+                        <ul #tasks class="tasks" (drop)="moveTo('in-progress')" (dragleave)="leaveDragging($event, 'in-progress')" (dragover)="overDragging($event, 'in-progress')">
                             <li class="no-tasks" *ngIf="inProgressTasks.length == 0">
                                 <span>No tasks To do</span>
                             </li>
-                            <li class="created-task" *ngFor="let task of inProgressTasks">
+                            <li class="created-task" *ngFor="let task of inProgressTasks" draggable="true" (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
                                 <div class="header">
                                     <span class="category" [style.background]="task.color">{{ task.category
                                         }}</span>
@@ -155,11 +155,11 @@
                                 </svg>
                             </div>
                         </div>
-                        <ul class="tasks">
+                        <ul #tasks class="tasks" (drop)="moveTo('await-feedback')" (dragleave)="leaveDragging($event, 'await-feedback')" (dragover)="overDragging($event, 'await-feedback')">
                             <li class="no-tasks" *ngIf="awaitFeedbackTasks.length == 0">
                                 <span>No tasks To do</span>
                             </li>
-                            <li class="created-task" *ngFor="let task of awaitFeedbackTasks" [ngClass]="{'d-none': task.status !== 'await-feedback'}">
+                            <li class="created-task" *ngFor="let task of awaitFeedbackTasks" draggable="true" (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
                                 <div class="header">
                                     <span class="category" [style.background]="task.color">{{ task.category
                                         }}</span>
@@ -201,11 +201,11 @@
                                 </svg>
                             </div>
                         </div>
-                        <ul class="tasks">
+                        <ul #tasks class="tasks" (drop)="moveTo('done')" (dragleave)="leaveDragging($event, 'done')" (dragover)="overDragging($event, 'done')">
                             <li class="no-tasks" *ngIf="doneTasks.length == 0">
                                 <span>No tasks To do</span>
                             </li>
-                            <li class="created-task" *ngFor="let task of doneTasks" [ngClass]="{'d-none': task.status !== 'done'}">
+                            <li class="created-task" *ngFor="let task of doneTasks" draggable="true" (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
                                 <div class="header">
                                     <span class="category" [style.background]="task.color">{{ task.category
                                         }}</span>

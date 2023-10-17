@@ -270,7 +270,7 @@ export class AddTaskComponent implements OnInit {
 
   showSuccessSymbolAndMessage() {
     this.renderer.removeClass(this.resultInfoContainer, 'show-form-load-animation');
-    this.renderer.addClass(this.resultInfoContainer, 'show-form-succes-message');
+    this.renderer.addClass(this.resultInfoContainer, 'show-form-succes-message');  
   }
 
   showErrorMessageBox(message: any) {
@@ -317,7 +317,7 @@ export class AddTaskComponent implements OnInit {
       id: new Date().getTime(),
       prio: this.addTaskFormular.controls['prioField'].value,
       progress: 0,
-      status: 'in-progress',
+      status: 'to-do',
       subTasks: this.getCreatedSubtasks(),
       title: this.addTaskFormular.controls['titleField'].value
     };

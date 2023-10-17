@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private renderer: Renderer2,
     private validation: ValidationService,
-    private usersListRef: UsersListServices,
+    private userListService: UsersListServices,
     private router: Router,
     private formBuilder: FormBuilder,
     private cdRef: ChangeDetectorRef
@@ -78,9 +78,10 @@ export class LoginComponent implements OnInit {
 
   isUserValid(email: string, password: string) {
     let isValid = false;
-    this.usersListRef['userList'].forEach((user: any) => {
+    this.userListService['userList'].forEach((user: any) => {
       if (email === user['email'] && password === user['password']) {
         this.userId = user['userId'];
+        this.userListService['userId'] = user['userId'];
         isValid = true;
       }
     });

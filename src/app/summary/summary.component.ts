@@ -26,8 +26,7 @@ export class SummaryComponent implements OnInit {
   userName: string = '';
 
   constructor(
-    private route: ActivatedRoute,
-    private usersListRef: UsersListServices
+    private userListService: UsersListServices
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +47,7 @@ export class SummaryComponent implements OnInit {
   }
 
   async getUser() {
-    const user: User = await this.usersListRef.fetchUserData('users', this.userId);
+    const user: User = await this.userListService.fetchUserData('users', this.userId);
     this.user = user;
   }
 
