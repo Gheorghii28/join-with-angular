@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, Renderer2, ViewChildren, ViewChild } from '@angular/core';
 import { User } from '../interfaces/user.interface';
 import { UsersListServices } from '../services/firebase-services/users-list.services';
 import { updateDoc } from '@angular/fire/firestore';
@@ -14,13 +14,16 @@ export class BoardComponent {
   userId: any;
   user: any;
   tasks: any;
+  filteredTasks: any;
   todoTasks: any;
   inProgressTasks: any;
   awaitFeedbackTasks: any;
   doneTasks: any;
   currentDraggedElement: any;
+  searchField: any;
 
   @ViewChildren('tasks') tasksRef!: QueryList<ElementRef>;
+  @ViewChild('searchField') searchFieldRef!: ElementRef;
 
   constructor(
     private userListService: UsersListServices,
@@ -31,12 +34,22 @@ export class BoardComponent {
     this.initializeUserId();
     this.updateData().then(() => {
       this.loading = false;
+      this.initializeFields();
     });
   }
 
   initializeUserId() {
     const storedValue = localStorage.getItem('id-key');
     this.userId = storedValue ? JSON.parse(storedValue) : null;
+  }
+
+  initializeFields() {
+    let loadInterval = setInterval(()=> {
+      if(!this.loading) {
+        this.searchField = this.searchFieldRef.nativeElement;
+        clearInterval(loadInterval);
+      }
+    }, 10);
   }
 
   async updateData() {
@@ -51,14 +64,14 @@ export class BoardComponent {
 
   initializeTasks() {
     this.tasks = this.user[`tasks`];
-    this.filterTasks();
+    this.filterTasks(this.tasks);
   }
 
-  filterTasks() {
-    this.todoTasks = this.tasks.filter((task: any) => task.status === 'to-do');
-    this.inProgressTasks = this.tasks.filter((task: any) => task.status === 'in-progress');
-    this.awaitFeedbackTasks = this.tasks.filter((task: any) => task.status === 'await-feedback');
-    this.doneTasks = this.tasks.filter((task: any) => task.status === 'done');
+  filterTasks(tasks:any) {
+    this.todoTasks = tasks.filter((task: any) => task.status === 'to-do');
+    this.inProgressTasks = tasks.filter((task: any) => task.status === 'in-progress');
+    this.awaitFeedbackTasks = tasks.filter((task: any) => task.status === 'await-feedback');
+    this.doneTasks = tasks.filter((task: any) => task.status === 'done');
   }
 
   startDragging(el: any, id: number) {
@@ -98,7 +111,7 @@ export class BoardComponent {
     await updateDoc(this.userListService.getUserDocRef('users', this.userId), {
       "tasks": this.tasks
     });
-    this.filterTasks();
+    this.filterTasks(this.tasks);
   }
 
   leaveDragging(el: any, status: string) {
@@ -110,5 +123,18 @@ export class BoardComponent {
   overDragging(el: any, status: string) {
     el.preventDefault();
     this.renderer.removeClass(el.target.parentElement, 'opacity05');
+  }
+
+  searchTask() {
+    let searchValue = this.searchField.value.toLowerCase();
+    this.filteredTasks = [];
+    this.tasks.forEach((task: any) => {
+      let title = task.title.toLowerCase();
+      let description = task.description.toLowerCase();
+      if (title.includes(searchValue) || description.includes(searchValue)) {
+        this.filteredTasks.push(task);
+      }
+    });
+    this.filterTasks(this.filteredTasks);
   }
 }

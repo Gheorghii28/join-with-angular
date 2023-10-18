@@ -21,8 +21,7 @@
                                 <path d="M1 0.5V31.5" stroke="#D1D1D1" />
                             </svg>
                         </span>
-                        <input #searchField class="search-field" name="search" type="text" placeholder="Find Task"
-                            ><!--formControlName="searchField"-->
+                        <input #searchField (input)="searchTask()" class="search-field" name="search" type="text" placeholder="Find Task">
                         <img src="../../assets/icons/search.svg" class="after-input">
                     </div>
                     <div class="btn-plus-task">
