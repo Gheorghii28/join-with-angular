@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ModalsControls } from '../services/modal-controls/modals.controls';
 
 @Component({
   selector: 'app-add-task',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AddTaskComponent {
 
+  constructor(
+    public modalControls: ModalsControls
+  ) {
+    modalControls.page = 'addTask';
+  }
 }

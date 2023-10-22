@@ -3,7 +3,7 @@
         <h1>Add Task</h1>
     </div>
     <div class="box-content">
-        <form (ngSubmit)="createTask()" ngNativeValidate [formGroup]="addTaskFormular">
+        <form (ngSubmit)="createTask(modalControls.taskStatus)" ngNativeValidate [formGroup]="addTaskFormular">
             <div class="top">
                 <div class="top-left">
                     <div class="container-input input-add-task">
@@ -25,10 +25,8 @@
                         <span class="before-input bottom-10">{{assignedInfo.warningText}}</span>
                         <input #assignedField class="assigned-field" name="assigned" type="text"
                             [(ngModel)]="assignedInfo.inputAssignedValue" (click)="openAssignedOptions()"
-                            (input)="filteredContacts()"
-                            placeholder="{{ assignedInfo.placeholderAssignedText }}"
-                            formControlName="assignedField"
-                            [ngClass]="{'error-border': assignedInfo.isInvalid}">
+                            (input)="filteredContacts()" placeholder="{{ assignedInfo.placeholderAssignedText }}"
+                            formControlName="assignedField" [ngClass]="{'error-border': assignedInfo.isInvalid}">
                         <img *ngIf="!assignedInfo.isAssignedOptionsOpen" (click)="openAssignedOptions()"
                             src="../../assets/icons/arrow_drop_bottom.svg"
                             class="after-input after-input-add-task chevron-icon">
@@ -45,18 +43,18 @@
                                         <div [style.background-color]="contact.color" class="initials"><span>{{
                                                 contact.initials }}</span></div>
                                         <div class="name">{{ contact.name }}</div>
-                                        <input (click)="chooseAssigned(contact)" class="option-input"
-                                            #checkboxField type="checkbox" [name]="'contact-' + contact.id"
+                                        <input (click)="chooseAssigned(contact)" class="option-input" #checkboxField
+                                            type="checkbox" [name]="'contact-' + contact.id"
                                             [id]="'contact-' + contact.id" [checked]="contact.isChecked">
                                     </label>
                                 </li>
                             </ul>
                             <div class="add-contact-option">
                                 <span>Add new contact</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32"
-                                    viewBox="0 0 33 32" fill="none">
-                                    <mask id="mask0_90607_7124" style="mask-type:alpha"
-                                        maskUnits="userSpaceOnUse" x="0" y="0" width="33" height="32">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32"
+                                    fill="none">
+                                    <mask id="mask0_90607_7124" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
+                                        y="0" width="33" height="32">
                                         <rect x="0.5" width="32" height="32" fill="#D9D9D9" />
                                     </mask>
                                     <g mask="url(#mask0_90607_7124)">
@@ -70,24 +68,24 @@
                         <div *ngIf="!assignedInfo.isAssignedOptionsOpen" class="assigned-container-bottom">
                             <ul *ngIf="!assignedInfo.isInvalid" class="ul-initials">
                                 <li *ngFor="let contact of filteredContactList"
-                                    [ngClass]="{'d-none': !contact.isChecked}"
-                                    [style.background-color]="contact.color" class="initials">
+                                    [ngClass]="{'d-none': !contact.isChecked}" [style.background-color]="contact.color"
+                                    class="initials">
                                     <span>{{ contact.initials }}</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <svg class="line-center" xmlns="http://www.w3.org/2000/svg" width="2" height="426"
-                    viewBox="0 0 2 426" fill="none">
+                <svg class="line-center" xmlns="http://www.w3.org/2000/svg" width="2" height="426" viewBox="0 0 2 426"
+                    fill="none">
                     <path d="M1.24805 1L1.24854 425" stroke="#D1D1D1" stroke-linecap="round" />
                 </svg>
                 <div class="top-right">
                     <div class="container-input input-add-task">
                         <label for="date">Due date<span class="required-symbol">*</span></label>
                         <span class="before-input">{{dateInfo.warningText}}</span>
-                        <input #dateField id="date" class="date-field" name="date" type="date"
-                            [min]="currentDate" placeholder="dd/mm/yyyy" formControlName="dateField"
+                        <input #dateField id="date" class="date-field" name="date" type="date" [min]="currentDate"
+                            placeholder="dd/mm/yyyy" formControlName="dateField"
                             [ngClass]="{'error-border': dateInfo.isInvalid}">
                         <img src="../../assets/icons/date.svg" class="after-input after-input-add-task">
                     </div>
@@ -97,9 +95,8 @@
                             <span>Prio<span class="required-symbol">*</span></span>
                             <div class="radio-tile-group" [ngClass]="{'error-border': prioInfo.isInvalid}">
                                 <div class="prio-input-container">
-                                    <input (click)="choosePrio()" id="urgent" class="radio-button"
-                                        value="urgent" formControlName="prioField" type="radio"
-                                        name="prioField">
+                                    <input (click)="choosePrio()" id="urgent" class="radio-button" value="urgent"
+                                        formControlName="prioField" type="radio" name="prioField">
                                     <div class="radio-tile urgent-tile">
                                         <div class="icon urgent-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="16"
@@ -124,9 +121,8 @@
                                     </div>
                                 </div>
                                 <div class="prio-input-container">
-                                    <input (click)="choosePrio()" id="medium" class="radio-button"
-                                        value="medium" formControlName="prioField" type="radio"
-                                        name="prioField">
+                                    <input (click)="choosePrio()" id="medium" class="radio-button" value="medium"
+                                        formControlName="prioField" type="radio" name="prioField">
                                     <div class="radio-tile medium-tile">
                                         <div class="icon medium-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="8"
@@ -176,10 +172,8 @@
                         <span class="before-input">{{categoryInfo.warningText}}</span>
                         <input #categoryField class="category-field" name="category" type="text"
                             [(ngModel)]="categoryInfo.inputCategoryValue" (click)="openCategoryOptions()"
-                            (input)="filteredCategorys()"
-                            placeholder="{{ categoryInfo.placeholderCategoryText }}"
-                            formControlName="categoryField"
-                            [ngClass]="{'error-border': categoryInfo.isInvalid}">
+                            (input)="filteredCategorys()" placeholder="{{ categoryInfo.placeholderCategoryText }}"
+                            formControlName="categoryField" [ngClass]="{'error-border': categoryInfo.isInvalid}">
                         <img *ngIf="!categoryInfo.isCategoryOptionsOpen" (click)="openCategoryOptions()"
                             src="../../assets/icons/arrow_drop_bottom.svg"
                             class="after-input after-input-add-task chevron-icon">
@@ -190,8 +184,7 @@
                             <ul *ngIf="isUserLoaded" class="option-box">
                                 <li *ngFor="let category of categoryInfo.filteredCategoryList"
                                     (click)="chooseCategory(category.name)"
-                                    [ngClass]="{'d-none': !category.isNotHidden}"
-                                    class="option category-option">
+                                    [ngClass]="{'d-none': !category.isNotHidden}" class="option category-option">
                                     <div class="container-name">
                                         <div class="name">{{ category.name }}</div>
                                     </div>
@@ -204,13 +197,11 @@
                     </div>
                     <div class="container-input input-add-task">
                         <label for="subtasks">Subtasks</label>
-                        <input #subtasksField class="subtasks-field" name="subtasks" type="text"
-                            placeholder="Subtasks" formControlName="subtasksField"
-                            [(ngModel)]="subtaskInfo.inputSubtaskValue">
+                        <input #subtasksField class="subtasks-field" name="subtasks" type="text" placeholder="Subtasks"
+                            formControlName="subtasksField" [(ngModel)]="subtaskInfo.inputSubtaskValue">
                         <img (click)="addSubtask()" src="../../assets/icons/plus-subtasks.svg"
                             class="after-input after-input-add-task chevron-icon">
-                        <div class="select-box subtask-box"
-                            [ngClass]="{'d-none': !subtaskInfo.isSubtaskOptionsOpen}">
+                        <div class="select-box subtask-box" [ngClass]="{'d-none': !subtaskInfo.isSubtaskOptionsOpen}">
                             <ul *ngIf="isUserLoaded" class="option-box">
                                 <li *ngFor="let subtask of subtaskList" (dblclick)="editSubtask(subtask)"
                                     class="option subtask-option">
@@ -223,8 +214,7 @@
                                                 xmlns="http://www.w3.org/2000/svg" width="25" height="24"
                                                 viewBox="0 0 25 24" fill="none">
                                                 <mask id="mask0_75601_14818" style="mask-type:alpha"
-                                                    maskUnits="userSpaceOnUse" x="0" y="0" width="25"
-                                                    height="24">
+                                                    maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
                                                     <rect x="0.144531" width="24" height="24" fill="#D9D9D9" />
                                                 </mask>
                                                 <g mask="url(#mask0_75601_14818)">
@@ -241,8 +231,7 @@
                                                 xmlns="http://www.w3.org/2000/svg" width="25" height="24"
                                                 viewBox="0 0 25 24" fill="none">
                                                 <mask id="mask0_75601_14820" style="mask-type:alpha"
-                                                    maskUnits="userSpaceOnUse" x="0" y="0" width="25"
-                                                    height="24">
+                                                    maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
                                                     <rect x="0.144531" width="24" height="24" fill="#D9D9D9" />
                                                 </mask>
                                                 <g mask="url(#mask0_75601_14820)">
@@ -254,17 +243,14 @@
                                         </div>
                                     </div>
                                     <div *ngIf="subtask.isEditOpen" class="container-input input-add-task">
-                                        <input class="subtasks-field" name="subtasks" type="text"
-                                            placeholder="Subtasks" [formControlName]="subtask.name"
-                                            [(ngModel)]="subtask.name">
+                                        <input class="subtasks-field" name="subtasks" type="text" placeholder="Subtasks"
+                                            [formControlName]="subtask.name" [(ngModel)]="subtask.name">
                                         <div class="after-input after-input-add-task right0">
-                                            <svg (click)="deleteSubtask(subtask)"
-                                                class="subtask-delete chevron-icon"
+                                            <svg (click)="deleteSubtask(subtask)" class="subtask-delete chevron-icon"
                                                 xmlns="http://www.w3.org/2000/svg" width="25" height="24"
                                                 viewBox="0 0 25 24" fill="none">
                                                 <mask id="mask0_75601_14820" style="mask-type:alpha"
-                                                    maskUnits="userSpaceOnUse" x="0" y="0" width="25"
-                                                    height="24">
+                                                    maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
                                                     <rect x="0.144531" width="24" height="24" fill="#D9D9D9" />
                                                 </mask>
                                                 <g mask="url(#mask0_75601_14820)">
@@ -277,13 +263,11 @@
                                                 viewBox="0 0 2 24" fill="none">
                                                 <path d="M1.14453 0V24" stroke="#A8A8A8" />
                                             </svg>
-                                            <svg (click)="changeSubtask(subtask)"
-                                                class="subtask-confirm chevron-icon"
+                                            <svg (click)="changeSubtask(subtask)" class="subtask-confirm chevron-icon"
                                                 xmlns="http://www.w3.org/2000/svg" width="25" height="24"
                                                 viewBox="0 0 25 24" fill="none">
                                                 <mask id="mask0_75601_14826" style="mask-type:alpha"
-                                                    maskUnits="userSpaceOnUse" x="0" y="0" width="25"
-                                                    height="24">
+                                                    maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
                                                     <rect x="0.144531" width="24" height="24" fill="#D9D9D9" />
                                                 </mask>
                                                 <g mask="url(#mask0_75601_14826)">
@@ -312,17 +296,15 @@
                                 fill="none">
                                 <path
                                     d="M12.0692 12.0001L17.3122 17.2431M6.82617 17.2431L12.0692 12.0001L6.82617 17.2431ZM17.3122 6.75708L12.0682 12.0001L17.3122 6.75708ZM12.0682 12.0001L6.82617 6.75708L12.0682 12.0001Z"
-                                    stroke="#2A3647" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" />
+                                    stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </button>
                     </div>
                     <button type="submit">
                         <span>Create Task</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24"
-                            fill="none">
-                            <mask id="mask0_71766_6020" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
-                                y="0" width="25" height="24">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                            <mask id="mask0_71766_6020" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
+                                width="25" height="24">
                                 <rect x="0.0683594" width="24" height="24" fill="#D9D9D9" />
                             </mask>
                             <g mask="url(#mask0_71766_6020)">
@@ -336,9 +318,15 @@
             </div>
         </form>
     </div>
-</div>
-<div #formResultInfo>
-    <div #sendResultInfo>
-        <div class="result-content"></div>
-    </div>
+    <svg (click)="modalControls.closeTaskForm()" class="close-task-form" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <mask id="mask0_95278_5574" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24"
+            height="24">
+            <rect width="24" height="24" fill="#D9D9D9" />
+        </mask>
+        <g mask="url(#mask0_95278_5574)">
+            <path
+                d="M12 13.4L7.1 18.3C6.91667 18.4834 6.68333 18.575 6.4 18.575C6.11667 18.575 5.88333 18.4834 5.7 18.3C5.51667 18.1167 5.425 17.8834 5.425 17.6C5.425 17.3167 5.51667 17.0834 5.7 16.9L10.6 12L5.7 7.10005C5.51667 6.91672 5.425 6.68338 5.425 6.40005C5.425 6.11672 5.51667 5.88338 5.7 5.70005C5.88333 5.51672 6.11667 5.42505 6.4 5.42505C6.68333 5.42505 6.91667 5.51672 7.1 5.70005L12 10.6L16.9 5.70005C17.0833 5.51672 17.3167 5.42505 17.6 5.42505C17.8833 5.42505 18.1167 5.51672 18.3 5.70005C18.4833 5.88338 18.575 6.11672 18.575 6.40005C18.575 6.68338 18.4833 6.91672 18.3 7.10005L13.4 12L18.3 16.9C18.4833 17.0834 18.575 17.3167 18.575 17.6C18.575 17.8834 18.4833 18.1167 18.3 18.3C18.1167 18.4834 17.8833 18.575 17.6 18.575C17.3167 18.575 17.0833 18.4834 16.9 18.3L12 13.4Z"
+                fill="#2A3647" />
+        </g>
+    </svg>
 </div>

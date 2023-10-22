@@ -6,7 +6,7 @@
             <div class="headline">
                 <div class="headline-left">
                     <h1>Board</h1>
-                    <div class="btn-plus-task">
+                    <div class="btn-plus-task" (click)="modalControls.openTaskForm('to-do')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
                             <path d="M11 1V21" stroke="white" stroke-width="2" stroke-linecap="round" />
                             <path d="M21 11L1.00048 11.138" stroke="white" stroke-width="2" stroke-linecap="round" />
@@ -21,10 +21,11 @@
                                 <path d="M1 0.5V31.5" stroke="#D1D1D1" />
                             </svg>
                         </span>
-                        <input #searchField (input)="searchTask()" class="search-field" name="search" type="text" placeholder="Find Task">
+                        <input #searchField (input)="searchTask()" class="search-field" name="search" type="text"
+                            placeholder="Find Task">
                         <img src="../../assets/icons/search.svg" class="after-input">
                     </div>
-                    <div class="btn-plus-task">
+                    <div (click)="modalControls.openTaskForm('to-do')" class="btn-plus-task">
                         <span>Add Task</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                             <mask id="mask0_93752_3931" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
@@ -38,7 +39,7 @@
                             </g>
                         </svg>
                     </div>
-                    <div class="btn-plus-task-small">
+                    <div (click)="modalControls.openTaskForm('to-do')" class="btn-plus-task-small">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
                             <path d="M11 1V21" stroke="white" stroke-width="2" stroke-linecap="round" />
                             <path d="M21 11L1.00048 11.138" stroke="white" stroke-width="2" stroke-linecap="round" />
@@ -51,7 +52,7 @@
                     <div class="box-with-tasks">
                         <div class="headline-box">
                             <h2>To do</h2>
-                            <div class="btn-plus-task">
+                            <div (click)="modalControls.openTaskForm('to-do')" class="btn-plus-task">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"
                                     fill="none">
                                     <path d="M5 1V9" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
@@ -60,11 +61,14 @@
                                 </svg>
                             </div>
                         </div>
-                        <ul #tasks class="tasks" (drop)="moveTo('to-do')" (dragleave)="leaveDragging($event, 'to-do')" (dragover)="overDragging($event, 'to-do')">
+                        <ul #tasks class="tasks" (drop)="moveTo('to-do')" (dragleave)="leaveDragging($event, 'to-do')"
+                            (dragover)="overDragging($event, 'to-do')">
                             <li class="no-tasks" *ngIf="todoTasks.length == 0">
                                 <span>No tasks To do</span>
                             </li>
-                            <li class="created-task" *ngFor="let task of todoTasks" draggable="true" (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
+                            <li class="created-task" *ngFor="let task of todoTasks" draggable="true"
+                                (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)"
+                                (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
                                 <div class="header">
                                     <span class="category" [style.background]="task.color">{{ task.category
                                         }}</span>
@@ -97,7 +101,7 @@
                     <div class="box-with-tasks">
                         <div class="headline-box">
                             <h2>In progress</h2>
-                            <div class="btn-plus-task">
+                            <div (click)="modalControls.openTaskForm('in-progress')" class="btn-plus-task">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"
                                     fill="none">
                                     <path d="M5 1V9" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
@@ -106,11 +110,15 @@
                                 </svg>
                             </div>
                         </div>
-                        <ul #tasks class="tasks" (drop)="moveTo('in-progress')" (dragleave)="leaveDragging($event, 'in-progress')" (dragover)="overDragging($event, 'in-progress')">
+                        <ul #tasks class="tasks" (drop)="moveTo('in-progress')"
+                            (dragleave)="leaveDragging($event, 'in-progress')"
+                            (dragover)="overDragging($event, 'in-progress')">
                             <li class="no-tasks" *ngIf="inProgressTasks.length == 0">
                                 <span>No tasks To do</span>
                             </li>
-                            <li class="created-task" *ngFor="let task of inProgressTasks" draggable="true" (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
+                            <li class="created-task" *ngFor="let task of inProgressTasks" draggable="true"
+                                (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)"
+                                (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
                                 <div class="header">
                                     <span class="category" [style.background]="task.color">{{ task.category
                                         }}</span>
@@ -145,7 +153,7 @@
                     <div class="box-with-tasks">
                         <div class="headline-box">
                             <h2>Await feedback</h2>
-                            <div class="btn-plus-task">
+                            <div (click)="modalControls.openTaskForm('await-feedback')" class="btn-plus-task">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"
                                     fill="none">
                                     <path d="M5 1V9" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
@@ -154,11 +162,15 @@
                                 </svg>
                             </div>
                         </div>
-                        <ul #tasks class="tasks" (drop)="moveTo('await-feedback')" (dragleave)="leaveDragging($event, 'await-feedback')" (dragover)="overDragging($event, 'await-feedback')">
+                        <ul #tasks class="tasks" (drop)="moveTo('await-feedback')"
+                            (dragleave)="leaveDragging($event, 'await-feedback')"
+                            (dragover)="overDragging($event, 'await-feedback')">
                             <li class="no-tasks" *ngIf="awaitFeedbackTasks.length == 0">
                                 <span>No tasks To do</span>
                             </li>
-                            <li class="created-task" *ngFor="let task of awaitFeedbackTasks" draggable="true" (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
+                            <li class="created-task" *ngFor="let task of awaitFeedbackTasks" draggable="true"
+                                (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)"
+                                (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
                                 <div class="header">
                                     <span class="category" [style.background]="task.color">{{ task.category
                                         }}</span>
@@ -191,7 +203,7 @@
                     <div class="box-with-tasks">
                         <div class="headline-box">
                             <h2>Done</h2>
-                            <div class="btn-plus-task">
+                            <div (click)="modalControls.openTaskForm('done')" class="btn-plus-task">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"
                                     fill="none">
                                     <path d="M5 1V9" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
@@ -200,11 +212,14 @@
                                 </svg>
                             </div>
                         </div>
-                        <ul #tasks class="tasks" (drop)="moveTo('done')" (dragleave)="leaveDragging($event, 'done')" (dragover)="overDragging($event, 'done')">
+                        <ul #tasks class="tasks" (drop)="moveTo('done')" (dragleave)="leaveDragging($event, 'done')"
+                            (dragover)="overDragging($event, 'done')">
                             <li class="no-tasks" *ngIf="doneTasks.length == 0">
                                 <span>No tasks To do</span>
                             </li>
-                            <li class="created-task" *ngFor="let task of doneTasks" draggable="true" (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
+                            <li class="created-task" *ngFor="let task of doneTasks" draggable="true"
+                                (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)"
+                                (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
                                 <div class="header">
                                     <span class="category" [style.background]="task.color">{{ task.category
                                         }}</span>
@@ -238,6 +253,15 @@
             </div>
         </div>
         <app-nav-mobile class="menu-bg-board"></app-nav-mobile>
+    </div>
+    <div *ngIf="modalControls.isModalContainerOpen" class="modal-dialogs">
+        <div (click)="modalControls.closeTaskForm()" class="overlay"></div>
+        <app-modal-task-form *ngIf="modalControls.isTaskFormOpen" class="task-form-board move-left"></app-modal-task-form>
+        <div #formResultInfo [ngClass]="{'form-result-info': modalControls.isResultInfoOpen, 'opacity-null': modalControls.isResultInfoHidden}">
+            <div #sendResultInfo [ngClass]="{'show-form-load-animation': modalControls.isTaskLoading, 'show-form-succes-message': modalControls.isTaskSaved}">
+                <div class="result-content"></div>
+            </div>
+        </div>
     </div>
 </div>
 <div class="load-container" *ngIf="loading">

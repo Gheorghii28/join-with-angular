@@ -132,15 +132,18 @@ input[type="checkbox"] {
 input[type="date"] {
 
     cursor: pointer;
+
     &::-webkit-datetime-edit-month-field:hover,
     &::-webkit-datetime-edit-day-field:hover,
     &::-webkit-datetime-edit-year-field:hover {
         background: rgba(0, 120, 250, 0.1);
     }
+
     &::-webkit-clear-button,
     &::-webkit-inner-spin-button {
         display: none;
     }
+
     &::-webkit-calendar-picker-indicator {
         position: absolute;
         top: 40px;
@@ -429,7 +432,7 @@ input[type="date"] {
 }
 
 .opacity-null {
-    animation: opacityAnimation 2000ms ease-in;
+    animation: opacityAnimation 1500ms ease-in;
     opacity: 0;
 
     @keyframes opacityAnimation {
@@ -663,4 +666,60 @@ button[type="submit"] {
 
 .opacity05 {
     opacity: 0.5;
+}
+
+.task-form-board {
+
+    .headline {
+        h1 {
+            margin-top: 64px;
+        }
+
+        @media (max-width: 768px) {
+            margin-top: 20px !important;
+        }
+    }
+
+    form {
+        padding-bottom: 50px !important;
+
+        @media(max-width: 768px) {
+            padding-bottom: 0 !important;
+        }
+    }
+
+    .add-task-content {
+
+        @media(max-width: 1024px) {
+            display: flex !important;
+            flex-direction: column !important;
+            width: max-content !important;
+        }
+
+        @media(max-width: 768px) {
+
+            @media (min-height: 568px) {
+                height: 100% !important;
+            }
+        }
+    }
+
+    .close-task-form {
+        display: block !important;
+        
+    }
+}
+
+@keyframes moveLeft {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+.move-left {
+    animation: moveLeft 225ms ease-in-out forwards;
 }

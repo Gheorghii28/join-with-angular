@@ -745,100 +745,6 @@ form {
     }
 }
 
-.form-result-info {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    z-index: 10;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba($color: #000000, $alpha: 0.5);
-}
-
-.show-form-succes-message {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 250px;
-    height: 50px;
-    background-color: var(--secundario-color);
-    border: 4px solid var(--secundario-color);
-    border-radius: 10px;
-    transform: translateY(0vh);
-    animation: succesAnimation 225ms ease-in-out;
-
-    @keyframes succesAnimation {
-        from {
-            transform: translateY(100vh);
-        }
-
-        to {
-            transform: translateY(0vh);
-        }
-    }
-
-    .result-content {
-        position: relative;
-
-        &::after {
-            position: absolute;
-            content: 'Task added to board';
-            font-size: 21px;
-            right: -145px;
-            width: max-content;
-            top: -20px;
-            text-align: center;
-            color: #FFF;
-            font-weight: 400;
-            line-height: 120%;
-            padding: 30px;
-            padding-right: 90px;
-            border-radius: 20px;
-            background: var(--dark-slate-blue);
-            box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
-
-            @media(max-width: 768px) {
-                font-size: 18px;
-                padding: 22px;
-                padding-right: 60px;
-                right: -113.5px;
-            }
-
-            @media(max-width: 480px) {
-                font-size: 14px;
-                padding: 22px;
-                padding-right: 60px;
-                right: -97.5px;
-            }
-        }
-
-        &::before {
-            position: absolute;
-            content: url('../../assets/icons/board.svg');
-            right: -118px;
-            top: 7px;
-            z-index: 10;
-
-            @media(max-width: 768px) {
-                right: -97px;
-                top: -3px;
-                scale: 0.7;
-            }
-
-            @media(max-width: 480px) {
-                right: -83px;
-                top: -6px;
-                scale: 0.6;
-            }
-        }
-    }
-}
-
 input[type=text],
 input[type=date],
 textarea {
@@ -900,5 +806,29 @@ button[type="submit"] {
 
     @media(max-width: 480px) {
         bottom: -18px;
+    }
+}
+
+.close-task-form {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 44px;
+    cursor: pointer;
+    transition: all 225ms ease-in-out;
+
+    &:hover {
+        filter: brightness(1.8);
+        scale: 1.1;
+    }
+
+    @media(max-width: 480px) {
+        top: 24px;
+        right: 16px;
+        scale: 0.8;
+
+        &:hover {
+            scale: 0.9;
+        }
     }
 }

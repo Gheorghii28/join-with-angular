@@ -1,9 +1,10 @@
-import { Component, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { updateDoc } from '@firebase/firestore';
 import { UsersListServices } from '../services/firebase-services/users-list.services';
 import { Contact, Task, User } from '../interfaces/user.interface';
 import { DataServices } from '../services/data-services/data.services';
+import { ModalsControls } from '../services/modal-controls/modals.controls';
 
 @Component({
   selector: 'app-modal-task-form',
@@ -26,8 +27,6 @@ export class ModalTaskFormComponent {
   allFieldsInfo: any = [];
   filteredContactList: any;
   subtaskList: { name: string, isEditOpen: boolean }[] = [];
-  formResult: any;
-  resultInfoContainer: any;
   formGroup: any = {
     titleField: ['', [Validators.required]],
     descriptionField: ['', [Validators.required]],
@@ -44,22 +43,18 @@ export class ModalTaskFormComponent {
   @ViewChild('titleField') titleFieldRef!: ElementRef;
   @ViewChild('descriptionField') descriptionFieldRef!: ElementRef;
   @ViewChild('dateField') dateFieldRef!: ElementRef;
-  @ViewChild('sendResultInfo') sendResultInfo!: ElementRef;
-  @ViewChild('formResultInfo') formResultInfo!: ElementRef;
 
   constructor(
     private userListService: UsersListServices,
     private dataService: DataServices,
-    private renderer: Renderer2,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public modalControls: ModalsControls
   ) {
     this.initFildsInfo();
   }
-  
+
   ngAfterViewInit() {
     this.initializeFields();
-    this.resultInfoContainer = this.sendResultInfo.nativeElement;
-    this.formResult = this.formResultInfo.nativeElement;
   }
 
   ngOnInit(): void {
@@ -146,7 +141,7 @@ export class ModalTaskFormComponent {
       inputSubtaskValue: '',
     }
   }
-  
+
   initializeUserId() {
     const storedValue = localStorage.getItem('id-key');
     this.userId = storedValue ? JSON.parse(storedValue) : null;
@@ -183,10 +178,10 @@ export class ModalTaskFormComponent {
     this.filteredContactList.sort((a: any, b: any) => a.name.localeCompare(b.name));
   }
 
-  createTask() {
+  createTask(status:string) {
     if (this.formIsValid()) {
       this.disableFormElements(true);
-      this.addTask();
+      this.addTask(status);
       this.disableFormElements(false);
       this.clearForm();
     }
@@ -207,30 +202,30 @@ export class ModalTaskFormComponent {
     }
     return isValid;
   }
-  
+
   disableFormElements(disabledValue: boolean) {
-    this.allFieldsInfo.forEach((fieldInfo:any) => {
-      if(fieldInfo.field) {
+    this.allFieldsInfo.forEach((fieldInfo: any) => {
+      if (fieldInfo.field) {
         fieldInfo.field.disabled = disabledValue;
       }
     });
   }
-  
-  async addTask() {
+
+  async addTask(status:string) {
     try {
-      const newTask = this.getCreatedNewTask();
-      this.showLoadingAnimation();
+      const newTask = this.getCreatedNewTask(status);
+      this.modalControls.showLoadingAnimation();
       await updateDoc(this.userListService.getUserDocRef('users', this.userId), {
         "tasks": this.getUpdatedTasks(newTask)
       });
-      this.showSuccessSymbolAndMessage();
+      this.modalControls.showSuccessSymbolAndMessage();
     } catch (error) {
       this.showErrorMessageBox(error);
     } finally {
-      this.hideLoadingAnimation();
+      this.modalControls.hideLoadingAnimation();
     }
   }
-  
+
   clearForm() {
     this.createForm();
     this.clearAllRequiredInfo();
@@ -241,7 +236,7 @@ export class ModalTaskFormComponent {
     this.closeCategoryField();
     this.subtaskList = [];
   }
-  
+
   checkField(isValid: boolean, fieldInfo: any, fieldName: string) {
     this.clearRequiredInfo(fieldInfo);
     let value = this.addTaskFormular.controls[fieldName].value;
@@ -249,7 +244,7 @@ export class ModalTaskFormComponent {
       this.showRequiredInfo(fieldInfo, isValid);
     }
   }
-  
+
   checkAssignedField(isValid: boolean) {
     this.clearRequiredInfo(this.assignedInfo);
     this.assignedInfo.taskAssigned = [];
@@ -262,13 +257,13 @@ export class ModalTaskFormComponent {
       this.showRequiredInfo(this.assignedInfo, isValid);
     }
   }
-  
+
   clearRequiredInfo(fieldInfo: any) {
     fieldInfo.warningText = '';
     fieldInfo.isInvalid = false;
   }
-  
-  getCreatedNewTask() {
+
+  getCreatedNewTask(status:string) {
     return {
       assigned: this.assignedInfo.taskAssigned,
       category: this.categoryInfo.categoryValue,
@@ -279,75 +274,54 @@ export class ModalTaskFormComponent {
       id: new Date().getTime(),
       prio: this.addTaskFormular.controls['prioField'].value,
       progress: 0,
-      status: 'to-do',
+      status: status,
       subTasks: this.getCreatedSubtasks(),
       title: this.addTaskFormular.controls['titleField'].value
     };
-  }
-  
-  showLoadingAnimation() {
-    this.renderer.addClass(this.formResult, 'form-result-info');
-    this.renderer.addClass(this.resultInfoContainer, 'show-form-load-animation');
-  }
-
-  showSuccessSymbolAndMessage() {
-    this.renderer.removeClass(this.resultInfoContainer, 'show-form-load-animation');
-    this.renderer.addClass(this.resultInfoContainer, 'show-form-succes-message');  
   }
 
   showErrorMessageBox(message: any) {
     console.log(message);
   }
 
-  hideLoadingAnimation() {
-    this.renderer.addClass(this.formResult, 'opacity-null');
-    setTimeout(() => {
-      this.renderer.removeClass(this.formResult, 'form-result-info');
-      this.renderer.removeClass(this.resultInfoContainer, 'show-form-load-animation');
-      this.renderer.removeClass(this.resultInfoContainer, 'show-form-succes-message');
-      this.renderer.removeClass(this.resultInfoContainer, 'show-form-error-message');
-      this.renderer.removeClass(this.formResult, 'opacity-null');
-    }, 2000);
-  }
-  
   getUpdatedTasks(newTask: Task) {
     let tasksUpdated = this.user.tasks;
     tasksUpdated.push(newTask);
     return tasksUpdated;
   }
-  
+
   createForm() {
     this.addTaskFormular = this.formBuilder.group(this.formGroup);
   }
-  
+
   clearAllRequiredInfo() {
     this.allFieldsInfo.forEach((fieldInfo: any) => {
       this.clearRequiredInfo(fieldInfo);
     });
   }
-  
+
   closeAssignedOptions() {
     this.restoreAssignedPlaceholder();
     this.assignedInfo.isAssignedOptionsOpen = false;
   }
-  
+
   closeCategoryField() {
     this.categoryInfo.categoryValue = '';
     this.categoryInfo.inputCategoryValue = '';
     this.categoryInfo.placeholderCategoryText = 'Select task category';
     this.categoryInfo.isCategoryOptionsOpen = false;
   }
-  
+
   isFieldEmpty(field: string, value: string) {
     return this.addTaskFormular.controls[field].errors && value.length == 0;
   }
-  
-  showRequiredInfo(fieldInfo:any, isValid:boolean) {
+
+  showRequiredInfo(fieldInfo: any, isValid: boolean) {
     fieldInfo.warningText = 'This field is required';
     isValid = false;
     fieldInfo.isInvalid = !isValid;
   }
-  
+
   getCreatedSubtasks() {
     let newSubtasks: any = [];
     this.subtaskList.forEach((subtask: any) => {
@@ -359,7 +333,7 @@ export class ModalTaskFormComponent {
     });
     return newSubtasks;
   }
-  
+
   restoreAssignedPlaceholder() {
     this.addTaskFormular.patchValue({ assignedField: '' });
     if (!this.assignedInfo.inputAssignedValue || this.assignedInfo.inputAssignedValue.length == 0) {
@@ -373,65 +347,65 @@ export class ModalTaskFormComponent {
     this.assignedInfo.isAssignedOptionsOpen = true;
     this.filteredContactList = this.getFilteredContactList('');
   }
-  
+
   clearAssignedPlaceholder() {
     this.assignedInfo.placeholderAssignedText = '';
   }
-  
+
   getFilteredContactList(inputValue: string) {
     return this.filteredContactList.map((contact: any) => {
       const matches = contact.name.toLowerCase().startsWith(inputValue.toLowerCase());
       return { ...contact, isNotHidden: matches };
     });
   }
-  
+
   getFilteredCategoryList(inputValue: string) {
     return this.categoryInfo.filteredCategoryList.map((category: any) => {
       const matches = category.name.toLowerCase().startsWith(inputValue.toLowerCase());
       return { ...category, isNotHidden: matches };
     });
   }
-  
+
   filteredContacts() {
     this.filteredContactList = this.getFilteredContactList(this.assignedInfo.inputAssignedValue);
   }
-  
+
   filteredCategorys() {
     this.categoryInfo.filteredCategoryList = this.getFilteredCategoryList(this.categoryInfo.inputCategoryValue);
     this.categoryInfo.categoryValue = '';
   }
-  
+
   chooseAssigned(contact: any) {
     contact.isChecked = !contact.isChecked;
   }
-  
+
   choosePrio() {
     this.clearRequiredInfo(this.prioInfo);
   }
-  
+
   openCategoryOptions() {
     this.clearCategoryPlaceholder();
     this.categoryInfo.field.focus();
     this.categoryInfo.isCategoryOptionsOpen = true;
     this.categoryInfo.filteredCategoryList = this.getFilteredCategoryList('');
   }
-  
+
   clearCategoryPlaceholder() {
     this.categoryInfo.placeholderCategoryText = '';
   }
-  
+
   closeCategoryOptions() {
     this.restoreCategoryPlaceholder();
     this.categoryInfo.isCategoryOptionsOpen = false;
   }
-  
+
   restoreCategoryPlaceholder() {
     this.addTaskFormular.patchValue({ categoryField: '' });
     if (!this.categoryInfo.inputCategoryValue || this.categoryInfo.inputCategoryValue.length == 0) {
       this.categoryInfo.placeholderCategoryText = 'Select task category';
     }
   }
-  
+
   chooseCategory(categoryValue: string) {
     this.clearRequiredInfo(this.categoryInfo);
     this.categoryInfo.categoryValue = categoryValue;
@@ -439,7 +413,7 @@ export class ModalTaskFormComponent {
     this.categoryInfo.placeholderCategoryText = categoryValue;
     this.categoryInfo.isCategoryOptionsOpen = false;
   }
-  
+
   addSubtask() {
     if (this.subtaskInfo.inputSubtaskValue.length > 0) {
       this.subtaskList.push({ name: this.subtaskInfo.inputSubtaskValue, isEditOpen: false })
@@ -449,14 +423,14 @@ export class ModalTaskFormComponent {
     }
     this.addTaskFormular.patchValue({ subtasksField: '' });
   }
-  
+
   deleteSubtask(subtask: any) {
     this.subtaskList.forEach((item, index) => {
       if (item.name === subtask.name) {
         this.subtaskList.splice(index, 1);
       }
     });
-    if(this.subtaskList.length == 0) {
+    if (this.subtaskList.length == 0) {
       this.subtaskInfo.isSubtaskOptionsOpen = false;
     }
   }
@@ -465,18 +439,18 @@ export class ModalTaskFormComponent {
     this.createFormWithSubtask();
     subtask.isEditOpen = true;
   }
-  
+
   changeSubtask(subtask: any) {
     let formGroup = this.formBuilder.group(this.getFormGroupWithSubtask());
     let newName = formGroup.controls[subtask.name].value;
     subtask.name = newName;
     subtask.isEditOpen = false;
   }
-  
+
   createFormWithSubtask() {
     this.addTaskFormular = this.formBuilder.group(this.getFormGroupWithSubtask());
   }
-  
+
   getFormGroupWithSubtask() {
     let formControls: any = {
       titleField: [this.titleInfo.field.value, [Validators.required]],
@@ -492,5 +466,4 @@ export class ModalTaskFormComponent {
     }
     return formControls;
   }
-
 }

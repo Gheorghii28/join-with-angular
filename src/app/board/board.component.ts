@@ -2,6 +2,7 @@ import { Component, ElementRef, QueryList, Renderer2, ViewChildren, ViewChild } 
 import { User } from '../interfaces/user.interface';
 import { UsersListServices } from '../services/firebase-services/users-list.services';
 import { updateDoc } from '@angular/fire/firestore';
+import { ModalsControls } from '../services/modal-controls/modals.controls';
 
 @Component({
   selector: 'app-board',
@@ -27,8 +28,11 @@ export class BoardComponent {
 
   constructor(
     private userListService: UsersListServices,
-    private renderer: Renderer2
-  ) { }
+    private renderer: Renderer2,
+    public modalControls: ModalsControls
+  ) {
+    modalControls.page = 'board';
+  }
 
   ngOnInit(): void {
     this.initializeUserId();
@@ -44,8 +48,8 @@ export class BoardComponent {
   }
 
   initializeFields() {
-    let loadInterval = setInterval(()=> {
-      if(!this.loading) {
+    let loadInterval = setInterval(() => {
+      if (!this.loading) {
         this.searchField = this.searchFieldRef.nativeElement;
         clearInterval(loadInterval);
       }
@@ -67,7 +71,7 @@ export class BoardComponent {
     this.filterTasks(this.tasks);
   }
 
-  filterTasks(tasks:any) {
+  filterTasks(tasks: any) {
     this.todoTasks = tasks.filter((task: any) => task.status === 'to-do');
     this.inProgressTasks = tasks.filter((task: any) => task.status === 'in-progress');
     this.awaitFeedbackTasks = tasks.filter((task: any) => task.status === 'await-feedback');
