@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 import { UsersListServices } from '../services/firebase-services/users-list.services';
-import { User } from '../interfaces/user.interface';
+import { onSnapshot } from '@firebase/firestore';
 
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.scss']
 })
-export class SummaryComponent implements OnInit {
+export class SummaryComponent {
 
-  loading: boolean = true;
   userId: any;
   user: any;
   tasks: any;
@@ -24,31 +22,25 @@ export class SummaryComponent implements OnInit {
   urgentDate: string = '';
   greetings: string = '';
   userName: string = '';
+  unsubUser;
 
   constructor(
     private userListService: UsersListServices
-  ) { }
-
-  ngOnInit(): void {
-    this.initializeUserId();
-    this.updateData().then(() => {
-      this.loading = false;
-    });
-  }
-
-  initializeUserId() {
+  ) {
     const storedValue = localStorage.getItem('id-key');
     this.userId = storedValue ? JSON.parse(storedValue) : null;
+    this.unsubUser = this.subUserList();
   }
 
-  async updateData() {
-    await this.getUser();
-    this.initializeVariable();
+  ngOnDestroy() {
+    this.unsubUser();
   }
 
-  async getUser() {
-    const user: User = await this.userListService.fetchUserData('users', this.userId);
-    this.user = user;
+  subUserList() {
+    return onSnapshot(this.userListService.getUserDocRef('users', this.userId), (list: any) => {
+      this.user = list.data();
+      this.initializeVariable();
+    })
   }
 
   initializeVariable() {

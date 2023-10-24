@@ -7,7 +7,7 @@ export class DataServices {
 
     firstNameArr: any = ["Adam", "Alex", "Aaron", "Ben", "Carl", "Dan", "David", "Edward", "Fred", "Frank", "George", "Hal", "Hank", "Ike", "John", "Jack", "Joe", "Larry", "Monte", "Matthew", "Mark", "Nathan", "Otto", "Paul", "Peter", "Roger", "Roger", "Steve", "Thomas", "Tim", "Ty", "Victor", "Walter"];
     lastNameArr: any = ["Anderson", "Ashwoon", "Aikin", "Bateman", "Bongard", "Bowers", "Boyd", "Cannon", "Cast", "Deitz", "Dewalt", "Ebner", "Frick", "Hancock", "Haworth", "Hesch", "Hoffman", "Kassing", "Knutson", "Lawless", "Lawicki", "Mccord", "McCormack", "Miller", "Myers", "Nugent", "Ortiz", "Orwig", "Ory", "Paiser", "Pak", "Pettigrew", "Quinn", "Quizoz", "Ramachandran", "Resnick", "Sagar", "Schickowski", "Schiebel", "Sellon", "Severson", "Shaffer", "Solberg", "Soloman", "Sonderling", "Soukup", "Soulis", "Stahl", "Sweeney", "Tandy", "Trebil", "Trusela", "Trussel", "Turco", "Uddin", "Uflan", "Ulrich", "Upson", "Vader", "Vail", "Valente", "Van Zandt", "Vanderpoel", "Ventotla", "Vogal", "Wagle", "Wagner", "Wakefield", "Weinstein", "Weiss", "Woo", "Yang", "Yates", "Yocum", "Zeaser", "Zeller", "Ziegler", "Bauer", "Baxster", "Casal", "Cataldi", "Caswell", "Celedon", "Chambers", "Chapman", "Christensen", "Darnell", "Davidson", "Davis", "DeLorenzo", "Dinkins", "Doran", "Dugelman", "Dugan", "Duffman", "Eastman", "Ferro", "Ferry", "Fletcher", "Fietzer", "Hylan", "Hydinger", "Illingsworth", "Ingram", "Irwin", "Jagtap", "Jenson", "Johnson", "Johnsen", "Jones", "Jurgenson", "Kalleg", "Kaskel", "Keller", "Leisinger", "LePage", "Lewis", "Linde", "Lulloff", "Maki", "Martin", "McGinnis", "Mills", "Moody", "Moore", "Napier", "Nelson", "Norquist", "Nuttle", "Olson", "Ostrander", "Reamer", "Reardon", "Reyes", "Rice", "Ripka", "Roberts", "Rogers", "Root", "Sandstrom", "Sawyer", "Schlicht", "Schmitt", "Schwager", "Schutz", "Schuster", "Tapia", "Thompson", "Tiernan", "Tisler"];
-    categoryArr:any = [{name:'Technical Task'}, {name:'User Story'}, {name:'Frontend'}, {name:'Backend'}, {name:'Design'}];
+    categoryArr: any = [{ name: 'Technical Task' }, { name: 'User Story' }, { name: 'Frontend' }, { name: 'Backend' }, { name: 'Design' }];
 
     createUser(name: string, email: string, password: string) {
         const contacts = this.createContacts();
@@ -31,7 +31,7 @@ export class DataServices {
         return contacts;
     }
 
-    generateRandomContact(i:number) {
+    generateRandomContact(i: number) {
         const firstName = this.generateFirstName();
         const lasttName = this.generateLastName();
         const contactName = `${firstName} ${lasttName}`;
@@ -69,7 +69,7 @@ export class DataServices {
         return initials.join("");
     }
 
-    contactObj(i:number, contactName: string, contactEmail: string, contactPhone: string, contactColor: string, contactInitials: string) {
+    contactObj(i: number, contactName: string, contactEmail: string, contactPhone: string, contactColor: string, contactInitials: string) {
         return {
             id: i,
             isChecked: false,
@@ -81,7 +81,7 @@ export class DataServices {
         }
     }
 
-    createTasks(userContacts:any) {
+    createTasks(userContacts: any) {
         const currentDate = new Date();
         const twoDaysLater = new Date();
         const threeDaysLater = new Date(currentDate);
@@ -208,7 +208,7 @@ export class DataServices {
         ];
     }
 
-    formatDate(date:any) {
+    formatDate(date: any) {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const day = String(date.getDate()).padStart(2, "0");

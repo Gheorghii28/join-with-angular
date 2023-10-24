@@ -5,16 +5,20 @@ import { Router } from "@angular/router";
     providedIn: 'root'
 })
 export class ModalsControls {
-    isModalContainerOpen = false;
-    isTaskFormOpen = false;
+    isModalContainerOpen:boolean = false;
+    isTaskFormOpen:boolean = false;
 
-    isResultInfoOpen = false;
-    isTaskLoading = false;
-    isTaskSaved = false;
-    isResultInfoHidden = false;
+    isResultInfoOpen:boolean = false;
+    isTaskLoading:boolean = false;
+    isTaskSaved:boolean = false;
+    isTaskDeleted:boolean = false;
+    isResultInfoHidden:boolean = false;
 
     taskStatus:string = 'to-do';
-    page:string = 'addTask';
+
+    openedTask:any;
+    openedTaskId:any;
+    isTaskOpen:boolean = false;
 
     constructor(
         private router: Router
@@ -29,6 +33,7 @@ export class ModalsControls {
     closeTaskForm() {
         this.isModalContainerOpen = false;
         this.isTaskFormOpen = false;
+        this.isTaskOpen = false;
     }
     showLoadingAnimation() {
         this.isResultInfoOpen = true;
@@ -38,6 +43,11 @@ export class ModalsControls {
     showSuccessSymbolAndMessage() {
         this.isTaskLoading = false;
         this.isTaskSaved = true;
+    }
+
+    showDeletedTaskMessage() {
+        this.isTaskLoading = false;
+        this.isTaskDeleted = true;
     }
 
     showErrorMessageBox(message: any) {
@@ -50,14 +60,10 @@ export class ModalsControls {
             this.isResultInfoOpen = false;
             this.isTaskLoading = false;
             this.isTaskSaved = false;
+            this.isTaskDeleted = false;
             this.isResultInfoHidden = false;
             this.closeTaskForm();
-            if(this.page == 'addTask') {
-                this.router.navigate(['/board']);
-            }
-            if(this.page == 'board') {
-                window.location.reload();
-            }
+            this.router.navigate(['/board']);
         }, 1500);
     }
 }

@@ -476,17 +476,17 @@
             height: 0;
         }
 
-        @media(max-width: 10124px) {
-            display: flex;
-            justify-content: center;
-        }
-
         @media(max-width:1440px) {
             max-width: 980px;
         }
 
         @media(max-width:1165px) {
             max-width: 604px;
+        }
+        
+        @media(max-width: 1024px) {
+            display: flex;
+            justify-content: center;
         }
 
         @media(max-width:768px) {
@@ -498,11 +498,31 @@
             width: calc(100% - 20px);
             height: calc(100% - 100px);
         }
+    }
 
+    .task-opened-board {
+        width: calc(100% - 200px);
+        height: calc(100% - 100px);
+        max-width: 396px;
+        max-height: 640px;
+        background-color: var(--white);
+        border-radius: 30px;
+        overflow: scroll;
+        transform: translateX(100%);
 
-        @media(max-width: 10124px) {
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+
+        @media(max-width: 1024px) {
             display: flex;
             justify-content: center;
+        }
+
+        @media(max-width:480px) {
+            width: calc(100% - 20px);
+            height: calc(100% - 100px);
         }
     }
 
@@ -531,6 +551,7 @@
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+.show-deleted-task-message,
 .show-form-succes-message {
     display: flex;
     align-items: center;
@@ -560,6 +581,7 @@
             position: absolute;
             content: 'Task added to board';
             font-size: 21px;
+            font-family: 'Inter', sans-serif;
             right: -145px;
             width: max-content;
             top: -20px;
@@ -606,6 +628,36 @@
                 top: -6px;
                 scale: 0.6;
             }
+        }
+    }
+}
+
+.show-deleted-task-message {
+    .result-content {
+
+        &::after {
+            content: 'Task has been removed from the board' !important;
+            padding-right: 30px !important;
+            right: -250px !important;
+            
+            @media(max-width: 768px) {
+                padding-right: 22px !important;
+                right: -188px !important;
+            }
+
+            @media(max-width: 480px) {
+                padding-right: 22px !important;
+                right: -152px !important;
+            }
+
+            @media(max-width: 350px) {
+                width: 180px !important;
+                right: -112px !important;
+            }
+        }
+
+        &::before {
+            content: none !important;
         }
     }
 }

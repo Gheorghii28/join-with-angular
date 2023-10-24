@@ -1,4 +1,4 @@
-<div class="page-content animate-once" *ngIf="!loading">
+<div class="page-content animate-once">
     <app-nav class="menu-bg-board"></app-nav>
     <div class="section-content">
         <app-header></app-header>
@@ -68,7 +68,7 @@
                             </li>
                             <li class="created-task" *ngFor="let task of todoTasks" draggable="true"
                                 (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)"
-                                (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
+                                (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (click)="openTask(task)">
                                 <div class="header">
                                     <span class="category" [style.background]="task.color">{{ task.category
                                         }}</span>
@@ -118,7 +118,7 @@
                             </li>
                             <li class="created-task" *ngFor="let task of inProgressTasks" draggable="true"
                                 (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)"
-                                (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
+                                (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (click)="openTask(task)">
                                 <div class="header">
                                     <span class="category" [style.background]="task.color">{{ task.category
                                         }}</span>
@@ -170,7 +170,7 @@
                             </li>
                             <li class="created-task" *ngFor="let task of awaitFeedbackTasks" draggable="true"
                                 (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)"
-                                (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
+                                (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (click)="openTask(task)">
                                 <div class="header">
                                     <span class="category" [style.background]="task.color">{{ task.category
                                         }}</span>
@@ -219,7 +219,7 @@
                             </li>
                             <li class="created-task" *ngFor="let task of doneTasks" draggable="true"
                                 (dragstart)="startDragging($event, task.id)" (dragend)="endDragging($event, task.id)"
-                                (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
+                                (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (click)="openTask(task)">
                                 <div class="header">
                                     <span class="category" [style.background]="task.color">{{ task.category
                                         }}</span>
@@ -256,14 +256,12 @@
     </div>
     <div *ngIf="modalControls.isModalContainerOpen" class="modal-dialogs">
         <div (click)="modalControls.closeTaskForm()" class="overlay"></div>
+        <app-modal-task-opened *ngIf="modalControls.isTaskOpen" class="task-opened-board move-left"></app-modal-task-opened>
         <app-modal-task-form *ngIf="modalControls.isTaskFormOpen" class="task-form-board move-left"></app-modal-task-form>
         <div #formResultInfo [ngClass]="{'form-result-info': modalControls.isResultInfoOpen, 'opacity-null': modalControls.isResultInfoHidden}">
-            <div #sendResultInfo [ngClass]="{'show-form-load-animation': modalControls.isTaskLoading, 'show-form-succes-message': modalControls.isTaskSaved}">
+            <div #sendResultInfo [ngClass]="{'show-form-load-animation': modalControls.isTaskLoading, 'show-form-succes-message': modalControls.isTaskSaved, 'show-deleted-task-message': modalControls.isTaskDeleted}">
                 <div class="result-content"></div>
             </div>
         </div>
     </div>
-</div>
-<div class="load-container" *ngIf="loading">
-    <img src="../../assets/icons/loading.png">
 </div>

@@ -11,6 +11,5 @@ export class AddTaskComponent {
   constructor(
     public modalControls: ModalsControls
   ) {
-    modalControls.page = 'addTask';
   }
 }

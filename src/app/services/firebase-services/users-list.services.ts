@@ -11,6 +11,7 @@ export class UsersListServices {
     userList: any = [];
     user: any;
     userId: any;
+
     constructor() {
         this.unsubUsersList = onSnapshot(this.getUsersRef(), list => {
             this.getUserList(list);
@@ -31,17 +32,5 @@ export class UsersListServices {
             userObj['userId'] = user.id;
             this.userList.push(userObj);
         });
-    }
-
-    async fetchUserData(colId: any, docId: string): Promise<any> {
-        const docRef = this.getUserDocRef(colId, docId);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-            return docSnap.data();
-        } else {
-            console.log("No such document!");
-            return null;
-        }
     }
 }

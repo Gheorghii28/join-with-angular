@@ -20,6 +20,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
 import { DatePipe } from '@angular/common';
 import { BoardComponent } from './board/board.component';
 import { ModalTaskFormComponent } from './modal-task-form/modal-task-form.component';
+import { ModalTaskOpenedComponent } from './modal-task-opened/modal-task-opened.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ModalTaskFormComponent } from './modal-task-form/modal-task-form.compon
     NavMobileComponent,
     AddTaskComponent,
     BoardComponent,
-    ModalTaskFormComponent
+    ModalTaskFormComponent,
+    ModalTaskOpenedComponent
   ],
   imports: [
     BrowserModule,

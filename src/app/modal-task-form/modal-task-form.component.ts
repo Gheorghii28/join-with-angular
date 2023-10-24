@@ -5,6 +5,7 @@ import { UsersListServices } from '../services/firebase-services/users-list.serv
 import { Contact, Task, User } from '../interfaces/user.interface';
 import { DataServices } from '../services/data-services/data.services';
 import { ModalsControls } from '../services/modal-controls/modals.controls';
+import { onSnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-modal-task-form',
@@ -37,6 +38,7 @@ export class ModalTaskFormComponent {
     subtasksField: ['']
   }
   currentDate: string = new Date().toISOString().split('T')[0];
+  unsubUser;
 
   @ViewChild('assignedField') assignedFieldRef!: ElementRef;
   @ViewChild('categoryField') categoryFieldRef!: ElementRef;
@@ -50,7 +52,14 @@ export class ModalTaskFormComponent {
     private formBuilder: FormBuilder,
     public modalControls: ModalsControls
   ) {
+    const storedValue = localStorage.getItem('id-key');
+    this.userId = storedValue ? JSON.parse(storedValue) : null;
     this.initFildsInfo();
+    this.unsubUser = this.subUserList();
+  }
+  
+  ngOnDestroy() {
+    this.unsubUser();
   }
 
   ngAfterViewInit() {
@@ -58,9 +67,14 @@ export class ModalTaskFormComponent {
   }
 
   ngOnInit(): void {
-    this.initializeUserId();
     this.createForm();
-    this.initializeUser();
+  }
+  
+  subUserList() {
+    return onSnapshot(this.userListService.getUserDocRef('users', this.userId), (list:any) => {
+      this.user = list.data();
+      this.initializeUser();
+    })
   }
 
   initFildsInfo() {
@@ -142,11 +156,6 @@ export class ModalTaskFormComponent {
     }
   }
 
-  initializeUserId() {
-    const storedValue = localStorage.getItem('id-key');
-    this.userId = storedValue ? JSON.parse(storedValue) : null;
-  }
-
   initializeFields() {
     this.assignedInfo.field = this.assignedFieldRef.nativeElement;
     this.categoryInfo.field = this.categoryFieldRef.nativeElement;
@@ -156,7 +165,6 @@ export class ModalTaskFormComponent {
   }
 
   async initializeUser() {
-    this.user = await this.userListService.fetchUserData('users', this.userId);
     this.setFilteredContacts();
     this.setFilteredCategory();
     this.filteredContacts();

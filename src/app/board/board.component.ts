@@ -1,7 +1,6 @@
-import { Component, ElementRef, QueryList, Renderer2, ViewChildren, ViewChild } from '@angular/core';
-import { User } from '../interfaces/user.interface';
+import { Component, ElementRef, QueryList, Renderer2, ViewChildren, ViewChild, inject } from '@angular/core';
 import { UsersListServices } from '../services/firebase-services/users-list.services';
-import { updateDoc } from '@angular/fire/firestore';
+import { Firestore, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { ModalsControls } from '../services/modal-controls/modals.controls';
 
 @Component({
@@ -11,17 +10,19 @@ import { ModalsControls } from '../services/modal-controls/modals.controls';
 })
 export class BoardComponent {
 
-  loading: boolean = true;
+  firestore: Firestore = inject(Firestore);
+  loading: boolean = false;
   userId: any;
   user: any;
   tasks: any;
   filteredTasks: any;
-  todoTasks: any;
-  inProgressTasks: any;
-  awaitFeedbackTasks: any;
-  doneTasks: any;
+  todoTasks: any = [];
+  inProgressTasks: any = [];
+  awaitFeedbackTasks: any = [];
+  doneTasks: any = [];
   currentDraggedElement: any;
   searchField: any;
+  unsubUser;
 
   @ViewChildren('tasks') tasksRef!: QueryList<ElementRef>;
   @ViewChild('searchField') searchFieldRef!: ElementRef;
@@ -31,39 +32,24 @@ export class BoardComponent {
     private renderer: Renderer2,
     public modalControls: ModalsControls
   ) {
-    modalControls.page = 'board';
-  }
-
-  ngOnInit(): void {
-    this.initializeUserId();
-    this.updateData().then(() => {
-      this.loading = false;
-      this.initializeFields();
-    });
-  }
-
-  initializeUserId() {
     const storedValue = localStorage.getItem('id-key');
     this.userId = storedValue ? JSON.parse(storedValue) : null;
+    this.unsubUser = this.subUserList();
   }
 
-  initializeFields() {
-    let loadInterval = setInterval(() => {
-      if (!this.loading) {
-        this.searchField = this.searchFieldRef.nativeElement;
-        clearInterval(loadInterval);
-      }
-    }, 10);
+  ngOnDestroy() {
+    this.unsubUser();
   }
 
-  async updateData() {
-    await this.getUser();
-    this.initializeTasks();
+  ngAfterViewInit() {
+    this.searchField = this.searchFieldRef.nativeElement;
   }
 
-  async getUser() {
-    const user: User = await this.userListService.fetchUserData('users', this.userId);
-    this.user = user;
+  subUserList() {
+    return onSnapshot(this.userListService.getUserDocRef('users', this.userId), (list: any) => {
+      this.user = list.data();
+      this.initializeTasks();
+    })
   }
 
   initializeTasks() {
@@ -140,5 +126,12 @@ export class BoardComponent {
       }
     });
     this.filterTasks(this.filteredTasks);
+  }
+
+  openTask(task: any) {
+    this.modalControls.openedTask = task;
+    this.modalControls.openedTaskId = task.id;
+    this.modalControls.isModalContainerOpen = true;
+    this.modalControls.isTaskOpen = true;
   }
 }
