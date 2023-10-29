@@ -10,6 +10,7 @@ import { UsersListServices } from '../services/firebase-services/users-list.serv
 })
 export class ModalTaskOpenedComponent {
 
+  isEditFormOpen:boolean = false;
   task: any;
   tasks: any;
   userId: any;
@@ -92,5 +93,10 @@ export class ModalTaskOpenedComponent {
       updatedTasks.push(task);
     });
     return updatedTasks;
+  }
+
+  editTask(status:string) {
+    this.isEditFormOpen = true;
+    this.modalControls.taskStatus = status;
   }
 }

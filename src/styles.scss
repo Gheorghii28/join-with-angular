@@ -706,7 +706,7 @@ button[type="submit"] {
 
     .close-task-form {
         display: block !important;
-        
+
     }
 }
 
@@ -722,4 +722,91 @@ button[type="submit"] {
 
 .move-left {
     animation: moveLeft 225ms ease-in-out forwards;
+}
+
+.edit-task-form {
+    width: calc(100% - 48px);
+    height: 100%;
+    padding: 50px 24px 32px 24px;
+    display: block;
+
+    .add-task-content {
+        position: relative;
+        padding: 0 !important;
+        background-color: var(--white);
+        z-index: 20;
+        overflow-x: hidden !important;
+
+        .bottom {
+            flex-direction: column !important;
+        }
+
+        .headline,
+        .bottom-left,
+        .bottom-right,
+        .required-symbol,
+        .line-center,
+        .close-task-form {
+            display: none !important;
+        }
+
+        .btn-confirm-edited-task {
+            display: flex !important;
+        }
+    }
+
+    .box-content {
+        width: auto !important;
+        margin: 0 !important;
+
+        .top {
+            flex-direction: column;
+
+            .top-left,
+            .top-right {
+                align-items: center;
+            }
+        }
+
+        form {
+            gap: 30px !important;
+
+            .input-add-task {
+                width: 100% !important;
+            }
+
+            .radio-tile-group {
+                width: calc(100% - 10px) !important;
+            }
+
+            input[type="email"],
+            input[type="text"],
+            input[type="password"],
+            input[type="date"],
+            textarea {
+                width: calc(100% - 67px) !important;
+
+                @media(max-width:1440px) {
+                    width: calc(100% - 67px) !important;
+                }
+
+                @media(max-width:1165px) {
+                    width: calc(100% - 67px) !important;
+                }
+
+                @media (max-width: 1024px) {
+                    width: calc(100% - 58px) !important;
+                }
+
+                @media (max-width: 768px) {
+                    padding: 10px 40px 10px 16px !important;
+                }
+
+                @media (max-width: 480px) {
+                    width: calc(100% - 40px) !important;
+                    padding: 10px 28px 10px 10px !important;
+                }
+            }
+        }
+    }
 }

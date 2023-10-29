@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { updateDoc } from '@firebase/firestore';
 import { UsersListServices } from '../services/firebase-services/users-list.services';
@@ -37,6 +37,7 @@ export class ModalTaskFormComponent {
     categoryField: ['', [Validators.required]],
     subtasksField: ['']
   }
+  formGroupOpenedTask: any = this.getFormGroupOpenedTask();
   currentDate: string = new Date().toISOString().split('T')[0];
   unsubUser;
 
@@ -57,7 +58,7 @@ export class ModalTaskFormComponent {
     this.initFildsInfo();
     this.unsubUser = this.subUserList();
   }
-  
+
   ngOnDestroy() {
     this.unsubUser();
   }
@@ -67,11 +68,12 @@ export class ModalTaskFormComponent {
   }
 
   ngOnInit(): void {
+    this.getFormGroupOpenedTask()
     this.createForm();
   }
-  
+
   subUserList() {
-    return onSnapshot(this.userListService.getUserDocRef('users', this.userId), (list:any) => {
+    return onSnapshot(this.userListService.getUserDocRef('users', this.userId), (list: any) => {
       this.user = list.data();
       this.initializeUser();
     })
@@ -85,6 +87,22 @@ export class ModalTaskFormComponent {
     this.initPrioInfo();
     this.initCategoryInfo();
     this.initSubtaskInfo();
+  }
+
+  getFormGroupOpenedTask() {
+    if (this.modalControls.openedTask) {
+      return {
+        titleField: [this.modalControls.openedTask.title, [Validators.required]],
+        descriptionField: [this.modalControls.openedTask.description, [Validators.required]],
+        assignedField: [this.modalControls.openedTask.assigned, [Validators.required]],
+        dateField: [this.modalControls.openedTask.date, [Validators.required]],
+        prioField: [this.modalControls.openedTask.prio, [Validators.required]],
+        categoryField: [this.modalControls.openedTask.category, [Validators.required]],
+        subtasksField: [this.modalControls.openedTask.subTasks]
+      }
+    } else {
+      return '';
+    }
   }
 
   initTitleInfo() {
@@ -146,6 +164,10 @@ export class ModalTaskFormComponent {
       categoryValue: '',
       field: undefined
     }
+    if(this.modalControls.openedTask) {
+      this.categoryInfo.inputCategoryValue = this.modalControls.openedTask.category;
+      this.categoryInfo.categoryValue = this.modalControls.openedTask.category;
+    }
     this.allFieldsInfo.push(this.categoryInfo);
   }
 
@@ -153,6 +175,12 @@ export class ModalTaskFormComponent {
     this.subtaskInfo = {
       isSubtaskOptionsOpen: false,
       inputSubtaskValue: '',
+    }
+    if(this.modalControls.openedTask) {
+      this.modalControls.openedTask.subTasks.forEach((subtask:any) => {
+        this.subtaskList.push({ name: subtask.value, isEditOpen: false })
+      });
+      this.subtaskInfo.isSubtaskOptionsOpen = true;
     }
   }
 
@@ -174,6 +202,13 @@ export class ModalTaskFormComponent {
 
   setFilteredContacts() {
     this.filteredContactList = this.user.contacts.map(contact => {
+      if(this.modalControls.openedTask) {
+        this.modalControls.openedTask.assigned.forEach((assigned:any) => {
+          if(assigned.id == contact.id) {
+            contact.isChecked = assigned.isChecked;
+          }
+        });
+      }
       return { ...contact, isNotHidden: false };
     });
     this.filteredContactList.sort((a: any, b: any) => a.name.localeCompare(b.name));
@@ -186,7 +221,7 @@ export class ModalTaskFormComponent {
     this.filteredContactList.sort((a: any, b: any) => a.name.localeCompare(b.name));
   }
 
-  createTask(status:string) {
+  createTask(status: string) {
     if (this.formIsValid()) {
       this.disableFormElements(true);
       this.addTask(status);
@@ -219,7 +254,7 @@ export class ModalTaskFormComponent {
     });
   }
 
-  async addTask(status:string) {
+  async addTask(status: string) {
     try {
       const newTask = this.getCreatedNewTask(status);
       this.modalControls.showLoadingAnimation();
@@ -271,7 +306,7 @@ export class ModalTaskFormComponent {
     fieldInfo.isInvalid = false;
   }
 
-  getCreatedNewTask(status:string) {
+  getCreatedNewTask(status: string) {
     return {
       assigned: this.assignedInfo.taskAssigned,
       category: this.categoryInfo.categoryValue,
@@ -293,13 +328,26 @@ export class ModalTaskFormComponent {
   }
 
   getUpdatedTasks(newTask: Task) {
-    let tasksUpdated = this.user.tasks;
+    let tasksUpdated:any = [];
+    this.user.tasks.forEach((task:any) => {
+      if(this.modalControls.openedTask) {
+        if(task.id !== this.modalControls.openedTask.id) {
+          tasksUpdated.push(task);
+        }
+      } else {
+        tasksUpdated.push(task);
+      }
+    });
     tasksUpdated.push(newTask);
     return tasksUpdated;
   }
 
   createForm() {
-    this.addTaskFormular = this.formBuilder.group(this.formGroup);
+    if (this.modalControls.openedTask) {
+      this.addTaskFormular = this.formBuilder.group(this.formGroupOpenedTask);
+    } else {
+      this.addTaskFormular = this.formBuilder.group(this.formGroup);
+    }
   }
 
   clearAllRequiredInfo() {

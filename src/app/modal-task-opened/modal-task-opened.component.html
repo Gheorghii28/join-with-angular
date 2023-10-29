@@ -1,5 +1,5 @@
 <div class="opened-task">
-    <div class="task-content">
+    <div class="task-content" *ngIf="!isEditFormOpen">
         <div class="header">
             <span class="category" [style.background]="task.color">{{ task.category
                 }}</span>
@@ -32,14 +32,18 @@
             <ul>
                 <li *ngFor="let subtask of task.subTasks; let index = index">
                     <label class="checkbox-tile-label container-name">
-                        <input (click)="changeSubtaskStatus(task, index)" class="option-input" type="checkbox" [checked]="subtask.status == 'closed'">
+                        <input (click)="changeSubtaskStatus(task, index)" class="option-input" type="checkbox"
+                            [checked]="subtask.status == 'closed'">
                         <span class="info-content">{{ subtask.value }}</span>
                     </label>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="btn-container">
+    <div class="edit-task-content" *ngIf="isEditFormOpen">
+        <app-modal-task-form class="edit-task-form"></app-modal-task-form>
+    </div>
+    <div class="btn-container" *ngIf="!isEditFormOpen">
         <button (click)="deleteTask(task)" class="btn-delete">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <mask id="mask0_95718_5900" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24"
@@ -57,7 +61,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="2" height="24" viewBox="0 0 2 24" fill="none">
             <path d="M1 0V24" stroke="#D1D1D1" />
         </svg>
-        <button class="btn-edit">
+        <button (click)="editTask(task.status)" class="btn-edit">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <mask id="mask0_95718_5906" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24"
                     height="24">
@@ -72,7 +76,8 @@
             <span>Edit</span>
         </button>
     </div>
-    <svg (click)="modalControls.closeTaskForm()" class="close-task" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <svg (click)="modalControls.closeTaskForm()" class="close-task" xmlns="http://www.w3.org/2000/svg" width="24"
+        height="24" viewBox="0 0 24 24" fill="none">
         <mask id="mask0_95718_5847" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24"
             height="24">
             <rect width="24" height="24" fill="#D9D9D9" />

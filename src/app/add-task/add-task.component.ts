@@ -11,5 +11,6 @@ export class AddTaskComponent {
   constructor(
     public modalControls: ModalsControls
   ) {
+    modalControls.openedTask = undefined;
   }
 }

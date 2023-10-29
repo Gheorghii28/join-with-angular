@@ -28,6 +28,7 @@ export class ModalsControls {
         this.isModalContainerOpen = true;
         this.isTaskFormOpen = true;
         this.taskStatus = newTaskStatus;
+        this.openedTask = undefined;
     }
 
     closeTaskForm() {
