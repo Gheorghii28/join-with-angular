@@ -8,6 +8,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { SummaryComponent } from './summary/summary.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { BoardComponent } from './board/board.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: 'forgotpassword', component: ForgotpasswordComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'addtask', component: AddTaskComponent },
-  { path: 'board', component: BoardComponent }
+  { path: 'board', component: BoardComponent },
+  { path: 'contacts', component: ContactsComponent }
 ];
 
 @NgModule({

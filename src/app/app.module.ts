@@ -21,6 +21,7 @@ import { DatePipe } from '@angular/common';
 import { BoardComponent } from './board/board.component';
 import { ModalTaskFormComponent } from './modal-task-form/modal-task-form.component';
 import { ModalTaskOpenedComponent } from './modal-task-opened/modal-task-opened.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ModalTaskOpenedComponent } from './modal-task-opened/modal-task-opened.
     AddTaskComponent,
     BoardComponent,
     ModalTaskFormComponent,
-    ModalTaskOpenedComponent
+    ModalTaskOpenedComponent,
+    ContactsComponent
   ],
   imports: [
     BrowserModule,
