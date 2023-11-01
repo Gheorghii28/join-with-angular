@@ -22,6 +22,7 @@ import { BoardComponent } from './board/board.component';
 import { ModalTaskFormComponent } from './modal-task-form/modal-task-form.component';
 import { ModalTaskOpenedComponent } from './modal-task-opened/modal-task-opened.component';
 import { ContactsComponent } from './contacts/contacts.component';
+import { ModalContactFormComponent } from './modal-contact-form/modal-contact-form.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ContactsComponent } from './contacts/contacts.component';
     BoardComponent,
     ModalTaskFormComponent,
     ModalTaskOpenedComponent,
-    ContactsComponent
+    ContactsComponent,
+    ModalContactFormComponent
   ],
   imports: [
     BrowserModule,

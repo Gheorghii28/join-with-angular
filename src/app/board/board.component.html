@@ -264,4 +264,8 @@
             </div>
         </div>
     </div>
+    <div *ngIf="modalControls.isModalContactContainerOpen" class="modal-dialogs-contact">
+        <div (click)="modalControls.closeContactForm()" class="overlay"></div>
+        <app-modal-contact-form *ngIf="modalControls.isContactFormOpen" class="contact-form move-contact-form"></app-modal-contact-form>
+    </div>
 </div>

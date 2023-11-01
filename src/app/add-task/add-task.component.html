@@ -5,6 +5,10 @@
         <app-modal-task-form></app-modal-task-form>
         <app-nav-mobile class="menu-bg-add-task"></app-nav-mobile>
     </div>
+    <div *ngIf="modalControls.isModalContactContainerOpen" class="modal-dialogs">
+        <div (click)="modalControls.closeContactForm()" class="overlay"></div>
+        <app-modal-contact-form *ngIf="modalControls.isContactFormOpen" class="contact-form move-contact-form"></app-modal-contact-form>
+    </div>
     <div #formResultInfo [ngClass]="{'form-result-info': modalControls.isResultInfoOpen, 'opacity-null': modalControls.isResultInfoHidden}">
         <div #sendResultInfo [ngClass]="{'show-form-load-animation': modalControls.isTaskLoading, 'show-form-succes-message': modalControls.isTaskSaved}">
             <div class="result-content"></div>

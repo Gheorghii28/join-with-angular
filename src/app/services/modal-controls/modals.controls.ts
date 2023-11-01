@@ -5,20 +5,39 @@ import { Router } from "@angular/router";
     providedIn: 'root'
 })
 export class ModalsControls {
-    isModalContainerOpen:boolean = false;
-    isTaskFormOpen:boolean = false;
+    isModalContainerOpen: boolean = false;
+    isTaskFormOpen: boolean = false;
 
-    isResultInfoOpen:boolean = false;
-    isTaskLoading:boolean = false;
-    isTaskSaved:boolean = false;
-    isTaskDeleted:boolean = false;
-    isResultInfoHidden:boolean = false;
+    isModalContactContainerOpen: boolean = false;
+    isContactFormOpen: boolean = false;
 
-    taskStatus:string = 'to-do';
+    isResultInfoOpen: boolean = false;
+    isTaskLoading: boolean = false;
+    isTaskSaved: boolean = false;
+    isTaskDeleted: boolean = false;
+    isResultInfoHidden: boolean = false;
 
-    openedTask:any;
-    openedTaskId:any;
-    isTaskOpen:boolean = false;
+    taskStatus: string = 'to-do';
+
+    openedTask: any;
+    openedTaskId: any;
+    isTaskOpen: boolean = false;
+
+    displayedContact: any;
+    displayedContainerBtns: boolean = false;
+
+    openedContactFormText: any;
+    addContactFormText = {
+        h2: 'Add contact',
+        span: 'Tasks are better with a team!',
+        btn: 'Create Contact'
+    }
+    editContactFormText = {
+        h2: 'Edit contact',
+        span: '',
+        btn: 'Save'
+    }
+    isContactEdit:boolean = false;
 
     constructor(
         private router: Router
@@ -66,5 +85,19 @@ export class ModalsControls {
             this.closeTaskForm();
             this.router.navigate(['/board']);
         }, 1500);
+    }
+
+    closeContactForm() {
+        this.isModalContactContainerOpen = false;
+        this.isContactFormOpen = false;
+        this.isContactEdit = false;
+    }
+
+    openContactForm(contact: any, formText: any, boolenValue:boolean) {
+        this.isModalContactContainerOpen = true;
+        this.isContactFormOpen = true;
+        this.displayedContainerBtns = false;
+        this.openedContactFormText = formText;
+        this.isContactEdit = boolenValue;
     }
 }

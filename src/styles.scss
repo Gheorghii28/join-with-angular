@@ -17,6 +17,9 @@
     --medium-color: #FFA800;
     --low-color: #7AE229;
     --headline-box-color: #42526E;
+    --contact-form-width: calc(100vw - 200px);
+    --contact-form-width-2: calc(100vw - 100px);
+    --contact-form-width-3: calc(100vw - 50px);
 }
 
 html,
@@ -56,6 +59,7 @@ input[type="email"],
 input[type="text"],
 input[type="password"],
 input[type="date"],
+input[type="number"],
 textarea {
     width: 359px;
     padding: 12px 46px 12px 21px;
@@ -657,6 +661,13 @@ button[type="submit"] {
     display: none !important;
 }
 
+.d-none-960 {
+
+    @media(max-width:960px) {
+        display: none !important;
+    }
+}
+
 .bottom-10 {
     bottom: -10px !important;
 }
@@ -711,13 +722,23 @@ button[type="submit"] {
     }
 }
 
-@keyframes moveLeft {
+@keyframes moveTop {
     0% {
-        transform: translateX(100%);
+        transform: translateY(100vw);
     }
 
     100% {
-        transform: translateX(0%);
+        transform: translateY(0vw);
+    }
+}
+
+@keyframes moveLeft {
+    0% {
+        transform: translateX(100vw);
+    }
+
+    100% {
+        transform: translateX(0vw);
     }
 }
 
@@ -784,6 +805,7 @@ button[type="submit"] {
             input[type="text"],
             input[type="password"],
             input[type="date"],
+            input[type="number"],
             textarea {
                 width: calc(100% - 67px) !important;
 

@@ -469,7 +469,7 @@
         background-color: var(--white);
         border-radius: 30px;
         overflow: scroll;
-        transform: translateX(100%);
+        transform: translateX(100vw);
 
         &::-webkit-scrollbar {
             width: 0;
@@ -508,7 +508,7 @@
         background-color: var(--white);
         border-radius: 30px;
         overflow: scroll;
-        transform: translateX(100%);
+        transform: translateX(100vw);
 
         &::-webkit-scrollbar {
             width: 0;
@@ -664,5 +664,78 @@
         &::before {
             content: none !important;
         }
+    }
+}
+
+.modal-dialogs-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    height: 100vh;
+    z-index: 35;
+
+    .move-contact-form {
+        transform: translateX(100vw);
+        animation: moveLeft 225ms ease-in-out forwards;
+        
+        @media(max-width: 768px) {
+            transform: translateX(0vw);
+            transform: translateY(100vw);
+            animation: moveTop 225ms ease-in-out forwards;
+        }
+    }
+
+    .contact-form {
+        width: var(--contact-form-width);
+        height: calc(var(--contact-form-width) / 2);
+        max-width: 980px;
+        max-height: 490px;
+        background-color: var(--white);
+        border-radius: 30px;
+        overflow: scroll;
+
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+
+        @media(max-width: 1024px) {
+            width: var(--contact-form-width-2);
+            height: calc(var(--contact-form-width-2) / 2);
+        }
+
+        @media(max-width: 768px) {
+            width: var(--contact-form-width-2);
+            height: calc(var(--contact-form-width-2) * 2);
+            max-width: 396px;
+            max-height: 760px;
+            
+            @media (max-height: 823px) {
+                max-height: calc(100vh - 50px);
+            }
+        }
+
+        @media(max-width: 480px) {
+            width: var(--contact-form-width-3);
+            height: calc(var(--contact-form-width-3) * 2);
+            min-width: 250px;
+            min-height: 400px;
+
+            @media (max-height: 823px) {
+                max-height: calc(100vh - 50px);
+            }
+        }
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2);
     }
 }

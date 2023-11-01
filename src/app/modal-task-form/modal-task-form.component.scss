@@ -560,6 +560,12 @@ form {
     font-weight: 700;
     line-height: 120%;
     margin: 0 16px 12px;
+    cursor: pointer;
+
+    &:hover {
+        border: 1px solid var(--electric-blue);
+        background-color: var(--electric-blue);
+    }
 
     @media(max-width:480px) {
         font-size: 14px;
