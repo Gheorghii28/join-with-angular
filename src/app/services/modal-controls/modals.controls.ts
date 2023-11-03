@@ -24,6 +24,7 @@ export class ModalsControls {
     isTaskOpen: boolean = false;
 
     displayedContact: any;
+    isContactInfoDispayed: boolean = false;
     displayedContainerBtns: boolean = false;
 
     openedContactFormText: any;
@@ -37,7 +38,10 @@ export class ModalsControls {
         span: '',
         btn: 'Save'
     }
-    isContactEdit:boolean = false;
+    isContactEdit: boolean = false;
+    isContactLoading: boolean = false;
+    isContactSaved: boolean = false;
+    isContactDeleted: boolean = false;
 
     constructor(
         private router: Router
@@ -55,9 +59,25 @@ export class ModalsControls {
         this.isTaskFormOpen = false;
         this.isTaskOpen = false;
     }
+
     showLoadingAnimation() {
         this.isResultInfoOpen = true;
         this.isTaskLoading = true;
+    }
+
+    showContactLoadingAnimation() {
+        this.isResultInfoOpen = true;
+        this.isContactLoading = true;
+    }
+
+    showSuccessContactMessage() {
+        this.isContactLoading = false;
+        this.isContactSaved = true;
+    }
+
+    showDeletedContactMessage() {
+        this.isContactLoading = false;
+        this.isContactDeleted = true;
     }
 
     showSuccessSymbolAndMessage() {
@@ -87,13 +107,28 @@ export class ModalsControls {
         }, 1500);
     }
 
+    hideContactLoadingAnimation() {
+        this.isResultInfoHidden = true;
+        setTimeout(() => {
+            this.isResultInfoOpen = false;
+            this.isContactInfoDispayed = false;
+            this.displayedContact = undefined;
+            this.isContactLoading = false;
+            this.isContactSaved = false;
+            this.isContactDeleted = false;
+            this.isResultInfoHidden = false;
+            this.closeContactForm();
+            this.closeContactForm();
+        }, 1500);
+    }
+
     closeContactForm() {
         this.isModalContactContainerOpen = false;
         this.isContactFormOpen = false;
         this.isContactEdit = false;
     }
 
-    openContactForm(contact: any, formText: any, boolenValue:boolean) {
+    openContactForm(contact: any, formText: any, boolenValue: boolean) {
         this.isModalContactContainerOpen = true;
         this.isContactFormOpen = true;
         this.displayedContainerBtns = false;

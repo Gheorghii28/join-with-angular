@@ -40,26 +40,26 @@
         </div>
         <form (ngSubmit)="submitForm()" [formGroup]="contactFormular">
             <div class="container-input">
-                <span class="before-input">{{nameWarningText}}</span>
+                <span class="before-input">{{nameInfo.warningText}}</span>
                 <input #nameField class="name-field" name="name" type="text" placeholder="Name"
-                    formControlName="nameField" [ngClass]="{'error-border': isNameInvalid}">
+                    formControlName="nameField" [ngClass]="{'error-border': nameInfo.isInvalid}">
                 <img src="../../assets/icons/user.svg" class="after-input">
             </div>
             <div class="container-input">
-                <span class="before-input">{{emailWarningText}}</span>
+                <span class="before-input">{{emailInfo.warningText}}</span>
                 <input #emailField class="email-field" name="email" type="text" placeholder="Email"
-                    formControlName="emailField" [ngClass]="{'error-border': isEmailInvalid}">
+                    formControlName="emailField" [ngClass]="{'error-border': emailInfo.isInvalid}">
                 <img src="../../assets/icons/mail.svg" class="after-input">
             </div>
             <div class="container-input">
-                <span class="before-input">{{phoneWarningText}}</span>
-                <input #phoneField class="phone-field" name="phone" type="text" placeholder="Phone"
-                    formControlName="phoneField" [ngClass]="{'error-border': isPhoneInvalid}">
+                <span class="before-input">{{phoneInfo.warningText}}</span>
+                <input #phoneField class="phone-field" name="phone" type="number" placeholder="Phone"
+                    formControlName="phoneField" [ngClass]="{'error-border': phoneInfo.isInvalid}">
                 <img src="../../assets/icons/phone.svg" class="after-input">
             </div>
             <div class="container-btns">
                 <div *ngIf="modalControls.isContactEdit" class="btn-border">
-                    <button type="button" (click)="deleteContact()">
+                    <button type="button" (click)="deleteContact(modalControls.displayedContact)">
                         <span>Delete</span>
                     </button>
                 </div>

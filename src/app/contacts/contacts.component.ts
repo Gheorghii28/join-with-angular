@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { onSnapshot } from '@angular/fire/firestore';
+import { onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { UsersListServices } from '../services/firebase-services/users-list.services';
 import { ModalsControls } from '../services/modal-controls/modals.controls';
+import { Contact } from '../interfaces/user.interface';
 
 @Component({
   selector: 'app-contacts',
@@ -16,7 +17,7 @@ export class ContactsComponent {
   isUserLoaded: boolean = false;
   filteredContactList: any;
   groupedContacts: any;
-  isContactInfoDispayed: boolean = false;
+  // isContactInfoDispayed: boolean = false;
 
   testContact: any;
 
@@ -77,7 +78,7 @@ export class ContactsComponent {
 
   showContactInfo(contact: any) {
     this.modalControls.displayedContact = contact;
-    this.isContactInfoDispayed = true;
+    this.modalControls.isContactInfoDispayed = true;
   }
 
   showContainerBtns() {
@@ -90,10 +91,29 @@ export class ContactsComponent {
 
   toContactList() {
     this.modalControls.displayedContact = undefined;
-    this.isContactInfoDispayed = false;
+    this.modalControls.isContactInfoDispayed = false;
   }
 
-  deleteContact(contact: any) {
-
+  async deleteContact(deletedContact: any) {
+    try {
+      this.user.contacts.forEach((contact: Contact, index: number) => {
+        if(contact.id == deletedContact.id) {
+          this.user.contacts.splice(index, 1);
+        }
+      }); 
+      this.modalControls.showContactLoadingAnimation();
+      await updateDoc(this.userListService.getUserDocRef('users', this.userId), {
+        "contacts": this.user.contacts
+      });
+      this.modalControls.showDeletedContactMessage();
+    } catch (error) {
+      this.showErrorMessageBox(error);
+    } finally {
+      this.modalControls.hideContactLoadingAnimation();
+    }
+  }
+  
+  showErrorMessageBox(message: any) {
+    console.log(message);
   }
 }

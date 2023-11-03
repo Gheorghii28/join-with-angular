@@ -694,3 +694,133 @@
         background-color: rgba(0, 0, 0, 0.2);
     }
 }
+
+.form-result-info {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 40;
+}
+
+.show-deleted-task-message,
+.show-form-succes-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 50px;
+    background-color: var(--secundario-color);
+    border: 4px solid var(--secundario-color);
+    border-radius: 10px;
+    transform: translateY(0vh);
+    animation: succesAnimation 225ms ease-in-out;
+
+    @keyframes succesAnimation {
+        from {
+            transform: translateY(100vh);
+        }
+
+        to {
+            transform: translateY(0vh);
+        }
+    }
+
+    .result-content {
+        position: relative;
+
+        &::after {
+            position: absolute;
+            content: 'Contact succesfully created';
+            font-size: 21px;
+            font-family: 'Inter', sans-serif;
+            right: -189px;
+            width: max-content;
+            top: -20px;
+            text-align: center;
+            color: #FFF;
+            font-weight: 400;
+            line-height: 120%;
+            padding: 30px;
+            padding-right: 70px;
+            border-radius: 20px;
+            background: var(--dark-slate-blue);
+            box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+
+            @media(max-width: 768px) {
+                font-size: 18px;
+                padding: 22px;
+                padding-right: 50px;
+                right: -155px;
+            }
+
+            @media(max-width: 480px) {
+                font-size: 14px;
+                padding: 22px;
+                padding-right: 40px;
+                right: -123px;
+            }
+        }
+
+        &::before {
+            position: absolute;
+            content: url('../../assets/icons/user-icon.svg');
+            right: -166px;
+            top: 5px;
+            z-index: 10;
+
+            @media(max-width: 768px) {
+                right: -140px;
+                top: -4px;
+                scale: 0.7;
+            }
+
+            @media(max-width: 480px) {
+                right: -114px;
+                top: -6px;
+                scale: 0.6;
+            }
+        }
+    }
+}
+
+.show-deleted-task-message {
+    .result-content {
+
+        &::after {
+            content: 'Contact deleted' !important;
+            padding-right: 30px !important;
+            right: -110px !important;
+            
+            @media(max-width: 768px) {
+                padding-right: 22px !important;
+                right: -90.5px !important;
+            }
+
+            @media(max-width: 480px) {
+                padding-right: 22px !important;
+                right: -75.5px !important;
+            }
+        }
+
+        &::before {
+            content: none !important;
+        }
+    }
+}
+
+.bg-displayed-contact {
+    background-color: var(--dark-slate-blue);
+
+    .name {
+        color: var(--white);
+    }
+}

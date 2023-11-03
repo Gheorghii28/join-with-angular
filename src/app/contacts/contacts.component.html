@@ -28,7 +28,7 @@
                             </svg>
                             <ul>
                                 <li (click)="showContactInfo(contact)" *ngFor="let contact of contacts.contacts"
-                                    class="option">
+                                    class="option" [ngClass]="{'bg-displayed-contact': modalControls.displayedContact && contact.id == modalControls.displayedContact.id}">
                                     <div class="checkbox-tile container-name">
                                         <div [style.background-color]="contact.color" class="initials">
                                             <span>{{ contact.initials }}</span>
@@ -64,7 +64,7 @@
                     </svg>
                 </div>
                 <div *ngIf="isUserLoaded" class="container-contact-info">
-                    <div *ngIf="isContactInfoDispayed" class="contact-option move-left">
+                    <div *ngIf="modalControls.isContactInfoDispayed" class="contact-option move-left">
                         <div class="checkbox-tile container-name">
                             <div [style.background-color]="modalControls.displayedContact.color" class="initials">
                                 <span>{{ modalControls.displayedContact.initials }}</span>
@@ -183,5 +183,10 @@
     <div *ngIf="modalControls.isModalContactContainerOpen" class="modal-dialogs">
         <div (click)="modalControls.closeContactForm()" class="overlay"></div>
         <app-modal-contact-form *ngIf="modalControls.isContactFormOpen" class="contact-form move-contact-form"></app-modal-contact-form>
+    </div>
+    <div #formResultInfo [ngClass]="{'form-result-info': modalControls.isResultInfoOpen, 'opacity-null': modalControls.isResultInfoHidden}">
+        <div #sendResultInfo [ngClass]="{'show-form-load-animation': modalControls.isContactLoading, 'show-form-succes-message': modalControls.isContactSaved, 'show-deleted-task-message': modalControls.isContactDeleted}">
+            <div class="result-content"></div>
+        </div>
     </div>
 </div>
