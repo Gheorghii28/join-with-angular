@@ -25,6 +25,9 @@ export class LoginComponent implements OnInit {
   isLoginInvalid: boolean = false;
   rememberMeKey: string = 'rememberMe';
   rememberMe: boolean = false;
+  isPrivacyPoliceOpen: boolean = false;
+  isLegalNoticeOpen: boolean = false;
+  isModalontainerOpen: boolean = false;
 
   @ViewChild('loginContent', { static: true }) loginSectionRef!: ElementRef<HTMLElement>;
   @ViewChild('emailField', { static: true }) emailFieldRef!: ElementRef<HTMLElement>;
@@ -181,5 +184,21 @@ export class LoginComponent implements OnInit {
       this.loginFormular.controls['emailField'].setValue(JSON.parse(email));
     }
     this.checkboxField.checked = this.rememberMe;
+  }
+
+  closeModalContainer() {
+    this.isLegalNoticeOpen = false;
+    this.isPrivacyPoliceOpen = false;
+    this.isModalontainerOpen = false;
+  }
+
+  openPrivacyPolice() {
+    this.isModalontainerOpen = true;
+    this.isPrivacyPoliceOpen = true; 
+  }
+
+  openLegalNotice() {
+    this.isModalontainerOpen = true;
+    this.isLegalNoticeOpen = true; 
   }
 }

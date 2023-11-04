@@ -1,5 +1,6 @@
 <div #loginContent class="login-content animate-once">
-    <svg (click)="reloadPage()" class="svg-logo" xmlns="http://www.w3.org/2000/svg" width="101" height="122" viewBox="0 0 101 122" fill="none">
+    <svg (click)="reloadPage()" class="svg-logo" xmlns="http://www.w3.org/2000/svg" width="101" height="122"
+        viewBox="0 0 101 122" fill="none">
         <path d="M71.6721 0H49.5143V25.4923H71.6721V0Z" fill="#2A3647" />
         <path
             d="M49.5142 46.2251H71.6721V82.1779C71.7733 90.8292 69.3112 99.3153 64.5986 106.557C59.9455 113.594 50.963 121.966 34.3446 121.966C16.2434 121.966 5.69286 113.406 0 108.715L13.9765 91.4743C19.533 96.0112 24.885 99.7435 34.4299 99.7435C41.6567 99.7435 44.5372 96.7988 46.2247 94.2307C48.5186 90.6637 49.7052 86.4923 49.6335 82.2464L49.5142 46.2251Z"
@@ -20,8 +21,8 @@
     </div>
 
     <div class="notices">
-        <a routerLink="/privacypolicy">Privacy Policy</a>
-        <a routerLink="/legalnotice">Legal Notice</a>
+        <span (click)="openPrivacyPolice()">Privacy Policy</span>
+        <span (click)="openLegalNotice()">Legal Notice</span>
     </div>
 
     <div class="container-form" [ngClass]="{'error-border': isLoginInvalid}">
@@ -29,12 +30,14 @@
         <form (ngSubmit)="onSubmit()" ngNativeValidate [formGroup]="loginFormular">
             <div class="container-input">
                 <span class="before-input">{{emailWarningText}}</span>
-                <input #emailField class="email-field" name="email" type="text" placeholder="Email" formControlName="emailField" [ngClass]="{'error-border': isEmailInvalid}">
+                <input #emailField class="email-field" name="email" type="text" placeholder="Email"
+                    formControlName="emailField" [ngClass]="{'error-border': isEmailInvalid}">
                 <img src="../../assets/icons/mail.svg" class="after-input">
             </div>
             <div class="container-input">
                 <span class="before-input">{{passwordWarningText}}</span>
-                <input #passwordField class="password-field" name="password" type="password" placeholder="Password" formControlName="passwordField" [ngClass]="{'error-border': isPasswordInvalid}">
+                <input #passwordField class="password-field" name="password" type="password" placeholder="Password"
+                    formControlName="passwordField" [ngClass]="{'error-border': isPasswordInvalid}">
                 <img src="../../assets/icons/password/lock.svg" class="after-input">
             </div>
             <div class="login-options">
@@ -50,5 +53,21 @@
             </div>
         </form>
         <span class="after-login-form">{{loginWarningText}}</span>
+    </div>
+    <div *ngIf="isModalontainerOpen" class="modal-container">
+        <app-modal-privacypolicy *ngIf="isPrivacyPoliceOpen"></app-modal-privacypolicy>
+        <app-modal-legalnotice *ngIf="isLegalNoticeOpen"></app-modal-legalnotice>
+        <svg (click)="closeModalContainer()" class="close-modal-container" xmlns="http://www.w3.org/2000/svg" width="24"
+            height="24" viewBox="0 0 24 24" fill="none">
+            <mask id="mask0_98471_5574" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24"
+                height="24">
+                <rect width="24" height="24" fill="#D9D9D9" />
+            </mask>
+            <g mask="url(#mask0_98471_5574)">
+                <path
+                    d="M12 13.4L7.1 18.3C6.91667 18.4834 6.68333 18.575 6.4 18.575C6.11667 18.575 5.88333 18.4834 5.7 18.3C5.51667 18.1167 5.425 17.8834 5.425 17.6C5.425 17.3167 5.51667 17.0834 5.7 16.9L10.6 12L5.7 7.10005C5.51667 6.91672 5.425 6.68338 5.425 6.40005C5.425 6.11672 5.51667 5.88338 5.7 5.70005C5.88333 5.51672 6.11667 5.42505 6.4 5.42505C6.68333 5.42505 6.91667 5.51672 7.1 5.70005L12 10.6L16.9 5.70005C17.0833 5.51672 17.3167 5.42505 17.6 5.42505C17.8833 5.42505 18.1167 5.51672 18.3 5.70005C18.4833 5.88338 18.575 6.11672 18.575 6.40005C18.575 6.68338 18.4833 6.91672 18.3 7.10005L13.4 12L18.3 16.9C18.4833 17.0834 18.575 17.3167 18.575 17.6C18.575 17.8834 18.4833 18.1167 18.3 18.3C18.1167 18.4834 17.8833 18.575 17.6 18.575C17.3167 18.575 17.0833 18.4834 16.9 18.3L12 13.4Z"
+                    fill="#2A3647" />
+            </g>
+        </svg>
     </div>
 </div>

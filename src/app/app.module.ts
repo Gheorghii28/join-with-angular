@@ -23,6 +23,8 @@ import { ModalTaskFormComponent } from './modal-task-form/modal-task-form.compon
 import { ModalTaskOpenedComponent } from './modal-task-opened/modal-task-opened.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { ModalContactFormComponent } from './modal-contact-form/modal-contact-form.component';
+import { ModalLegalnoticeComponent } from './modal-legalnotice/modal-legalnotice.component';
+import { ModalPrivacypolicyComponent } from './modal-privacypolicy/modal-privacypolicy.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { ModalContactFormComponent } from './modal-contact-form/modal-contact-fo
     ModalTaskFormComponent,
     ModalTaskOpenedComponent,
     ContactsComponent,
-    ModalContactFormComponent
+    ModalContactFormComponent,
+    ModalLegalnoticeComponent,
+    ModalPrivacypolicyComponent
   ],
   imports: [
     BrowserModule,
