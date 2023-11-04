@@ -25,6 +25,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { ModalContactFormComponent } from './modal-contact-form/modal-contact-form.component';
 import { ModalLegalnoticeComponent } from './modal-legalnotice/modal-legalnotice.component';
 import { ModalPrivacypolicyComponent } from './modal-privacypolicy/modal-privacypolicy.component';
+import { HelpInfoComponent } from './help-info/help-info.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ModalPrivacypolicyComponent } from './modal-privacypolicy/modal-privacy
     ContactsComponent,
     ModalContactFormComponent,
     ModalLegalnoticeComponent,
-    ModalPrivacypolicyComponent
+    ModalPrivacypolicyComponent,
+    HelpInfoComponent
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import { SummaryComponent } from './summary/summary.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { BoardComponent } from './board/board.component';
 import { ContactsComponent } from './contacts/contacts.component';
+import { HelpInfoComponent } from './help-info/help-info.component';
 
 const routes: Routes = [
   {
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'summary', component: SummaryComponent },
   { path: 'addtask', component: AddTaskComponent },
   { path: 'board', component: BoardComponent },
-  { path: 'contacts', component: ContactsComponent }
+  { path: 'contacts', component: ContactsComponent },
+  { path: 'help-info', component: HelpInfoComponent }
 ];
 
 @NgModule({

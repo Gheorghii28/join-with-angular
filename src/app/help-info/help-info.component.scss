@@ -1,0 +1,97 @@
+.main-div {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+}
+
+.headline {
+    margin-left: 96px;
+
+    @media (max-width: 1024px) {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    @media (max-width: 480px) {
+        margin-left: 20px;
+    }
+
+    h1 {
+        font-size: 52px;
+        font-weight: 700;
+        line-height: 120%;
+
+        @media (max-width: 768px) {
+            margin-top: 20px;
+        }
+
+        @media (max-width: 480px) {
+            font-size: 28px;
+        }
+    }
+}
+
+.help-info {
+    margin-left: 96px;
+    margin-right: 40px;
+
+    @media (max-width: 1024px) {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    @media (max-width: 480px) {
+        margin-left: 20px;
+    }
+
+    h2 {
+        font-size: 27px;
+        font-weight: 700;
+        line-height: 120%;
+    }
+
+    p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 120%;
+    }
+
+    a {
+        color: var(--light-blue);
+        transition: all 225ms ease-in-out;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.color-electric {
+    color: var(--electric-blue);
+}
+
+.custom-numbered-list {
+    list-style-type: none;
+    counter-reset: my-counter;
+
+    li {
+        counter-increment: my-counter;
+        margin-bottom: 10px;
+        position: relative;
+
+        &::before {
+            position: absolute;
+            left: -40px;
+            content: counter(my-counter);
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        &::after {
+            content: ".";
+            position: absolute;
+            font-weight: 900;
+            left: -24px;
+            top: 8px;
+        }
+    }
+}
