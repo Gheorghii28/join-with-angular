@@ -118,7 +118,6 @@ export class ModalsControls {
             this.isContactDeleted = false;
             this.isResultInfoHidden = false;
             this.closeContactForm();
-            this.closeContactForm();
         }, 1500);
     }
 

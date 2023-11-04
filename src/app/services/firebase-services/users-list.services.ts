@@ -18,6 +18,10 @@ export class UsersListServices {
         });
     }
 
+    ngOnDestroy() {
+        this.unsubUsersList();
+    }
+
     getUsersRef() {
         return collection(this.firestore, 'users');
     }
@@ -27,6 +31,7 @@ export class UsersListServices {
     }
 
     getUserList(list: any) {
+        this.userList = [];
         list.forEach((user: any) => {
             const userObj = user.data();
             userObj['userId'] = user.id;

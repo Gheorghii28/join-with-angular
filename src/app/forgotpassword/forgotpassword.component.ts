@@ -1,6 +1,7 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '../services/validation/validation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgotpassword',
@@ -25,7 +26,8 @@ export class ForgotpasswordComponent {
   constructor(
     private formBuilder: FormBuilder,
     private validation: ValidationService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private router: Router
   ) {
 
   }
@@ -136,6 +138,7 @@ export class ForgotpasswordComponent {
       this.renderer.removeClass(this.resultInfoContainer, 'show-form-succes-message');
       this.renderer.removeClass(this.resultInfoContainer, 'show-form-error-message');
       this.renderer.removeClass(this.formResult, 'opacity-null');
+      this.router.navigate(['/login']);
     }, 2000);
   }
 }
