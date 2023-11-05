@@ -94,6 +94,12 @@ header {
                 scale: 0.92;
             }
         }
+
+        .initials {
+            font-size: 18px;
+            font-weight: 700;
+            fill: var(--electric-blue);
+        }
     }
 }
 
@@ -136,7 +142,7 @@ header {
         padding: 8px 0;
         cursor: pointer;
         transition: all 225ms ease-in-out;
-        
+
         @media (max-width: 480px) {
             padding: 6px 0;
         }
