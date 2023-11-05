@@ -90,7 +90,7 @@ export class ModalTaskOpenedComponent {
           taskObj.progress = taskObj.closedSubTasks / taskObj.subTasks.length * 100;
         }
       }
-      updatedTasks.push(task);
+      updatedTasks.push(taskObj);
     });
     return updatedTasks;
   }

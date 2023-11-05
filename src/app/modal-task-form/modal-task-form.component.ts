@@ -17,6 +17,7 @@ export class ModalTaskFormComponent {
   user!: User;
   userId: any;
   isUserLoaded: boolean = false;
+  isFormValid: boolean = true;
   addTaskFormular: FormGroup = new FormGroup({});
   titleInfo: any;
   descriptionInfo: any;
@@ -169,6 +170,8 @@ export class ModalTaskFormComponent {
       this.categoryInfo.categoryValue = this.modalControls.openedTask.category;
     }
     this.allFieldsInfo.push(this.categoryInfo);
+    
+    
   }
 
   initSubtaskInfo() {
@@ -231,19 +234,19 @@ export class ModalTaskFormComponent {
   }
 
   formIsValid() {
-    let isValid = true;
-    this.checkField(isValid, this.titleInfo, 'titleField');
-    this.checkField(isValid, this.descriptionInfo, 'descriptionField');
-    this.checkField(isValid, this.dateInfo, 'dateField');
-    this.checkField(isValid, this.prioInfo, 'prioField');
-    this.checkAssignedField(isValid);
+    this.isFormValid = true;
+    this.checkField(this.titleInfo, 'titleField');
+    this.checkField(this.descriptionInfo, 'descriptionField');
+    this.checkField(this.dateInfo, 'dateField');
+    this.checkField(this.prioInfo, 'prioField');
+    this.checkAssignedField();
     this.clearRequiredInfo(this.categoryInfo);
-    if (this.categoryInfo.categoryValue.length == 0) {
+    if (this.categoryInfo.categoryValue.length == 0 && this.categoryInfo.inputCategoryValue.length == 0) {
       this.categoryInfo.warningText = 'This field is required';
-      isValid = false;
-      this.categoryInfo.isInvalid = !isValid;
+      this.isFormValid = false;
+      this.categoryInfo.isInvalid = !this.isFormValid;
     }
-    return isValid;
+    return this.isFormValid;
   }
 
   disableFormElements(disabledValue: boolean) {
@@ -280,15 +283,15 @@ export class ModalTaskFormComponent {
     this.subtaskList = [];
   }
 
-  checkField(isValid: boolean, fieldInfo: any, fieldName: string) {
+  checkField(fieldInfo: any, fieldName: string) {
     this.clearRequiredInfo(fieldInfo);
     let value = this.addTaskFormular.controls[fieldName].value;
     if (this.isFieldEmpty(fieldName, value)) {
-      this.showRequiredInfo(fieldInfo, isValid);
+      this.showRequiredInfo(fieldInfo);
     }
   }
 
-  checkAssignedField(isValid: boolean) {
+  checkAssignedField() {
     this.clearRequiredInfo(this.assignedInfo);
     this.assignedInfo.taskAssigned = [];
     this.filteredContactList.forEach((contact: Contact) => {
@@ -297,7 +300,7 @@ export class ModalTaskFormComponent {
       }
     });
     if (this.assignedInfo.taskAssigned.length == 0) {
-      this.showRequiredInfo(this.assignedInfo, isValid);
+      this.showRequiredInfo(this.assignedInfo);
     }
   }
 
@@ -307,9 +310,15 @@ export class ModalTaskFormComponent {
   }
 
   getCreatedNewTask(status: string) {
+    let categoryValue;
+    if(this.categoryInfo.categoryValue.length == 0) {
+      categoryValue = this.categoryInfo.inputCategoryValue;
+    } else {
+      categoryValue = this.categoryInfo.categoryValue;
+    }
     return {
       assigned: this.assignedInfo.taskAssigned,
-      category: this.categoryInfo.categoryValue,
+      category: categoryValue,
       closedSubTasks: 0,
       color: this.dataService.getRandomRGBColor(),
       date: this.addTaskFormular.controls['dateField'].value,
@@ -372,10 +381,10 @@ export class ModalTaskFormComponent {
     return this.addTaskFormular.controls[field].errors && value.length == 0;
   }
 
-  showRequiredInfo(fieldInfo: any, isValid: boolean) {
+  showRequiredInfo(fieldInfo: any) {
     fieldInfo.warningText = 'This field is required';
-    isValid = false;
-    fieldInfo.isInvalid = !isValid;
+    this.isFormValid = false;
+    fieldInfo.isInvalid = !this.isFormValid;
   }
 
   getCreatedSubtasks() {

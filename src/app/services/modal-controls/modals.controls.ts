@@ -122,7 +122,6 @@ export class ModalsControls {
             this.isCategorySaved = false;
             this.isTaskDeleted = false;
             this.isResultInfoHidden = false;
-            // this.closeTaskForm();
         }, 1500);
     }
 
