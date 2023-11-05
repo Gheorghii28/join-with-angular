@@ -5,6 +5,7 @@ import { addDoc } from '@angular/fire/firestore';
 import { ValidationService } from '../services/validation/validation.service';
 import { User } from '../interfaces/user.interface';
 import { DataServices } from '../services/data-services/data.services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -44,6 +45,9 @@ export class SignupComponent implements OnInit {
     type: 'password'
   }
 
+  isModalontainerOpen: boolean = false;
+  isPrivacyPoliceOpen: boolean = false;
+
   @ViewChild('signupContent', { static: true }) signupSectionRef!: ElementRef<HTMLElement>;
   @ViewChild('nameField', { static: true }) nameFieldRef!: ElementRef<HTMLElement>;
   @ViewChild('emailField', { static: true }) emailFieldRef!: ElementRef<HTMLElement>;
@@ -58,7 +62,8 @@ export class SignupComponent implements OnInit {
     private usersListServices: UsersListServices,
     private validation: ValidationService,
     private renderer: Renderer2,
-    private data: DataServices
+    private data: DataServices,
+    private router: Router
   ) {
 
   }
@@ -210,6 +215,7 @@ export class SignupComponent implements OnInit {
       this.renderer.removeClass(this.resultInfoContainer, 'show-form-succes-message');
       this.renderer.removeClass(this.resultInfoContainer, 'show-form-error-message');
       this.renderer.removeClass(this.formResult, 'opacity-null');
+      this.router.navigate(['/login']);
     }, 2000);
   }
   
@@ -220,5 +226,15 @@ export class SignupComponent implements OnInit {
     } else {
       passwordInfo.type = 'password';
     }
+  }
+  
+  closeModalContainer() {
+    this.isPrivacyPoliceOpen = false;
+    this.isModalontainerOpen = false;
+  }
+
+  openPrivacyPolice() {
+    this.isModalontainerOpen = true;
+    this.isPrivacyPoliceOpen = true; 
   }
 }
