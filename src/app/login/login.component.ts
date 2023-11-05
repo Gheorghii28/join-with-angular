@@ -81,6 +81,10 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/summary']);
   }
 
+  guestLogin() {
+    localStorage.setItem('id-key', JSON.stringify('DENenAySeNo3SN56ZWfQ'));
+  }
+
   isUserValid(email: string, password: string) {
     let isValid = false;
     this.userListService['userList'].forEach((user: any) => {
