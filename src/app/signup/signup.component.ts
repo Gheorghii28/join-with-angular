@@ -34,6 +34,16 @@ export class SignupComponent implements OnInit {
   resultInfoContainer: any;
   formResult: any;
 
+  passwordDiplayedInfo: any = {
+    isDisplayed: false,
+    type: 'password'
+  }
+
+  confirmPasswordDiplayedInfo: any = {
+    isDisplayed: false,
+    type: 'password'
+  }
+
   @ViewChild('signupContent', { static: true }) signupSectionRef!: ElementRef<HTMLElement>;
   @ViewChild('nameField', { static: true }) nameFieldRef!: ElementRef<HTMLElement>;
   @ViewChild('emailField', { static: true }) emailFieldRef!: ElementRef<HTMLElement>;
@@ -201,5 +211,14 @@ export class SignupComponent implements OnInit {
       this.renderer.removeClass(this.resultInfoContainer, 'show-form-error-message');
       this.renderer.removeClass(this.formResult, 'opacity-null');
     }, 2000);
+  }
+  
+  togglePasswordVisibility(passwordInfo:any) {
+    passwordInfo.isDisplayed = !passwordInfo.isDisplayed;
+    if (passwordInfo.isDisplayed) {
+      passwordInfo.type = 'text';
+    } else {
+      passwordInfo.type = 'password';
+    }
   }
 }

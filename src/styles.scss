@@ -833,3 +833,12 @@ button[type="submit"] {
         }
     }
 }
+
+.displayed-password {
+    top: 15px !important;
+    cursor: pointer;
+
+    @media(max-width:1024px) {
+        top: 10px !important;
+    }
+}

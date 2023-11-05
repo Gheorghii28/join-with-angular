@@ -36,9 +36,13 @@
             </div>
             <div class="container-input">
                 <span class="before-input">{{passwordWarningText}}</span>
-                <input #passwordField class="password-field" name="password" type="password" placeholder="Password"
-                    formControlName="passwordField" [ngClass]="{'error-border': isPasswordInvalid}">
-                <img src="../../assets/icons/password/lock.svg" class="after-input">
+                <input #passwordField class="password-field" name="password" type="{{passwordType}}"
+                    placeholder="Password" formControlName="passwordField"
+                    [ngClass]="{'error-border': isPasswordInvalid}">
+                <img (click)="togglePasswordVisibility()" *ngIf="!isPaswordDisplayed"
+                    src="../../assets/icons/password/lock.svg" class="after-input" style="cursor: pointer;">
+                <img (click)="togglePasswordVisibility()" *ngIf="isPaswordDisplayed"
+                    src="../../assets/icons/password/visibility.svg" class="after-input displayed-password">
             </div>
             <div class="login-options">
                 <label class="checkbox-label">

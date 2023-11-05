@@ -28,6 +28,8 @@ export class LoginComponent implements OnInit {
   isPrivacyPoliceOpen: boolean = false;
   isLegalNoticeOpen: boolean = false;
   isModalontainerOpen: boolean = false;
+  isPaswordDisplayed: boolean = false;
+  passwordType: string = 'password';
 
   @ViewChild('loginContent', { static: true }) loginSectionRef!: ElementRef<HTMLElement>;
   @ViewChild('emailField', { static: true }) emailFieldRef!: ElementRef<HTMLElement>;
@@ -200,5 +202,14 @@ export class LoginComponent implements OnInit {
   openLegalNotice() {
     this.isModalontainerOpen = true;
     this.isLegalNoticeOpen = true; 
+  }
+  
+  togglePasswordVisibility() {
+    this.isPaswordDisplayed = !this.isPaswordDisplayed;
+    if (this.isPaswordDisplayed) {
+      this.passwordType = 'text';
+    } else {
+      this.passwordType = 'password';
+    }
   }
 }

@@ -40,19 +40,28 @@
             </div>
             <div class="container-input">
                 <span class="before-input">{{passwordWarningText}}</span>
-                <input #passwordField class="password-field" name="password" type="password" placeholder="Password"
-                    formControlName="passwordField" [ngClass]="{'error-border': isPasswordInvalid}">
-                <img src="../../assets/icons/password/lock.svg" class="after-input">
+                <input #passwordField class="password-field" name="password" type="{{passwordDiplayedInfo.type}}"
+                    placeholder="Password" formControlName="passwordField"
+                    [ngClass]="{'error-border': isPasswordInvalid}">
+                <img (click)="togglePasswordVisibility(passwordDiplayedInfo)" *ngIf="!passwordDiplayedInfo.isDisplayed"
+                    src="../../assets/icons/password/lock.svg" class="after-input" style="cursor: pointer;">
+                <img (click)="togglePasswordVisibility(passwordDiplayedInfo)" *ngIf="passwordDiplayedInfo.isDisplayed"
+                    src="../../assets/icons/password/visibility.svg" class="after-input displayed-password">
             </div>
             <div class="container-input">
                 <span class="before-input">{{confirmPasswordWarningText}}</span>
-                <input #confirmPasswordField class="confirmPassword-field" name="confirmPassword" type="password" placeholder="Confirm Password"
-                    formControlName="confirmPasswordField" [ngClass]="{'error-border': isConfirmPasswordInvalid}">
-                <img src="../../assets/icons/password/lock.svg" class="after-input">
+                <input #confirmPasswordField class="confirmPassword-field" name="confirmPassword"
+                    type="{{confirmPasswordDiplayedInfo.type}}" placeholder="Confirm Password" formControlName="confirmPasswordField"
+                    [ngClass]="{'error-border': isConfirmPasswordInvalid}">
+                <img (click)="togglePasswordVisibility(confirmPasswordDiplayedInfo)" *ngIf="!confirmPasswordDiplayedInfo.isDisplayed"
+                    src="../../assets/icons/password/lock.svg" class="after-input" style="cursor: pointer;">
+                <img (click)="togglePasswordVisibility(confirmPasswordDiplayedInfo)" *ngIf="confirmPasswordDiplayedInfo.isDisplayed"
+                    src="../../assets/icons/password/visibility.svg" class="after-input displayed-password">
             </div>
             <div class="accept-option">
                 <label class="checkbox-label">
-                    <input #checkboxField type="checkbox" name="accept-privacy-policy" (change)="toggleAcceptPrivacyPolicy()">
+                    <input #checkboxField type="checkbox" name="accept-privacy-policy"
+                        (change)="toggleAcceptPrivacyPolicy()">
                     I accept the
                 </label>
                 <a routerLink="/privacypolicy">Privacy policy</a>
