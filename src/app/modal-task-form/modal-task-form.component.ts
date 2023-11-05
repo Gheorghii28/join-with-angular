@@ -164,7 +164,7 @@ export class ModalTaskFormComponent {
       categoryValue: '',
       field: undefined
     }
-    if(this.modalControls.openedTask) {
+    if (this.modalControls.openedTask) {
       this.categoryInfo.inputCategoryValue = this.modalControls.openedTask.category;
       this.categoryInfo.categoryValue = this.modalControls.openedTask.category;
     }
@@ -176,8 +176,8 @@ export class ModalTaskFormComponent {
       isSubtaskOptionsOpen: false,
       inputSubtaskValue: '',
     }
-    if(this.modalControls.openedTask) {
-      this.modalControls.openedTask.subTasks.forEach((subtask:any) => {
+    if (this.modalControls.openedTask) {
+      this.modalControls.openedTask.subTasks.forEach((subtask: any) => {
         this.subtaskList.push({ name: subtask.value, isEditOpen: false })
       });
       this.subtaskInfo.isSubtaskOptionsOpen = true;
@@ -202,9 +202,9 @@ export class ModalTaskFormComponent {
 
   setFilteredContacts() {
     this.filteredContactList = this.user.contacts.map(contact => {
-      if(this.modalControls.openedTask) {
-        this.modalControls.openedTask.assigned.forEach((assigned:any) => {
-          if(assigned.id == contact.id) {
+      if (this.modalControls.openedTask) {
+        this.modalControls.openedTask.assigned.forEach((assigned: any) => {
+          if (assigned.id == contact.id) {
             contact.isChecked = assigned.isChecked;
           }
         });
@@ -218,7 +218,7 @@ export class ModalTaskFormComponent {
     this.categoryInfo.filteredCategoryList = this.user.category.map((category: any) => {
       return { ...category, isNotHidden: false };
     });
-    this.filteredContactList.sort((a: any, b: any) => a.name.localeCompare(b.name));
+    this.categoryInfo.filteredCategoryList.sort((a: any, b: any) => a.name.localeCompare(b.name));
   }
 
   createTask(status: string) {
@@ -328,10 +328,10 @@ export class ModalTaskFormComponent {
   }
 
   getUpdatedTasks(newTask: Task) {
-    let tasksUpdated:any = [];
-    this.user.tasks.forEach((task:any) => {
-      if(this.modalControls.openedTask) {
-        if(task.id !== this.modalControls.openedTask.id) {
+    let tasksUpdated: any = [];
+    this.user.tasks.forEach((task: any) => {
+      if (this.modalControls.openedTask) {
+        if (task.id !== this.modalControls.openedTask.id) {
           tasksUpdated.push(task);
         }
       } else {
@@ -396,6 +396,7 @@ export class ModalTaskFormComponent {
       this.assignedInfo.placeholderAssignedText = 'Select contacts to assign';
     }
   }
+
   openAssignedOptions() {
     this.clearAssignedPlaceholder();
     this.clearRequiredInfo(this.assignedInfo);
@@ -521,5 +522,41 @@ export class ModalTaskFormComponent {
       formControls[subtask.name] = [subtask.name];
     }
     return formControls;
+  }
+
+  async addNewCategory() {
+    const categoryValue = this.addTaskFormular.controls['categoryField'].value;
+    if (categoryValue.length > 0) {
+      try {
+        this.addTaskFormular.patchValue({ categoryField: '' });
+        const newCategory = this.getCreatedNewCategory(categoryValue);
+        this.modalControls.showLoadingAnimation();
+        await updateDoc(this.userListService.getUserDocRef('users', this.userId), {
+          "category": this.getUpdatedCategory(newCategory)
+        });
+        this.modalControls.showSuccessCategoryMessage();
+      } catch (error) {
+        this.showErrorMessageBox(error);
+      } finally {
+        this.modalControls.hideLoadingAnimationCategory();
+        this.filteredCategorys();
+      }
+    }
+
+  }
+
+  getCreatedNewCategory(value: any) {
+    return {
+      name: value
+    }
+  }
+
+  getUpdatedCategory(newCategory: any) {
+    let categoryUpdated: any = [];
+    this.user.category.forEach((category: any) => {
+      categoryUpdated.push(category);
+    });
+    categoryUpdated.push(newCategory);
+    return categoryUpdated;
   }
 }

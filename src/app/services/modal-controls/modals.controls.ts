@@ -43,6 +43,8 @@ export class ModalsControls {
     isContactSaved: boolean = false;
     isContactDeleted: boolean = false;
 
+    isCategorySaved: boolean = false;
+
     constructor(
         private router: Router
     ) { }
@@ -85,6 +87,11 @@ export class ModalsControls {
         this.isTaskSaved = true;
     }
 
+    showSuccessCategoryMessage() {
+        this.isTaskLoading = false;
+        this.isCategorySaved = true;
+    }
+
     showDeletedTaskMessage() {
         this.isTaskLoading = false;
         this.isTaskDeleted = true;
@@ -104,6 +111,18 @@ export class ModalsControls {
             this.isResultInfoHidden = false;
             this.closeTaskForm();
             this.router.navigate(['/board']);
+        }, 1500);
+    }
+
+    hideLoadingAnimationCategory() {
+        this.isResultInfoHidden = true;
+        setTimeout(() => {
+            this.isResultInfoOpen = false;
+            this.isTaskLoading = false;
+            this.isCategorySaved = false;
+            this.isTaskDeleted = false;
+            this.isResultInfoHidden = false;
+            // this.closeTaskForm();
         }, 1500);
     }
 

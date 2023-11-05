@@ -557,7 +557,8 @@
 }
 
 .show-deleted-task-message,
-.show-form-succes-message {
+.show-form-succes-message,
+.schow-category-succes-message {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -665,6 +666,36 @@
             content: none !important;
         }
     }
+}
+
+.schow-category-succes-message {
+    .result-content {
+
+        &::after {
+            content: 'Category added to list' !important;
+            padding-right: 30px !important;
+            right: -140.5px !important;
+            
+            @media(max-width: 768px) {
+                padding-right: 22px !important;
+                right: -117px !important;
+            }
+
+            @media(max-width: 480px) {
+                padding-right: 22px !important;
+                right: -90.5px !important;
+            }
+
+            @media(max-width: 350px) {
+                width: 180px !important;
+                right: -112px !important;
+            }
+        }
+
+        &::before {
+            content: none !important;
+        }
+    }   
 }
 
 .modal-dialogs-contact {

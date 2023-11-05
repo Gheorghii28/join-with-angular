@@ -259,7 +259,7 @@
         <app-modal-task-opened *ngIf="modalControls.isTaskOpen" class="task-opened-board move-left"></app-modal-task-opened>
         <app-modal-task-form *ngIf="modalControls.isTaskFormOpen" class="task-form-board move-left"></app-modal-task-form>
         <div #formResultInfo [ngClass]="{'form-result-info': modalControls.isResultInfoOpen, 'opacity-null': modalControls.isResultInfoHidden}">
-            <div #sendResultInfo [ngClass]="{'show-form-load-animation': modalControls.isTaskLoading, 'show-form-succes-message': modalControls.isTaskSaved, 'show-deleted-task-message': modalControls.isTaskDeleted}">
+            <div #sendResultInfo [ngClass]="{'show-form-load-animation': modalControls.isTaskLoading, 'show-form-succes-message': modalControls.isTaskSaved, 'schow-category-succes-message':modalControls.isCategorySaved, 'show-deleted-task-message': modalControls.isTaskDeleted}">
                 <div class="result-content"></div>
             </div>
         </div>

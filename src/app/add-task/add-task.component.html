@@ -10,7 +10,7 @@
         <app-modal-contact-form *ngIf="modalControls.isContactFormOpen" class="contact-form move-contact-form"></app-modal-contact-form>
     </div>
     <div #formResultInfo [ngClass]="{'form-result-info': modalControls.isResultInfoOpen, 'opacity-null': modalControls.isResultInfoHidden}">
-        <div #sendResultInfo [ngClass]="{'show-form-load-animation': modalControls.isTaskLoading, 'show-form-succes-message': modalControls.isTaskSaved}">
+        <div #sendResultInfo [ngClass]="{'show-form-load-animation': modalControls.isTaskLoading, 'schow-category-succes-message':modalControls.isCategorySaved, 'show-form-succes-message': modalControls.isTaskSaved}">
             <div class="result-content"></div>
         </div>
     </div>

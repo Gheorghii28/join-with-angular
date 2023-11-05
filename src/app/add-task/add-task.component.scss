@@ -22,7 +22,8 @@ app-modal-task-form {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.show-form-succes-message {
+.show-form-succes-message,
+.schow-category-succes-message {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,6 +102,36 @@ app-modal-task-form {
     }
 }
 
+.schow-category-succes-message {
+    .result-content {
+
+        &::after {
+            content: 'Category added to list' !important;
+            padding-right: 30px !important;
+            right: -140.5px !important;
+
+            @media(max-width: 768px) {
+                padding-right: 22px !important;
+                right: -117px !important;
+            }
+
+            @media(max-width: 480px) {
+                padding-right: 22px !important;
+                right: -90.5px !important;
+            }
+
+            @media(max-width: 350px) {
+                width: 180px !important;
+                right: -112px !important;
+            }
+        }
+
+        &::before {
+            content: none !important;
+        }
+    }
+}
+
 .modal-dialogs {
     display: flex;
     align-items: center;
@@ -114,7 +145,7 @@ app-modal-task-form {
     .move-contact-form {
         transform: translateX(100vw);
         animation: moveLeft 225ms ease-in-out forwards;
-        
+
         @media(max-width: 768px) {
             transform: translateX(0vw);
             transform: translateY(100vw);
@@ -146,7 +177,7 @@ app-modal-task-form {
             height: calc(var(--contact-form-width-2) * 2);
             max-width: 396px;
             max-height: 760px;
-            
+
             @media (max-height: 823px) {
                 max-height: calc(100vh - 50px);
             }
