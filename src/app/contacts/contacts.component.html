@@ -27,7 +27,7 @@
                                 <path d="M1 1H353" stroke="#D1D1D1" stroke-linecap="round" />
                             </svg>
                             <ul>
-                                <li (click)="showContactInfo(contact)" *ngFor="let contact of contacts.contacts"
+                                <li id="contact-id{{contact.id}}" (click)="showContactInfo(contact)" *ngFor="let contact of contacts.contacts"
                                     class="option" [ngClass]="{'bg-displayed-contact': modalControls.displayedContact && contact.id == modalControls.displayedContact.id}">
                                     <div class="checkbox-tile container-name">
                                         <div [style.background-color]="contact.color" class="initials">

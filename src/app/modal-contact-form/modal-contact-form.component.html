@@ -53,7 +53,8 @@
             </div>
             <div class="container-input">
                 <span class="before-input">{{phoneInfo.warningText}}</span>
-                <input #phoneField class="phone-field" name="phone" type="number" placeholder="Phone"
+                <input #phoneField class="phone-field no-spin-buttons" [(ngModel)]="phoneValue" (input)="sanitizeInput(phoneValue)" 
+                name="phone" min="0" type="text" placeholder="Phone"
                     formControlName="phoneField" [ngClass]="{'error-border': phoneInfo.isInvalid}">
                 <img src="../../assets/icons/phone.svg" class="after-input">
             </div>

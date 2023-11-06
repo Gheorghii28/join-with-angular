@@ -842,3 +842,20 @@ button[type="submit"] {
         top: 10px !important;
     }
 }
+
+.no-spin-buttons::-webkit-inner-spin-button,
+.no-spin-buttons::-webkit-outer-spin-button {
+    display: none;
+}
+
+.no-spin-buttons::-webkit-clear-button {
+    display: none;
+}
+
+.no-spin-buttons::-moz-number-spin-box {
+    display: none;
+}
+
+.no-spin-buttons::-moz-range-thumb {
+    display: none;
+}

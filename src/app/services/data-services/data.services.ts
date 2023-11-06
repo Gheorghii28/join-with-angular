@@ -52,7 +52,7 @@ export class DataServices {
     }
 
     generateRandomPhone() {
-        const phone = `+491${Math.floor(Math.random() * 100000000)}`;
+        const phone = `00491${Math.floor(Math.random() * 100000000)}`;
         return phone;
     }
 

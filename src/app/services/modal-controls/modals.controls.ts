@@ -125,7 +125,7 @@ export class ModalsControls {
         }, 1500);
     }
 
-    hideContactLoadingAnimation() {
+    hideContactLoadingAnimation(contact: any) {
         this.isResultInfoHidden = true;
         setTimeout(() => {
             this.isResultInfoOpen = false;
@@ -136,7 +136,21 @@ export class ModalsControls {
             this.isContactDeleted = false;
             this.isResultInfoHidden = false;
             this.closeContactForm();
+            if (contact) {
+                const toElement = this.getTargetElement(contact.id);
+                this.scrollToElement(toElement);
+                this.displayedContact = contact;
+                this.isContactInfoDispayed = true;
+            }
         }, 1500);
+    }
+
+    scrollToElement(element: any) {
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    getTargetElement(id: number) {
+        return document.getElementById(`contact-id${id}`);
     }
 
     closeContactForm() {

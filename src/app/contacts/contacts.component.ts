@@ -17,7 +17,6 @@ export class ContactsComponent {
   isUserLoaded: boolean = false;
   filteredContactList: any;
   groupedContacts: any;
-  // isContactInfoDispayed: boolean = false;
 
   testContact: any;
 
@@ -109,7 +108,7 @@ export class ContactsComponent {
     } catch (error) {
       this.showErrorMessageBox(error);
     } finally {
-      this.modalControls.hideContactLoadingAnimation();
+      this.modalControls.hideContactLoadingAnimation(undefined);
     }
   }
   

@@ -6,6 +6,7 @@ import { UsersListServices } from '../services/firebase-services/users-list.serv
 import { updateDoc } from '@firebase/firestore';
 import { Contact, User } from '../interfaces/user.interface';
 import { onSnapshot } from '@angular/fire/firestore';
+import { ValidationService } from '../services/validation/validation.service';
 
 @Component({
   selector: 'app-modal-contact-form',
@@ -23,6 +24,7 @@ export class ModalContactFormComponent {
   isNameInvalid: boolean = false;
   isEmailInvalid: boolean = false;
   isPhoneInvalid: boolean = false;
+  phoneValue: string = '';
 
   nameInfo: any = {
     field: undefined,
@@ -58,7 +60,8 @@ export class ModalContactFormComponent {
     public modalControls: ModalsControls,
     private formBuilder: FormBuilder,
     private dataService: DataServices,
-    private userListService: UsersListServices
+    private userListService: UsersListServices,
+    public validation: ValidationService
   ) {
     const storedValue = localStorage.getItem('id-key');
     this.userId = storedValue ? JSON.parse(storedValue) : null;
@@ -72,12 +75,15 @@ export class ModalContactFormComponent {
   ngOnInit(): void {
     this.getFormGroupEditedContact();
     this.createForm();
+    if(this.modalControls.isContactEdit) {
+      this.phoneValue = this.modalControls.displayedContact.phone;
+    }
   }
-  
+
   ngOnDestroy() {
     this.unsubUser();
   }
-  
+
   subUserList() {
     return onSnapshot(this.userListService.getUserDocRef('users', this.userId), (list: any) => {
       this.user = list.data();
@@ -129,10 +135,10 @@ export class ModalContactFormComponent {
   }
 
   getUpdatedContacts(contact: Contact) {
-    let contactsUpdated:any = [];
-    this.user.contacts.forEach((contact:any) => {
-      if(this.modalControls.displayedContact) {
-        if(contact.id !== this.modalControls.displayedContact.id) {
+    let contactsUpdated: any = [];
+    this.user.contacts.forEach((contact: any) => {
+      if (this.modalControls.displayedContact) {
+        if (contact.id !== this.modalControls.displayedContact.id) {
           contactsUpdated.push(contact);
         }
       } else {
@@ -142,7 +148,7 @@ export class ModalContactFormComponent {
     contactsUpdated.push(contact);
     return contactsUpdated;
   }
-  
+
   showErrorMessageBox(message: any) {
     console.log(message);
   }
@@ -152,9 +158,14 @@ export class ModalContactFormComponent {
     this.checkField(this.nameInfo, 'nameField');
     this.checkField(this.emailInfo, 'emailField');
     this.checkField(this.phoneInfo, 'phoneField');
+    if (this.validation.isInvalidEmail(this.contactFormular.controls['emailField'].value)) {
+      this.emailInfo.warningText = 'The entered email address is invalid.';
+      this.isFormValid = false;
+      this.emailInfo.isInvalid = !this.isFormValid;
+    }
     return this.isFormValid;
   }
-  
+
   checkField(fieldInfo: any, fieldName: string) {
     this.clearRequiredInfo(fieldInfo);
     let value = this.contactFormular.controls[fieldName].value;
@@ -167,20 +178,20 @@ export class ModalContactFormComponent {
     fieldInfo.warningText = '';
     fieldInfo.isInvalid = false;
   }
-  
+
   isFieldEmpty(field: string, value: string) {
     return this.contactFormular.controls[field].errors && value.length == 0;
   }
-  
+
   showRequiredInfo(fieldInfo: any) {
     fieldInfo.warningText = 'This field is required';
     this.isFormValid = false;
     fieldInfo.isInvalid = true;
   }
-  
+
   async addContact() {
+    const newContact = this.getCreatedNewContact();
     try {
-      const newContact = this.getCreatedNewContact();
       this.modalControls.showContactLoadingAnimation();
       await updateDoc(this.userListService.getUserDocRef('users', this.userId), {
         "contacts": this.getUpdatedContacts(newContact)
@@ -189,17 +200,17 @@ export class ModalContactFormComponent {
     } catch (error) {
       this.showErrorMessageBox(error);
     } finally {
-      this.modalControls.hideContactLoadingAnimation();
+      this.modalControls.hideContactLoadingAnimation(newContact);
     }
   }
 
   async deleteContact(deletedContact: Contact) {
     try {
       this.user.contacts.forEach((contact, index) => {
-        if(contact.id == deletedContact.id) {
+        if (contact.id == deletedContact.id) {
           this.user.contacts.splice(index, 1);
         }
-      }); 
+      });
       this.modalControls.showContactLoadingAnimation();
       await updateDoc(this.userListService.getUserDocRef('users', this.userId), {
         "contacts": this.user.contacts
@@ -208,7 +219,7 @@ export class ModalContactFormComponent {
     } catch (error) {
       this.showErrorMessageBox(error);
     } finally {
-      this.modalControls.hideContactLoadingAnimation();
+      this.modalControls.hideContactLoadingAnimation(undefined);
     }
   }
 
@@ -217,5 +228,10 @@ export class ModalContactFormComponent {
     this.clearRequiredInfo(this.nameInfo);
     this.clearRequiredInfo(this.emailInfo);
     this.clearRequiredInfo(this.phoneInfo);
+  }
+
+  sanitizeInput(value: any) {
+    this.phoneValue = value.replace(/[^0-9]/g, '');
+    this.contactFormular.patchValue({ phoneField: this.phoneValue });
   }
 }
