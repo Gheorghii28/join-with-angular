@@ -95,3 +95,28 @@
         }
     }
 }
+
+.section-content {
+    position: relative;
+}
+
+.back {
+    position: fixed;
+    top: 130px;
+    right: 40px;
+    z-index: 8;
+    cursor: pointer;
+    transition: all 225ms ease-in-out;
+    
+    @media(max-width: 1024px) {
+        right: 20px;
+    }
+    
+    @media(max-width: 768px) {
+        top: 100px;
+    }
+
+    &:hover {
+        scale: 1.05;
+    }
+}
