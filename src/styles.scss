@@ -538,7 +538,6 @@ app-nav-mobile {
 
     &::-webkit-scrollbar-thumb {
         background: var(--dark-slate-blue);
-        ;
         border-radius: 5px;
     }
 }
@@ -858,4 +857,9 @@ button[type="submit"] {
 
 .no-spin-buttons::-moz-range-thumb {
     display: none;
+}
+
+.bg-ul-tasks {
+    background-color: rgba(0, 0, 0, 0.03);
+    border: 1px dashed var(--light-gray-2);
 }

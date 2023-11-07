@@ -54,6 +54,9 @@ export class BoardComponent {
 
   initializeTasks() {
     this.tasks = this.user[`tasks`];
+    this.tasks.forEach((task:any)=> {
+      task.isChoise = false;
+    })
     this.filterTasks(this.tasks);
   }
 
@@ -72,6 +75,7 @@ export class BoardComponent {
     this.renderer.removeClass(el.target, 'rotated');
     this.tasksRef.forEach((ul: ElementRef) => {
       this.renderer.removeClass(ul.nativeElement, 'opacity05');
+      this.renderer.removeClass(ul.nativeElement, 'bg-ul-tasks');
     });
 
   }
@@ -80,16 +84,18 @@ export class BoardComponent {
     this.renderer.addClass(el.target, 'rotated');
     this.tasksRef.forEach((ul: ElementRef) => {
       this.renderer.addClass(ul.nativeElement, 'opacity05');
+      this.renderer.addClass(ul.nativeElement, 'bg-ul-tasks');
     });
     this.renderer.removeClass(el.target.parentElement, 'opacity05');
+    this.renderer.removeClass(el.target.parentElement, 'bg-ul-tasks');
   }
 
   onMouseUp(el: any) {
     this.renderer.removeClass(el.target, 'rotated');
     this.tasksRef.forEach((ul: ElementRef) => {
       this.renderer.removeClass(ul.nativeElement, 'opacity05');
+      this.renderer.removeClass(ul.nativeElement, 'bg-ul-tasks');
     });
-
   }
 
   async moveTo(status: string) {
@@ -107,12 +113,14 @@ export class BoardComponent {
   leaveDragging(el: any, status: string) {
     if (el.target.parentElement.tagName == 'UL') {
       this.renderer.addClass(el.target.parentElement, 'opacity05');
+      this.renderer.addClass(el.target.parentElement, 'bg-ul-tasks');
     }
   }
 
   overDragging(el: any, status: string) {
     el.preventDefault();
     this.renderer.removeClass(el.target.parentElement, 'opacity05');
+    this.renderer.removeClass(el.target.parentElement, 'bg-ul-tasks');
   }
 
   searchTask() {
@@ -133,5 +141,16 @@ export class BoardComponent {
     this.modalControls.openedTaskId = task.id;
     this.modalControls.isModalContainerOpen = true;
     this.modalControls.isTaskOpen = true;
+  }
+
+  openChoiseListStatus(event: Event, task:any) {
+    event.stopPropagation();
+    task.isChoise = !task.isChoise;
+    this.currentDraggedElement = task.id;
+  }
+
+  moveToChoiseListe(status:string, event:Event) {
+    event.stopPropagation();
+    this.moveTo(status);
   }
 }
