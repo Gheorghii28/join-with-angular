@@ -14,7 +14,7 @@
         </div>
         <div class="prio">
             <span class="info-title">Priority:</span>
-            <span class="info-content">{{ task.prio }} <img src="../../assets/icons/prio/prio-{{task.prio}}.svg"></span>
+            <span class="info-content">{{ task.prio.charAt(0).toUpperCase() + task.prio.slice(1) }} <img src="../../assets/icons/prio/prio-{{task.prio}}.svg"></span>
         </div>
         <div class="assigned">
             <span class="info-title">Assigned To:</span>

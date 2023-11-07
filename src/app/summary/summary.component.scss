@@ -1,3 +1,10 @@
+.page-content {
+
+    @media (max-width: 900px) {
+        position: relative;
+    }
+}
+
 .summary-content {
     width: 100%;
     height: 100%;
@@ -374,40 +381,37 @@ a {
     }
 }
 
+@keyframes opacityAnimation {
+    0% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
 .animate-once {
+    
     @media (max-width: 900px) {
-        position: relative;
-
-        .box-right {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            margin: 0;
-            z-index: 10;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--light-gray);
-            animation: opacityAnimation 1500ms ease-in-out forwards;
-        }
-
-        @keyframes opacityAnimation {
-            0% {
-                opacity: 1;
-            }
-
-            70% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0;
-                display: none;
-            }
-        }
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0;
+        z-index: 10;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--light-gray);
+        animation: opacityAnimation 1500ms ease-in-out forwards;
     }
 }

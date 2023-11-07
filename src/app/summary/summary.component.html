@@ -1,4 +1,4 @@
-<div class="page-content animate-once">
+<div class="page-content">
     <app-nav class="menu-bg-summary"></app-nav>
     <div class="section-content">
         <app-header></app-header>
@@ -18,7 +18,7 @@
             <div class="box-content">
                 <div class="box-left">
                     <div class="line-1">
-                        <a href="/board">
+                        <a routerLink="/board">
                             <svg class="hoverable-svg" xmlns="http://www.w3.org/2000/svg" width="69" height="70" viewBox="0 0 69 70"
                                 fill="none">
                                 <circle cx="34.5" cy="35" r="34.5" fill="#2A3647" />
@@ -37,7 +37,7 @@
                                 <span class="text">To-do</span>
                             </div>
                         </a>
-                        <a href="/board">
+                        <a routerLink="/board">
                             <svg class="hoverable-svg" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70"
                                 fill="none">
                                 <circle cx="35" cy="35" r="34.5" fill="#2A3647" />
@@ -51,7 +51,7 @@
                         </a>
                     </div>
                     <div class="line-2">
-                        <a href="/board">
+                        <a routerLink="/board">
                             <svg width="60" height="60" viewBox="0 0 60 60" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="30" cy="30" r="30" fill="#FF3D00" />
@@ -85,19 +85,19 @@
                         </a>
                     </div>
                     <div class="line-3">
-                        <a href="/board">
+                        <a routerLink="/board">
                             <div class="small-info">
                                 <span class="nr">{{ tasksCount }}</span>
                                 <span class="text">Tasks in Board</span>
                             </div>
                         </a>
-                        <a href="/board">
+                        <a routerLink="/board">
                             <div class="small-info">
                                 <span class="nr">{{ inProgressCount }}</span>
                                 <span class="text">Tasks In Progress</span>
                             </div>
                         </a>
-                        <a href="/board">
+                        <a routerLink="/board">
                             <div class="small-info">
                                 <span class="nr">{{feedbackCount}}</span>
                                 <span class="text">Awaiting Feedback</span>
@@ -105,7 +105,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="box-right">
+                <div class="box-right animate-once">
                     <span class="greetings">{{greetings}}</span>
                     <span class="user-name">{{userName}}</span>
                 </div>
