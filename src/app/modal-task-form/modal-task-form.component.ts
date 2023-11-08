@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { updateDoc } from '@firebase/firestore';
 import { UsersListServices } from '../services/firebase-services/users-list.services';
 import { Contact, Task, User } from '../interfaces/user.interface';
-import { DataServices } from '../services/data-services/data.services';
 import { ModalsControls } from '../services/modal-controls/modals.controls';
 import { onSnapshot } from '@angular/fire/firestore';
 
@@ -49,7 +48,6 @@ export class ModalTaskFormComponent {
 
   constructor(
     private userListService: UsersListServices,
-    private dataService: DataServices,
     private formBuilder: FormBuilder,
     public modalControls: ModalsControls
   ) {
@@ -68,7 +66,6 @@ export class ModalTaskFormComponent {
   }
 
   ngOnInit(): void {
-    this.getFormGroupOpenedTask()
     this.createForm();
   }
 
@@ -94,11 +91,11 @@ export class ModalTaskFormComponent {
       return {
         titleField: [this.modalControls.openedTask.title, [Validators.required]],
         descriptionField: [this.modalControls.openedTask.description, [Validators.required]],
-        assignedField: [this.modalControls.openedTask.assigned, [Validators.required]],
+        assignedField: ['', [Validators.required]],
         dateField: [this.modalControls.openedTask.date, [Validators.required]],
         prioField: [this.modalControls.openedTask.prio, [Validators.required]],
         categoryField: [this.modalControls.openedTask.category, [Validators.required]],
-        subtasksField: [this.modalControls.openedTask.subTasks]
+        subtasksField: ['']
       }
     } else {
       return '';
@@ -128,7 +125,6 @@ export class ModalTaskFormComponent {
       warningText: '',
       isInvalid: false,
       taskAssigned: [],
-      inputAssignedValue: '',
       placeholderAssignedText: 'Select contacts to assign',
       isAssignedOptionsOpen: false,
       field: undefined
@@ -157,7 +153,6 @@ export class ModalTaskFormComponent {
     this.categoryInfo = {
       warningText: '',
       isInvalid: false,
-      inputCategoryValue: '',
       placeholderCategoryText: 'Select task category',
       isCategoryOptionsOpen: false,
       filteredCategoryList: undefined,
@@ -165,7 +160,8 @@ export class ModalTaskFormComponent {
       field: undefined
     }
     if (this.modalControls.openedTask) {
-      this.categoryInfo.inputCategoryValue = this.modalControls.openedTask.category;
+      let categoryValue = this.modalControls.openedTask.category;
+      this.addTaskFormular.patchValue({ assignedField: categoryValue });
       this.categoryInfo.categoryValue = this.modalControls.openedTask.category;
     }
     this.allFieldsInfo.push(this.categoryInfo);
@@ -176,7 +172,6 @@ export class ModalTaskFormComponent {
   initSubtaskInfo() {
     this.subtaskInfo = {
       isSubtaskOptionsOpen: false,
-      inputSubtaskValue: '',
     }
     if (this.modalControls.openedTask) {
       this.subtaskInfo.isSubtaskOptionsOpen = true;
@@ -240,7 +235,8 @@ export class ModalTaskFormComponent {
     this.checkField(this.prioInfo, 'prioField');
     this.checkAssignedField();
     this.clearRequiredInfo(this.categoryInfo);
-    if (this.categoryInfo.categoryValue.length == 0 && this.categoryInfo.inputCategoryValue.length == 0) {
+    let categoryInputValue = this.addTaskFormular.controls['categoryField'].value;
+    if (this.categoryInfo.categoryValue.length == 0 && categoryInputValue.length == 0) {
       this.categoryInfo.warningText = 'This field is required';
       this.isFormValid = false;
       this.categoryInfo.isInvalid = !this.isFormValid;
@@ -311,7 +307,7 @@ export class ModalTaskFormComponent {
   getCreatedNewTask(characteristics:any) {
     let categoryValue;
     if (this.categoryInfo.categoryValue.length == 0) {
-      categoryValue = this.categoryInfo.inputCategoryValue;
+      categoryValue = this.addTaskFormular.controls['categoryField'].value;
     } else {
       categoryValue = this.categoryInfo.categoryValue;
     }
@@ -372,7 +368,7 @@ export class ModalTaskFormComponent {
 
   closeCategoryField() {
     this.categoryInfo.categoryValue = '';
-    this.categoryInfo.inputCategoryValue = '';
+    this.addTaskFormular.patchValue({ categoryField: ''});
     this.categoryInfo.placeholderCategoryText = 'Select task category';
     this.categoryInfo.isCategoryOptionsOpen = false;
   }
@@ -401,7 +397,8 @@ export class ModalTaskFormComponent {
 
   restoreAssignedPlaceholder() {
     this.addTaskFormular.patchValue({ assignedField: '' });
-    if (!this.assignedInfo.inputAssignedValue || this.assignedInfo.inputAssignedValue.length == 0) {
+    let inputAssignedValue = this.addTaskFormular.controls['assignedField'].value;
+    if (!inputAssignedValue || inputAssignedValue.length == 0) {
       this.assignedInfo.placeholderAssignedText = 'Select contacts to assign';
     }
   }
@@ -433,11 +430,13 @@ export class ModalTaskFormComponent {
   }
 
   filteredContacts() {
-    this.filteredContactList = this.getFilteredContactList(this.assignedInfo.inputAssignedValue);
+    let inputAssignedValue = this.addTaskFormular.controls['assignedField'].value;
+    this.filteredContactList = this.getFilteredContactList(inputAssignedValue);
   }
 
   filteredCategorys() {
-    this.categoryInfo.filteredCategoryList = this.getFilteredCategoryList(this.categoryInfo.inputCategoryValue);
+    let categoryValue = this.addTaskFormular.controls['categoryField'].value;
+    this.categoryInfo.filteredCategoryList = this.getFilteredCategoryList(categoryValue);
     this.categoryInfo.categoryValue = '';
   }
 
@@ -467,7 +466,8 @@ export class ModalTaskFormComponent {
 
   restoreCategoryPlaceholder() {
     this.addTaskFormular.patchValue({ categoryField: '' });
-    if (!this.categoryInfo.inputCategoryValue || this.categoryInfo.inputCategoryValue.length == 0) {
+    let categoryValue = this.addTaskFormular.controls['categoryField'].value;
+    if (!categoryValue || categoryValue.length == 0) {
       this.categoryInfo.placeholderCategoryText = 'Select task category';
     }
   }
@@ -475,14 +475,15 @@ export class ModalTaskFormComponent {
   chooseCategory(categoryValue: string) {
     this.clearRequiredInfo(this.categoryInfo);
     this.categoryInfo.categoryValue = categoryValue;
-    this.categoryInfo.inputCategoryValue = categoryValue;
+    this.addTaskFormular.patchValue({ categoryField: categoryValue});
     this.categoryInfo.placeholderCategoryText = categoryValue;
     this.categoryInfo.isCategoryOptionsOpen = false;
   }
 
   addSubtask() {
-    if (this.subtaskInfo.inputSubtaskValue.length > 0) {
-      this.modalControls.subtaskList.push({ value: this.subtaskInfo.inputSubtaskValue, isEditOpen: false, status: 'opened' })
+    let subtaskValue = this.addTaskFormular.controls['subtasksField'].value;
+    if (subtaskValue.length > 0) {
+      this.modalControls.subtaskList.push({ value: subtaskValue, isEditOpen: false, status: 'opened' })
     }
     if (this.modalControls.subtaskList.length > 0) {
       this.subtaskInfo.isSubtaskOptionsOpen = true;
@@ -507,9 +508,8 @@ export class ModalTaskFormComponent {
   }
 
   changeSubtask(subtask: any) {
-    let formGroup = this.formBuilder.group(this.getFormGroupWithSubtask());
-    let newName = formGroup.controls[subtask.name].value;
-    subtask.name = newName;
+    let newName = this.addTaskFormular.controls[subtask.value].value;
+    subtask.value = newName;
     subtask.isEditOpen = false;
   }
 

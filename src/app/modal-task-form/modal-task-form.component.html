@@ -24,7 +24,7 @@
                         <label for="assigned">Assigned to<span class="required-symbol">*</span></label>
                         <span class="before-input bottom-10">{{assignedInfo.warningText}}</span>
                         <input #assignedField class="assigned-field" name="assigned" type="text"
-                            [(ngModel)]="assignedInfo.inputAssignedValue" (click)="openAssignedOptions()"
+                             (click)="openAssignedOptions()"
                             (input)="filteredContacts()" placeholder="{{ assignedInfo.placeholderAssignedText }}"
                             formControlName="assignedField" [ngClass]="{'error-border': assignedInfo.isInvalid}">
                         <img *ngIf="!assignedInfo.isAssignedOptionsOpen" (click)="openAssignedOptions()"
@@ -171,7 +171,7 @@
                         <label for="category">Category<span class="required-symbol">*</span></label>
                         <span class="before-input">{{categoryInfo.warningText}}</span>
                         <input #categoryField class="category-field" name="category" type="text"
-                            [(ngModel)]="categoryInfo.inputCategoryValue" (click)="openCategoryOptions()"
+                             (click)="openCategoryOptions()"
                             (input)="filteredCategorys()" placeholder="{{ categoryInfo.placeholderCategoryText }}"
                             formControlName="categoryField" [ngClass]="{'error-border': categoryInfo.isInvalid}">
                         <img *ngIf="!categoryInfo.isCategoryOptionsOpen" (click)="openCategoryOptions()"
@@ -198,7 +198,7 @@
                     <div *ngIf="!modalControls.isTaskOpen" class="container-input input-add-task">
                         <label for="subtasks">Subtasks</label>
                         <input #subtasksField class="subtasks-field" name="subtasks" type="text" placeholder="Subtasks"
-                            formControlName="subtasksField" [(ngModel)]="subtaskInfo.inputSubtaskValue">
+                            formControlName="subtasksField">
                         <img (click)="addSubtask()" src="../../assets/icons/plus-subtasks.svg"
                             class="after-input after-input-add-task chevron-icon">
                         <div class="select-box subtask-box" [ngClass]="{'d-none': !subtaskInfo.isSubtaskOptionsOpen}"> 
@@ -244,7 +244,7 @@
                                     </div>
                                     <div *ngIf="subtask.isEditOpen" class="container-input input-add-task">
                                         <input class="subtasks-field" name="subtasks" type="text" placeholder="Subtasks"
-                                            [formControlName]="subtask.value" [(ngModel)]="subtask.value">
+                                            [formControlName]="subtask.value">
                                         <div class="after-input after-input-add-task right0">
                                             <svg (click)="deleteSubtask(subtask)" class="subtask-delete chevron-icon"
                                                 xmlns="http://www.w3.org/2000/svg" width="25" height="24"

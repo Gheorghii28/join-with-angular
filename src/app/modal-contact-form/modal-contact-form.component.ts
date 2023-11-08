@@ -24,7 +24,6 @@ export class ModalContactFormComponent {
   isNameInvalid: boolean = false;
   isEmailInvalid: boolean = false;
   isPhoneInvalid: boolean = false;
-  phoneValue: string = '';
 
   nameInfo: any = {
     field: undefined,
@@ -75,9 +74,6 @@ export class ModalContactFormComponent {
   ngOnInit(): void {
     this.getFormGroupEditedContact();
     this.createForm();
-    if(this.modalControls.isContactEdit) {
-      this.phoneValue = this.modalControls.displayedContact.phone;
-    }
   }
 
   ngOnDestroy() {
@@ -230,8 +226,9 @@ export class ModalContactFormComponent {
     this.clearRequiredInfo(this.phoneInfo);
   }
 
-  sanitizeInput(value: any) {
-    this.phoneValue = value.replace(/[^0-9]/g, '');
-    this.contactFormular.patchValue({ phoneField: this.phoneValue });
+  sanitizeInput() {
+    let value = this.contactFormular.controls['phoneField'].value
+    let phoneValue = value.replace(/[^0-9]/g, '');
+    this.contactFormular.patchValue({ phoneField: phoneValue });
   }
 }
