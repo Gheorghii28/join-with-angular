@@ -28,7 +28,6 @@ export class ModalTaskFormComponent {
   subtaskInfo: any;
   allFieldsInfo: any = [];
   filteredContactList: any = [];
-  subtaskList: { name: string, isEditOpen: boolean }[] = [];
   formGroup: any = {
     titleField: ['', [Validators.required]],
     descriptionField: ['', [Validators.required]],
@@ -180,9 +179,6 @@ export class ModalTaskFormComponent {
       inputSubtaskValue: '',
     }
     if (this.modalControls.openedTask) {
-      this.modalControls.openedTask.subTasks.forEach((subtask: any) => {
-        this.subtaskList.push({ name: subtask.value, isEditOpen: false })
-      });
       this.subtaskInfo.isSubtaskOptionsOpen = true;
     }
   }
@@ -227,10 +223,10 @@ export class ModalTaskFormComponent {
     this.categoryInfo.filteredCategoryList.sort((a: any, b: any) => a.name.localeCompare(b.name));
   }
 
-  createTask(status: string) {
+  createTask(characteristics:any) {
     if (this.formIsValid()) {
       this.disableFormElements(true);
-      this.addTask(status);
+      this.addTask(characteristics);
       this.disableFormElements(false);
       this.clearForm();
     }
@@ -260,9 +256,9 @@ export class ModalTaskFormComponent {
     });
   }
 
-  async addTask(status: string) {
+  async addTask(characteristics: any) {
     try {
-      const newTask = this.getCreatedNewTask(status);
+      const newTask = this.getCreatedNewTask(characteristics);
       this.modalControls.showLoadingAnimation();
       await updateDoc(this.userListService.getUserDocRef('users', this.userId), {
         "tasks": this.getUpdatedTasks(newTask)
@@ -283,7 +279,7 @@ export class ModalTaskFormComponent {
     });
     this.closeAssignedOptions();
     this.closeCategoryField();
-    this.subtaskList = [];
+    this.modalControls.subtaskList = [];
   }
 
   checkField(fieldInfo: any, fieldName: string) {
@@ -312,7 +308,7 @@ export class ModalTaskFormComponent {
     fieldInfo.isInvalid = false;
   }
 
-  getCreatedNewTask(status: string) {
+  getCreatedNewTask(characteristics:any) {
     let categoryValue;
     if (this.categoryInfo.categoryValue.length == 0) {
       categoryValue = this.categoryInfo.inputCategoryValue;
@@ -322,15 +318,15 @@ export class ModalTaskFormComponent {
     return {
       assigned: this.assignedInfo.taskAssigned,
       category: categoryValue,
-      closedSubTasks: 0,
-      color: this.dataService.getRandomRGBColor(),
+      closedSubTasks: characteristics.closedSubTasks,
+      color: characteristics.color,
       date: this.addTaskFormular.controls['dateField'].value,
       description: this.addTaskFormular.controls['descriptionField'].value,
-      id: new Date().getTime(),
+      id: characteristics.id,
       prio: this.addTaskFormular.controls['prioField'].value,
-      progress: 0,
-      status: status,
-      subTasks: this.getCreatedSubtasks(),
+      progress: characteristics.progress,
+      status: characteristics.taskStatus,
+      subTasks: this.modalControls.subtaskList,
       title: this.addTaskFormular.controls['titleField'].value
     };
   }
@@ -358,6 +354,7 @@ export class ModalTaskFormComponent {
     if (this.modalControls.openedTask) {
       this.addTaskFormular = this.formBuilder.group(this.formGroupOpenedTask);
     } else {
+      this.modalControls.resetTaskCharacteristics(this.modalControls.taskStatus);
       this.addTaskFormular = this.formBuilder.group(this.formGroup);
     }
   }
@@ -392,10 +389,10 @@ export class ModalTaskFormComponent {
 
   getCreatedSubtasks() {
     let newSubtasks: any = [];
-    this.subtaskList.forEach((subtask: any) => {
+    this.modalControls.subtaskList.forEach((subtask: any) => {
       let newSubtask = {
-        status: 'opened',
-        value: subtask.name
+        status: subtask.status,
+        value: subtask.value
       };
       newSubtasks.push(newSubtask);
     });
@@ -485,21 +482,21 @@ export class ModalTaskFormComponent {
 
   addSubtask() {
     if (this.subtaskInfo.inputSubtaskValue.length > 0) {
-      this.subtaskList.push({ name: this.subtaskInfo.inputSubtaskValue, isEditOpen: false })
+      this.modalControls.subtaskList.push({ value: this.subtaskInfo.inputSubtaskValue, isEditOpen: false, status: 'opened' })
     }
-    if (this.subtaskList.length > 0) {
+    if (this.modalControls.subtaskList.length > 0) {
       this.subtaskInfo.isSubtaskOptionsOpen = true;
     }
     this.addTaskFormular.patchValue({ subtasksField: '' });
   }
 
   deleteSubtask(subtask: any) {
-    this.subtaskList.forEach((item, index) => {
-      if (item.name === subtask.name) {
-        this.subtaskList.splice(index, 1);
+    this.modalControls.subtaskList.forEach((item:any, index:any) => {
+      if (item.value === subtask.value) {
+        this.modalControls.subtaskList.splice(index, 1);
       }
     });
-    if (this.subtaskList.length == 0) {
+    if (this.modalControls.subtaskList.length == 0) {
       this.subtaskInfo.isSubtaskOptionsOpen = false;
     }
   }
@@ -530,8 +527,8 @@ export class ModalTaskFormComponent {
       categoryField: ['', [Validators.required]],
       subtasksField: ['']
     };
-    for (const subtask of this.subtaskList) {
-      formControls[subtask.name] = [subtask.name];
+    for (const subtask of this.modalControls.subtaskList) {
+      formControls[subtask.value] = [subtask.value];
     }
     return formControls;
   }

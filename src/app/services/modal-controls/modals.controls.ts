@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Location } from '@angular/common';
+import { DataServices } from "../data-services/data.services";
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +19,13 @@ export class ModalsControls {
     isTaskDeleted: boolean = false;
     isResultInfoHidden: boolean = false;
 
+    taskCharacteristics: any = {
+        id: new Date().getTime(),
+        taskStatus: 'to-do',
+        closedSubTasks: 0,
+        progress: 0,
+        color: this.dataService.getRandomRGBColor()
+    };
     taskStatus: string = 'to-do';
 
     openedTask: any;
@@ -46,10 +54,23 @@ export class ModalsControls {
 
     isCategorySaved: boolean = false;
 
+    subtaskList: any = [];
+
     constructor(
         private router: Router,
-        private location: Location
+        private location: Location,
+        private dataService: DataServices
     ) { }
+
+    resetTaskCharacteristics(taskStatus:string) {
+        this.taskCharacteristics = {
+            id: new Date().getTime(),
+            taskStatus: taskStatus,
+            closedSubTasks: 0,
+            progress: 0,
+            color: this.dataService.getRandomRGBColor()
+        }
+    }
 
     goBack() {
         this.location.back();
@@ -60,6 +81,10 @@ export class ModalsControls {
         this.isTaskFormOpen = true;
         this.taskStatus = newTaskStatus;
         this.openedTask = undefined;
+    }
+
+    setTaskStatus(newTaskStatus: string) {
+        this.taskStatus = newTaskStatus;
     }
 
     closeTaskForm() {

@@ -10,7 +10,7 @@ import { UsersListServices } from '../services/firebase-services/users-list.serv
 })
 export class ModalTaskOpenedComponent {
 
-  isEditFormOpen:boolean = false;
+  isEditFormOpen: boolean = false;
   task: any;
   tasks: any;
   userId: any;
@@ -89,18 +89,27 @@ export class ModalTaskOpenedComponent {
           taskObj.closedSubTasks--;
           taskObj.progress = taskObj.closedSubTasks / taskObj.subTasks.length * 100;
         }
+        this.modalControls.subtaskList = taskObj.subTasks;
       }
       updatedTasks.push(taskObj);
     });
     return updatedTasks;
   }
 
-  editTask(status:string) {
-    this.isEditFormOpen = true;
-    this.modalControls.taskStatus = status;
+  editTask(task: any) {
+    this.tasks.forEach((taskObj: any) => {
+      if (task.id === taskObj.id) {
+        this.isEditFormOpen = true;
+        this.modalControls.taskCharacteristics.taskStatus = taskObj.status;
+        this.modalControls.taskCharacteristics.closedSubTasks = taskObj.closedSubTasks;
+        this.modalControls.taskCharacteristics.progress = taskObj.progress;
+        this.modalControls.taskCharacteristics.color = taskObj.color;
+        this.modalControls.taskCharacteristics.id = taskObj.id;
+      }
+    })
   }
-  
-  capitalizeFirstLetter(inputString:string) {
+
+  capitalizeFirstLetter(inputString: string) {
     if (inputString.length === 0) {
       return inputString;
     }

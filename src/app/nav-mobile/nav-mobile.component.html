@@ -10,7 +10,7 @@
                 <span>Summary</span>
             </div>
         </li>
-        <li routerLink="/addtask" class="li-add-task">
+        <li (click)="modalControl.setTaskStatus('to-do')" routerLink="/addtask" class="li-add-task">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31" fill="none">
                     <mask id="mask0_89384_1770" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="30"
