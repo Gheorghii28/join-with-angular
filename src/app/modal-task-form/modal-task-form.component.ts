@@ -27,7 +27,7 @@ export class ModalTaskFormComponent {
   categoryInfo: any;
   subtaskInfo: any;
   allFieldsInfo: any = [];
-  filteredContactList: any;
+  filteredContactList: any = [];
   subtaskList: { name: string, isEditOpen: boolean }[] = [];
   formGroup: any = {
     titleField: ['', [Validators.required]],
@@ -170,8 +170,8 @@ export class ModalTaskFormComponent {
       this.categoryInfo.categoryValue = this.modalControls.openedTask.category;
     }
     this.allFieldsInfo.push(this.categoryInfo);
-    
-    
+
+
   }
 
   initSubtaskInfo() {
@@ -204,16 +204,19 @@ export class ModalTaskFormComponent {
   }
 
   setFilteredContacts() {
-    this.filteredContactList = this.user.contacts.map(contact => {
-      if (this.modalControls.openedTask) {
+    this.user.contacts.forEach((contact: any) => {
+      this.filteredContactList.push(contact);
+    });
+    if (this.modalControls.openedTask) {
+      this.filteredContactList.forEach((contact: any) => {
         this.modalControls.openedTask.assigned.forEach((assigned: any) => {
-          if (assigned.id == contact.id) {
-            contact.isChecked = assigned.isChecked;
+          if (contact.id === assigned.id) {
+            contact.isChecked = true;
+            contact.isNotHidden = true;
           }
         });
-      }
-      return { ...contact, isNotHidden: false };
-    });
+      });
+    }
     this.filteredContactList.sort((a: any, b: any) => a.name.localeCompare(b.name));
   }
 
@@ -311,7 +314,7 @@ export class ModalTaskFormComponent {
 
   getCreatedNewTask(status: string) {
     let categoryValue;
-    if(this.categoryInfo.categoryValue.length == 0) {
+    if (this.categoryInfo.categoryValue.length == 0) {
       categoryValue = this.categoryInfo.inputCategoryValue;
     } else {
       categoryValue = this.categoryInfo.categoryValue;
