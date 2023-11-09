@@ -790,6 +790,7 @@ button[type="submit"] {
         }
 
         form {
+            width: calc(100% - 2px);
             gap: 30px !important;
 
             .input-add-task {

@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
   }
 
   guestLogin() {
-    localStorage.setItem('id-key', JSON.stringify('slGhq0a60LGsfMkCx8V1'));
+    localStorage.setItem('id-key', JSON.stringify('iFEzM0HokhbQJHCMGQhs'));
   }
 
   isUserValid(email: string, password: string) {

@@ -2,6 +2,22 @@
     position: relative;
 }
 
+app-modal-legalnotice {
+
+    @media(max-width:768px) {
+        overflow: scroll;
+
+        @media (min-height: 568px) {
+            height: calc(100vh - 156px);
+        }
+
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+    }
+}
+
 .back {
     position: fixed;
     top: 130px;
@@ -9,11 +25,11 @@
     z-index: 8;
     cursor: pointer;
     transition: all 225ms ease-in-out;
-    
+
     @media(max-width: 1024px) {
         right: 20px;
     }
-    
+
     @media(max-width: 768px) {
         top: 100px;
     }

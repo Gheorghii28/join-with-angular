@@ -1,6 +1,19 @@
 .main-div {
     width: 100%;
     font-family: 'Inter', sans-serif;
+    
+    @media(max-width:768px) {
+        overflow: scroll;
+
+        @media (min-height: 568px) {
+            height: calc(100vh - 156px);
+        }
+
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+    }
 }
 
 .headline {
