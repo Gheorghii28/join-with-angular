@@ -1,4 +1,4 @@
-<div class="add-task-content">
+<div class="add-task-content" (click)="closeAssignedOptions($event); closeCategoryOptions($event)">
     <div class="headline">
         <h1>Add Task</h1>
     </div>
@@ -27,12 +27,12 @@
                              (click)="openAssignedOptions()"
                             (input)="filteredContacts()" placeholder="{{ assignedInfo.placeholderAssignedText }}"
                             formControlName="assignedField" [ngClass]="{'error-border': assignedInfo.isInvalid}">
-                        <img *ngIf="!assignedInfo.isAssignedOptionsOpen" (click)="openAssignedOptions()"
+                        <img id="open-assigned-icon" *ngIf="!assignedInfo.isAssignedOptionsOpen" (click)="openAssignedOptions()"
                             src="../../assets/icons/arrow_drop_bottom.svg"
                             class="after-input after-input-add-task chevron-icon">
-                        <img *ngIf="assignedInfo.isAssignedOptionsOpen" (click)="closeAssignedOptions()"
+                        <img *ngIf="assignedInfo.isAssignedOptionsOpen" (click)="closeAssignedOptions($event)"
                             src="../../assets/icons/arrow_drop_top.svg"
-                            class="after-input after-input-add-task chevron-icon">
+                            class="after-input after-input-add-task chevron-icon test">
                         <div class="select-box" [ngClass]="{'d-none': !assignedInfo.isAssignedOptionsOpen}">
                             <ul *ngIf="isUserLoaded" class="option-box">
                                 <li *ngFor="let contact of filteredContactList"
@@ -174,10 +174,10 @@
                              (click)="openCategoryOptions()"
                             (input)="filteredCategorys()" placeholder="{{ categoryInfo.placeholderCategoryText }}"
                             formControlName="categoryField" [ngClass]="{'error-border': categoryInfo.isInvalid}">
-                        <img *ngIf="!categoryInfo.isCategoryOptionsOpen" (click)="openCategoryOptions()"
+                        <img id="open-category-icon" *ngIf="!categoryInfo.isCategoryOptionsOpen" (click)="openCategoryOptions()"
                             src="../../assets/icons/arrow_drop_bottom.svg"
                             class="after-input after-input-add-task chevron-icon">
-                        <img *ngIf="categoryInfo.isCategoryOptionsOpen" (click)="closeCategoryOptions()"
+                        <img *ngIf="categoryInfo.isCategoryOptionsOpen" (click)="closeCategoryOptions($event)"
                             src="../../assets/icons/arrow_drop_top.svg"
                             class="after-input after-input-add-task chevron-icon">
                         <div class="select-box" [ngClass]="{'d-none': !categoryInfo.isCategoryOptionsOpen}">

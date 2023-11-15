@@ -218,7 +218,7 @@ export class ModalTaskFormComponent {
     this.categoryInfo.filteredCategoryList.sort((a: any, b: any) => a.name.localeCompare(b.name));
   }
 
-  createTask(characteristics:any) {
+  createTask(characteristics: any) {
     if (this.formIsValid()) {
       this.disableFormElements(true);
       this.addTask(characteristics);
@@ -273,7 +273,7 @@ export class ModalTaskFormComponent {
     this.filteredContactList.forEach((contact: Contact) => {
       contact.isChecked = false;
     });
-    this.closeAssignedOptions();
+    this.closeAssignedOptions(undefined);
     this.closeCategoryField();
     this.modalControls.subtaskList = [];
   }
@@ -304,7 +304,7 @@ export class ModalTaskFormComponent {
     fieldInfo.isInvalid = false;
   }
 
-  getCreatedNewTask(characteristics:any) {
+  getCreatedNewTask(characteristics: any) {
     let categoryValue;
     if (this.categoryInfo.categoryValue.length == 0) {
       categoryValue = this.addTaskFormular.controls['categoryField'].value;
@@ -361,14 +361,16 @@ export class ModalTaskFormComponent {
     });
   }
 
-  closeAssignedOptions() {
-    this.restoreAssignedPlaceholder();
-    this.assignedInfo.isAssignedOptionsOpen = false;
+  closeAssignedOptions(event: any) {
+    if (event.target.id !== 'open-assigned-icon') {
+      this.restoreAssignedPlaceholder();
+      this.assignedInfo.isAssignedOptionsOpen = false;
+    }
   }
 
   closeCategoryField() {
     this.categoryInfo.categoryValue = '';
-    this.addTaskFormular.patchValue({ categoryField: ''});
+    this.addTaskFormular.patchValue({ categoryField: '' });
     this.categoryInfo.placeholderCategoryText = 'Select task category';
     this.categoryInfo.isCategoryOptionsOpen = false;
   }
@@ -459,9 +461,11 @@ export class ModalTaskFormComponent {
     this.categoryInfo.placeholderCategoryText = '';
   }
 
-  closeCategoryOptions() {
-    this.restoreCategoryPlaceholder();
-    this.categoryInfo.isCategoryOptionsOpen = false;
+  closeCategoryOptions(event: any) {
+    if (event.target.id !== 'open-category-icon') {
+      this.restoreCategoryPlaceholder();
+      this.categoryInfo.isCategoryOptionsOpen = false;
+    }
   }
 
   restoreCategoryPlaceholder() {
@@ -475,7 +479,7 @@ export class ModalTaskFormComponent {
   chooseCategory(categoryValue: string) {
     this.clearRequiredInfo(this.categoryInfo);
     this.categoryInfo.categoryValue = categoryValue;
-    this.addTaskFormular.patchValue({ categoryField: categoryValue});
+    this.addTaskFormular.patchValue({ categoryField: categoryValue });
     this.categoryInfo.placeholderCategoryText = categoryValue;
     this.categoryInfo.isCategoryOptionsOpen = false;
   }
@@ -492,7 +496,7 @@ export class ModalTaskFormComponent {
   }
 
   deleteSubtask(subtask: any) {
-    this.modalControls.subtaskList.forEach((item:any, index:any) => {
+    this.modalControls.subtaskList.forEach((item: any, index: any) => {
       if (item.value === subtask.value) {
         this.modalControls.subtaskList.splice(index, 1);
       }
