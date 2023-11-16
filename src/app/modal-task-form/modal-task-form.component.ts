@@ -273,7 +273,7 @@ export class ModalTaskFormComponent {
     this.filteredContactList.forEach((contact: Contact) => {
       contact.isChecked = false;
     });
-    this.closeAssignedOptions(undefined);
+    this.closeAssignedOptions();
     this.closeCategoryField();
     this.modalControls.subtaskList = [];
   }
@@ -361,11 +361,9 @@ export class ModalTaskFormComponent {
     });
   }
 
-  closeAssignedOptions(event: any) {
-    if (event.target.id !== 'open-assigned-icon') {
-      this.restoreAssignedPlaceholder();
-      this.assignedInfo.isAssignedOptionsOpen = false;
-    }
+  closeAssignedOptions() {
+    this.restoreAssignedPlaceholder();
+    this.assignedInfo.isAssignedOptionsOpen = false;
   }
 
   closeCategoryField() {
@@ -461,11 +459,9 @@ export class ModalTaskFormComponent {
     this.categoryInfo.placeholderCategoryText = '';
   }
 
-  closeCategoryOptions(event: any) {
-    if (event.target.id !== 'open-category-icon') {
-      this.restoreCategoryPlaceholder();
-      this.categoryInfo.isCategoryOptionsOpen = false;
-    }
+  closeCategoryOptions() {
+    this.restoreCategoryPlaceholder();
+    this.categoryInfo.isCategoryOptionsOpen = false;
   }
 
   restoreCategoryPlaceholder() {
@@ -571,5 +567,12 @@ export class ModalTaskFormComponent {
     });
     categoryUpdated.push(newCategory);
     return categoryUpdated;
+  }
+
+  closeDropdown(event: any) {
+    if (event.target.id !== 'open-assigned-icon' && !event.target.classList.contains('not-close')) {
+      this.restoreAssignedPlaceholder();
+      this.assignedInfo.isAssignedOptionsOpen = false;
+    }
   }
 }

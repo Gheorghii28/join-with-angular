@@ -1,4 +1,4 @@
-<div class="add-task-content" (click)="closeAssignedOptions($event); closeCategoryOptions($event)">
+<div class="add-task-content" (click)="closeDropdown($event)">
     <div class="headline">
         <h1>Add Task</h1>
     </div>
@@ -24,32 +24,34 @@
                         <label for="assigned">Assigned to<span class="required-symbol">*</span></label>
                         <span class="before-input bottom-10">{{assignedInfo.warningText}}</span>
                         <input #assignedField class="assigned-field" name="assigned" type="text"
-                             (click)="openAssignedOptions()"
-                            (input)="filteredContacts()" placeholder="{{ assignedInfo.placeholderAssignedText }}"
-                            formControlName="assignedField" [ngClass]="{'error-border': assignedInfo.isInvalid}">
-                        <img id="open-assigned-icon" *ngIf="!assignedInfo.isAssignedOptionsOpen" (click)="openAssignedOptions()"
-                            src="../../assets/icons/arrow_drop_bottom.svg"
+                            (click)="openAssignedOptions()" (input)="filteredContacts()"
+                            placeholder="{{ assignedInfo.placeholderAssignedText }}" formControlName="assignedField"
+                            [ngClass]="{'error-border': assignedInfo.isInvalid}">
+                        <img id="open-assigned-icon" *ngIf="!assignedInfo.isAssignedOptionsOpen"
+                            (click)="openAssignedOptions()" src="../../assets/icons/arrow_drop_bottom.svg"
                             class="after-input after-input-add-task chevron-icon">
-                        <img *ngIf="assignedInfo.isAssignedOptionsOpen" (click)="closeAssignedOptions($event)"
+                        <img *ngIf="assignedInfo.isAssignedOptionsOpen" (click)="closeAssignedOptions()"
                             src="../../assets/icons/arrow_drop_top.svg"
                             class="after-input after-input-add-task chevron-icon test">
-                        <div class="select-box" [ngClass]="{'d-none': !assignedInfo.isAssignedOptionsOpen}">
-                            <ul *ngIf="isUserLoaded" class="option-box">
+                        <div class="select-box not-close" [ngClass]="{'d-none': !assignedInfo.isAssignedOptionsOpen}">
+                            <ul *ngIf="isUserLoaded" class="option-box not-close">
                                 <li *ngFor="let contact of filteredContactList"
-                                    [ngClass]="{'d-none': !contact.isNotHidden}" class="option">
+                                    [ngClass]="{'d-none': !contact.isNotHidden}" class="option not-close">
                                     <label [attr.for]="'contact-' + contact.id"
                                         [ngClass]="{'checked-bg': contact.isChecked}"
-                                        class="checkbox-tile-label container-name">
-                                        <div [style.background-color]="contact.color" class="initials"><span>{{
-                                                contact.initials }}</span></div>
-                                        <div class="name">{{ contact.name }}</div>
-                                        <input (click)="chooseAssigned(contact)" class="option-input" #checkboxField
-                                            type="checkbox" [name]="'contact-' + contact.id"
+                                        class="checkbox-tile-label container-name not-close">
+                                        <div [style.background-color]="contact.color" class="initials not-close">
+                                            <span class="not-close">{{contact.initials }}</span>
+                                        </div>
+                                        <div class="name not-close">{{ contact.name }}</div>
+                                        <input (click)="chooseAssigned(contact)" class="option-input not-close"
+                                            #checkboxField type="checkbox" [name]="'contact-' + contact.id"
                                             [id]="'contact-' + contact.id" [checked]="contact.isChecked">
                                     </label>
                                 </li>
                             </ul>
-                            <div (click)="modalControls.openContactForm(modalControls.displayedContact, modalControls.addContactFormText, false)" class="add-contact-option">
+                            <div (click)="modalControls.openContactForm(modalControls.displayedContact, modalControls.addContactFormText, false)"
+                                class="add-contact-option">
                                 <span>Add new contact</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32"
                                     fill="none">
@@ -171,13 +173,13 @@
                         <label for="category">Category<span class="required-symbol">*</span></label>
                         <span class="before-input">{{categoryInfo.warningText}}</span>
                         <input #categoryField class="category-field" name="category" type="text"
-                             (click)="openCategoryOptions()"
-                            (input)="filteredCategorys()" placeholder="{{ categoryInfo.placeholderCategoryText }}"
-                            formControlName="categoryField" [ngClass]="{'error-border': categoryInfo.isInvalid}">
-                        <img id="open-category-icon" *ngIf="!categoryInfo.isCategoryOptionsOpen" (click)="openCategoryOptions()"
+                            (click)="openCategoryOptions()" (input)="filteredCategorys()"
+                            placeholder="{{ categoryInfo.placeholderCategoryText }}" formControlName="categoryField"
+                            [ngClass]="{'error-border': categoryInfo.isInvalid}">
+                        <img *ngIf="!categoryInfo.isCategoryOptionsOpen" (click)="openCategoryOptions()"
                             src="../../assets/icons/arrow_drop_bottom.svg"
                             class="after-input after-input-add-task chevron-icon">
-                        <img *ngIf="categoryInfo.isCategoryOptionsOpen" (click)="closeCategoryOptions($event)"
+                        <img *ngIf="categoryInfo.isCategoryOptionsOpen" (click)="closeCategoryOptions()"
                             src="../../assets/icons/arrow_drop_top.svg"
                             class="after-input after-input-add-task chevron-icon">
                         <div class="select-box" [ngClass]="{'d-none': !categoryInfo.isCategoryOptionsOpen}">
@@ -201,7 +203,7 @@
                             formControlName="subtasksField">
                         <img (click)="addSubtask()" src="../../assets/icons/plus-subtasks.svg"
                             class="after-input after-input-add-task chevron-icon">
-                        <div class="select-box subtask-box" [ngClass]="{'d-none': !subtaskInfo.isSubtaskOptionsOpen}"> 
+                        <div class="select-box subtask-box" [ngClass]="{'d-none': !subtaskInfo.isSubtaskOptionsOpen}">
                             <ul *ngIf="isUserLoaded" class="option-box">
                                 <li *ngFor="let subtask of modalControls.subtaskList" (dblclick)="editSubtask(subtask)"
                                     class="option subtask-option">
@@ -332,7 +334,8 @@
             </div>
         </form>
     </div>
-    <svg (click)="modalControls.closeTaskForm()" class="close-task-form" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <svg (click)="modalControls.closeTaskForm()" class="close-task-form" xmlns="http://www.w3.org/2000/svg" width="24"
+        height="24" viewBox="0 0 24 24" fill="none">
         <mask id="mask0_95278_5574" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24"
             height="24">
             <rect width="24" height="24" fill="#D9D9D9" />
